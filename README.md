@@ -23,7 +23,7 @@ visitor's browser, so a new release shows up without redeploying. Set `VITE_DOWN
 
 ## Deploying
 
-**GitHub Pages** (live at https://shubhamsweb.github.io/murmur-web/): every push to `main` builds and publishes
+**GitHub Pages** (live at https://shubhamsweb.github.io/murmur/): every push to `main` builds and publishes
 the site through `.github/workflows/pages.yml`. One-time setup: repo **Settings → Pages → Build and deployment →
 Source: GitHub Actions**. The workflow sets the base path and the full address for link previews itself, and still
 works if you add a custom domain.

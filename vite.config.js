@@ -60,7 +60,7 @@ export default defineConfig(async () => {
   const version = release?.version || appVersion();
   const sizeMB = release?.sizeMB ?? dmgSizeMB(version);
   return {
-    // GitHub Pages serves the site from /murmur-web/; the Pages workflow sets BASE_PATH.
+    // GitHub Pages serves the site from /<repo>/ (here /murmur/); the Pages workflow sets BASE_PATH.
     base: process.env.BASE_PATH || "/",
     plugins: [react(), shareTags],
     define: {
