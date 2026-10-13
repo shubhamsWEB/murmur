@@ -236,7 +236,7 @@ export default function App() {
 
       <footer className="footer">
         <a className="brand" href="#top" aria-label="Murmur, home"><Bird mono /><span>Murmur</span></a>
-        <p>A free voice assistant for your Mac. File search builds on <a href="https://github.com/ARahim3/DigUp" target="_blank" rel="noreferrer">DigUp</a>.</p>
+        <p>A free voice assistant for your Mac.</p>
         <small>© 2026 Murmur</small>
       </footer>
     </>
