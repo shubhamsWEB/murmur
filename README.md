@@ -23,13 +23,13 @@ visitor's browser, so a new release shows up without redeploying. Set `VITE_DOWN
 
 ## Deploying
 
-It's a static site; any static host works.
+**GitHub Pages** (live at https://shubhamsweb.github.io/murmur-web/): every push to `main` builds and publishes
+the site through `.github/workflows/pages.yml`. One-time setup: repo **Settings → Pages → Build and deployment →
+Source: GitHub Actions**. The workflow sets the base path and the full address for link previews itself, and still
+works if you add a custom domain.
 
-- **Vercel or Netlify:** import this repository with the build command `npm run build` and the output
-  directory `dist`. No settings are needed.
-- **Link previews:** `public/og.png` is the image shown when the link is shared. Previews need the site's full
-  address; Vercel and Netlify supply it automatically, and elsewhere set `VITE_SITE_URL` (for example
-  `https://murmur.app`).
+Any other static host works too (Vercel, Netlify): build command `npm run build`, output directory `dist`.
+Elsewhere, set `VITE_SITE_URL` to the site's address so link previews show their image.
 
 ## How it's put together
 
