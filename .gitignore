@@ -1,0 +1,4 @@
+node_modules/
+dist/
+# The DMG is built by scripts/make-dmg.sh and hosted separately (see README); copy it here to serve it locally.
+public/downloads/*.dmg
