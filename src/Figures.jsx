@@ -56,7 +56,7 @@ export function FieldMarks() {
 export function RangeMap() {
   return (
     <svg className="range-map" viewBox="0 0 760 440" role="img"
-      aria-label="Range map. Your Mac is shaded solid: your voice, transcripts, file index and history live there. A dotted area outside is visited only if you add a Claude or OpenAI key, and then only for command words, the front app's name and selected text.">
+      aria-label="Range map. Your Mac is shaded solid: your voice, transcripts, file index, memory and history live there. A dotted area outside is visited only if you add a Claude or OpenAI key, and then only with a command and what Murmur reads to carry it out.">
       <defs>
         <pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse">
           <circle cx="2" cy="2" r="1.6" fill="var(--yellow-ink)" />
@@ -76,13 +76,13 @@ export function RangeMap() {
       <rect x="0" y="346" width="480" height="22" rx="8" fill="var(--ink)" />
       <rect x="66" y="122" width="348" height="120" rx="8" fill="#fff" />
       <text x="84" y="164" fontSize="28" fontFamily="var(--serif)" fill="var(--ink)">Your Mac</text>
-      <text x="84" y="194" fontSize="15" fontFamily="var(--sans)" fill="var(--ink)">voice, transcripts, file index,</text>
+      <text x="84" y="194" fontSize="15" fontFamily="var(--sans)" fill="var(--ink)">voice, transcripts, file index, memory,</text>
       <text x="84" y="216" fontSize="15" fontFamily="var(--sans)" fill="var(--ink)">history, API keys (in Keychain)</text>
       {/* The one crossing */}
       <path d="M414 200 C 450 210 460 210 470 206" stroke="var(--ink)" strokeWidth="2" fill="none" strokeDasharray="5 5" />
       <path d="M462 200 l10 6 -11 4" fill="none" stroke="var(--ink)" strokeWidth="2" />
-      <text x="474" y="226" fontSize="14" fontFamily="var(--sans)" fill="var(--ink)">command words, app name,</text>
-      <text x="474" y="244" fontSize="14" fontFamily="var(--sans)" fill="var(--ink)">selected text</text>
+      <text x="474" y="226" fontSize="14" fontFamily="var(--sans)" fill="var(--ink)">the command, and what</text>
+      <text x="474" y="244" fontSize="14" fontFamily="var(--sans)" fill="var(--ink)">it reads to carry it out</text>
       {/* Never recorded outside */}
       <text x="40" y="410" fontSize="15" fontFamily="var(--sans)" fill="var(--graphite)">Never recorded outside your Mac: audio, files.</text>
     </svg>
