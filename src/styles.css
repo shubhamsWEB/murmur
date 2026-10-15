@@ -143,8 +143,6 @@ kbd {
 .specimen-name i { font: italic 400 0.5em/1 var(--sans); color: var(--graphite); margin-left: 10px; vertical-align: 0.3em; }
 .specimen-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; margin-top: 24px; }
 .specimen-actions span { font-size: 15px; color: var(--graphite); }
-.ph-badge { display: inline-block; margin-top: 18px; line-height: 0; }
-.ph-badge img { display: block; width: 250px; height: 54px; }
 
 .hud {
   display: inline-flex;
@@ -341,6 +339,27 @@ q { quotes: "“" "”"; }
 .footer .brand { color: var(--ink); font-size: 20px; }
 .footer .brand .bird { width: 24px; }
 .footer small { margin-left: auto; font-size: 14px; }
+.footer .ph-badge { margin-left: auto; line-height: 0; }
+.footer .ph-badge img { display: block; width: 250px; height: 54px; }
+.footer .ph-badge + small { margin-left: 0; }
+
+/* The launch line: one quiet line above the page, in the site's own type. */
+.launch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  padding: 9px var(--gutter);
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink);
+  font-size: 15px;
+  text-decoration: none;
+}
+.launch .ph { width: 18px; height: 18px; flex: none; }
+.launch b { color: var(--teal); font-weight: 700; }
+.launch:hover b { text-decoration: underline; text-underline-offset: 4px; }
 
 @media (max-width: 980px) {
   .glance ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -376,6 +395,8 @@ q { quotes: "“" "”"; }
   .sono-words::after { content: "Thursday works for me, could you send the agenda?"; }
   .sonogram figcaption { flex-direction: column; }
   .footer small { margin-left: 0; }
+  .footer .ph-badge { margin-left: 0; }
+  .launch { font-size: 14px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

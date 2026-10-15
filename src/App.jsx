@@ -22,6 +22,9 @@ function Bird({ mono = false }) {
   );
 }
 
+// Murmur's Product Hunt page: a quiet line above the page, and the official badge in the footer.
+const productHunt = "https://www.producthunt.com/products/murmur-18?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-murmur-27023602-121b-4eab-968c-bfa99febae2b";
+
 function DownloadButton({ small = false }) {
   return (
     <a className={`download${small ? " small" : ""}`} href={downloadUrl} download>
@@ -136,6 +139,14 @@ export default function App() {
   return (
     <>
       <a className="skip" href="#main">Skip to content</a>
+      <a className="launch" href={productHunt} target="_blank" rel="noopener noreferrer">
+        <svg className="ph" viewBox="0 0 40 40" aria-hidden="true">
+          <circle cx="20" cy="20" r="20" fill="#FF6154" />
+          <path fillRule="evenodd" fill="#fff" d="M16 12h6.2a5.4 5.4 0 0 1 0 10.8h-2.8V28H16zm3.4 3v4.8h2.8a2.4 2.4 0 0 0 0-4.8z" />
+        </svg>
+        <span>Murmur is live on Product Hunt.</span>
+        <b>Come say hi →</b>
+      </a>
       <header className="nav">
         <a className="brand" href="#top" aria-label="Murmur, home"><Bird mono /><span>Murmur</span></a>
         <nav aria-label="Primary">
@@ -157,9 +168,6 @@ export default function App() {
                 <DownloadButton />
                 <span>Free, for Apple silicon Macs on macOS 14 or later.</span>
               </div>
-              <a className="ph-badge" href="https://www.producthunt.com/products/murmur-18?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-murmur-27023602-121b-4eab-968c-bfa99febae2b" target="_blank" rel="noopener noreferrer">
-                <img alt="Murmur - Talk to your Mac. A free, private voice assistant | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1280346&theme=light&t=1792047746820" />
-              </a>
             </div>
             <Hud phase={hud.phase} index={hud.index} />
           </div>
@@ -240,6 +248,9 @@ export default function App() {
       <footer className="footer">
         <a className="brand" href="#top" aria-label="Murmur, home"><Bird mono /><span>Murmur</span></a>
         <p>A free voice assistant for your Mac.</p>
+        <a className="ph-badge" href={productHunt} target="_blank" rel="noopener noreferrer">
+          <img alt="Murmur - Talk to your Mac. A free, private voice assistant | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1280346&theme=light&t=1792047746820" />
+        </a>
         <small>© 2026 Murmur</small>
       </footer>
     </>
