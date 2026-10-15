@@ -67,6 +67,34 @@ function Plate({ id, kicker, title, children, wide = false }) {
   );
 }
 
+// The launch film, between the overview and the rest: a poster with a play button until it's started, then the
+// player's own controls.
+const media = `${import.meta.env.BASE_URL}media/`;
+
+function Film() {
+  const video = useRef(null);
+  const [started, setStarted] = useState(false);
+  const play = () => {
+    setStarted(true);
+    video.current?.play().catch(() => {});
+  };
+  return (
+    <figure className="film">
+      <div className="film-frame">
+        <video ref={video} src={`${media}murmur-launch.mp4`} poster={`${media}murmur-launch.jpg`} preload="none"
+          playsInline controls={started} onPlay={() => setStarted(true)}
+          aria-label="Murmur's launch film: hold fn and speak; it types where your cursor is, plays a YouTube video, summarises and translates selected text, finds your resume and changes settings, and your voice never leaves your Mac." />
+        {!started && (
+          <button type="button" className="film-play" onClick={play} aria-label="Play, 51 seconds, with sound">
+            <span className="film-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" /></svg></span>
+            <span className="film-time" aria-hidden="true">0:51</span>
+          </button>
+        )}
+      </div>
+    </figure>
+  );
+}
+
 // The problem: a Mac does nothing until your hands do it.
 const chores = [
   ["Typing every email, message and note by hand.", "Say it. It’s typed where your cursor is, in any app, faster than you can type."],
@@ -351,6 +379,10 @@ export default function App() {
         </section>
 
         <Glance />
+
+        <section className="film-strip" aria-label="Murmur at work, a 51-second film">
+          <Film />
+        </section>
 
         <Plate id="why" title="Less clicking, more done" kicker="The problem it solves.">
           <p className="lede">Your Mac can do almost anything, but only once your hands have done every step. Murmur turns “I need to…” into done.</p>
