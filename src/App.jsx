@@ -157,6 +157,9 @@ export default function App() {
                 <DownloadButton />
                 <span>Free, for Apple silicon Macs on macOS 14 or later.</span>
               </div>
+              <a className="ph-badge" href="https://www.producthunt.com/products/murmur-18?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-murmur-27023602-121b-4eab-968c-bfa99febae2b" target="_blank" rel="noopener noreferrer">
+                <img alt="Murmur - Talk to your Mac. A free, private voice assistant | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1280346&theme=light&t=1792047746820" />
+              </a>
             </div>
             <Hud phase={hud.phase} index={hud.index} />
           </div>

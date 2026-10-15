@@ -143,6 +143,8 @@ kbd {
 .specimen-name i { font: italic 400 0.5em/1 var(--sans); color: var(--graphite); margin-left: 10px; vertical-align: 0.3em; }
 .specimen-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; margin-top: 24px; }
 .specimen-actions span { font-size: 15px; color: var(--graphite); }
+.ph-badge { display: inline-block; margin-top: 18px; line-height: 0; }
+.ph-badge img { display: block; width: 250px; height: 54px; }
 
 .hud {
   display: inline-flex;
