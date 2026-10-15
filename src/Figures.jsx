@@ -22,7 +22,7 @@ export function FieldMarks() {
   const top = ["z", "x", "c", "v", "b", "n", "m"];
   return (
     <svg className="field-marks" viewBox="0 0 720 300" role="img"
-      aria-label="The bottom left of a Mac keyboard. The fn key is marked 1, Control is marked 2, and Shift, Command and Space are marked 3. Above, the Murmur capsule is marked 4.">
+      aria-label="The bottom left of a Mac keyboard. The fn key is marked 1, Shift is marked 2, Control is marked 3, and Command and Space are marked 4. Above, the Murmur capsule is marked 5.">
       {/* The capsule at the bottom of the screen */}
       <g transform="translate(250 6)">
         <rect width="220" height="44" rx="22" fill="var(--ink)" />
@@ -35,16 +35,16 @@ export function FieldMarks() {
         {[0, 1, 2, 3, 4].map((i) => <rect key={i} x={52 + i * 6} y={22 - [5, 10, 14, 8, 4][i]} width="3" height={[5, 10, 14, 8, 4][i] * 2} rx="1.5" fill="var(--coral)" />)}
         <text x="96" y="27" fill="#f4f1ee" fontSize="14" fontFamily="var(--sans)">Listening</text>
         <circle cx="232" cy="8" r="10" fill="var(--ink)" stroke="#fff" strokeWidth="2" />
-        <text x="232" y="13" fill="#fff" fontSize="13" fontWeight="700" textAnchor="middle" fontFamily="var(--sans)">4</text>
+        <text x="232" y="13" fill="#fff" fontSize="13" fontWeight="700" textAnchor="middle" fontFamily="var(--sans)">5</text>
       </g>
       <line x1="0" y1="78" x2="720" y2="78" stroke="var(--rule)" strokeDasharray="3 5" />
       <g transform="translate(0 112)">
-        <Key x={0} y={0} w={128} label="⇧ shift" tone="teal" mark="3" />
+        <Key x={0} y={0} w={128} label="⇧ shift" tone="yellow" mark="2" />
         {top.map((k, i) => <Key key={k} x={136 + i * 64} y={0} label={k} />)}
         <Key x={0} y={64} label="fn" tone="coral" mark="1" />
-        <Key x={64} y={64} label="⌃" tone="yellow" mark="2" />
+        <Key x={64} y={64} label="⌃" tone="yellow" mark="3" />
         <Key x={128} y={64} label="⌥" />
-        <Key x={192} y={64} w={76} label="⌘" tone="teal" />
+        <Key x={192} y={64} w={76} label="⌘" tone="teal" mark="4" />
         <Key x={276} y={64} w={300} label="space" tone="teal" />
         <Key x={584} y={64} w={76} label="⌘" />
         <Key x={668} y={64} w={52} label="⌥" />

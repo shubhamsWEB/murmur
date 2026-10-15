@@ -314,7 +314,7 @@ const steps = [
 
 const questions = (sizeText) => [
   ["Does Murmur listen all the time?", "No. It listens only while you hold fn, or after you double-tap fn for hands-free, until you tap again. Esc cancels."],
-  ["How does it tell a command from dictation?", "Typing is the default. Known commands like “open Slack” or “PDF kholo” run at once; an instruction said where you can’t type is treated as a command. Hold ⌃ with fn, or start with “Murmur…”, to always mean a command."],
+  ["How does it tell a command from dictation?", "Typing is the default. Known commands like “open Slack” or “PDF kholo” run at once; an instruction said where you can’t type is treated as a command. To decide yourself: hold ⇧ with fn to only type, or ⌃ with fn (or start with “Murmur…”) to always mean a command."],
   ["Can it really do things on its own?", "Yes, with your OK. It opens apps and websites, reads them, clicks, types and works through a task list until the job is done. Before it sends a message, deletes something or runs a script, it asks: once, for the whole task, or always. Anything that pays always asks."],
   ["Which languages does it understand?", "Dictation: English, Hinglish (typed in English letters) and 25 European languages. Commands: English and Hinglish, so “mujhe PDF kholkar do” works as well as “open the PDF”."],
   ["Do I need an AI subscription?", "No. Dictation, file search and quick commands like “open Slack” or “volume 30” need nothing. For everything else, use a free local model through Ollama, or your own Claude or OpenAI key, which handles long tasks best."],
@@ -433,15 +433,16 @@ export default function App() {
           <Uses />
         </Plate>
 
-        <Plate id="marks" title="Two shortcuts" kicker="That’s all there is to learn.">
-          <p className="lede">Two keys, from any app, including full-screen ones.</p>
+        <Plate id="marks" title="The keys" kicker="All there is to learn.">
+          <p className="lede">Hold <kbd>fn</kbd> and Murmur works out whether you’re writing or asking. Add one key when you want to decide yourself. Every shortcut works in any app, including full-screen ones.</p>
           <div className="marks">
             <FieldMarks />
             <ol className="marks-legend">
-              <li><span><b>fn, held.</b> Talk. Let go and it’s typed or done.</span></li>
-              <li><span><b>⌃ with fn.</b> Always a command, never typed.</span></li>
-              <li><span><b>⇧⌘Space.</b> Search your files by describing them. Return opens the best match.</span></li>
-              <li><span><b>The capsule.</b> Shows at the bottom of your screen while Murmur listens, then says what it did.</span></li>
+              <li><span><b><kbd>fn</kbd> held: talk.</b> Let go and it’s typed, or done if you asked for something. Double-tap <kbd>fn</kbd> for hands-free.</span></li>
+              <li><span><b><kbd>fn</kbd> + <kbd>⇧</kbd>: only type.</b> Always typed where your cursor is, never run as a command.</span></li>
+              <li><span><b><kbd>fn</kbd> + <kbd>⌃</kbd>: only a command.</b> Always carried out, never typed.</span></li>
+              <li><span><b><kbd>⇧</kbd><kbd>⌘</kbd><kbd>Space</kbd>: search files.</b> Describe a file; Return opens the best match.</span></li>
+              <li><span><b>The capsule.</b> Shows at the bottom of your screen while Murmur listens (“Typing only” or “Command” when you’ve chosen), then says what it did.</span></li>
             </ol>
           </div>
         </Plate>
