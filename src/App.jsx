@@ -39,7 +39,7 @@ const heroPhrases = [
   { said: "talk to your mac", result: "Listening…" },
   { said: "it types for you", result: "Typed into Slack" },
   { said: "it reads for you", result: "Summarised 9 unread emails" },
-  { said: "it does the job", result: "Sent on WhatsApp to Roma" },
+  { said: "it does the job", result: "Sent on WhatsApp to Arjun" },
   { said: "pdf kholo", result: "Opened Lease 2025.pdf" },
   { said: "stays on your mac", result: "Done on this Mac" },
 ];
@@ -101,7 +101,7 @@ const chores = [
   ["Reading a long page, thread or inbox to find the one thing that matters.", "Ask “summarise this” or “which emails need a reply?” and get the answer."],
   ["Clicking through five apps and tabs to do one small job.", "Ask once. Murmur opens, reads, clicks and types until the job is done."],
   ["Digging through folders for a file you saw last month.", "Describe it, “the clause about pets in the lease”, and it opens."],
-  ["Switching to the phone to send a quick message.", "“Text Mom I’m on my way.” Sent from your Mac, after you see the words."],
+  ["Switching to the phone to send a quick message.", "“Text Neha I’m on my way.” Sent from your Mac, after you see the words."],
 ];
 
 function Chores() {
@@ -125,7 +125,7 @@ const glance = [
   { title: "Use the web", said: "Find running shoes on Flipkart.", what: "Opens sites, searches them, clicks, scrolls and reads, in your own browser.", href: "#tasks" },
   { title: "Message people", said: "WhatsApp Arjun the meeting link.", what: "WhatsApp, Messages and Slack. You see the exact words before it sends.", href: "#uses" },
   { title: "Find files", said: "Photos from the Coorg trip.", what: "Searches PDFs, documents, photos, audio and video by what’s inside.", href: "#marks" },
-  { title: "Remember", said: "Mom is Roma, on WhatsApp.", what: "Tell it once and it uses it everywhere. You can see and forget anything.", href: "#learns" },
+  { title: "Remember", said: "Priya is my manager, on Slack.", what: "Tell it once and it uses it everywhere. You can see and forget anything.", href: "#learns" },
 ];
 
 function Glance() {
@@ -217,7 +217,7 @@ function GoAhead() {
   return (
     <figure className="goahead">
       <div className="goahead-panel" aria-hidden="true">
-        <p className="goahead-title"><Bird />Send this to Roma on WhatsApp?</p>
+        <p className="goahead-title"><Bird />Send this to Arjun on WhatsApp?</p>
         <p className="goahead-detail">“Running 10 minutes late, start without me.”</p>
         <div className="goahead-buttons">
           <span>Cancel</span><span>Allow</span><span className="primary">Allow for This Task</span><span>Always Allow Messages</span>
@@ -243,11 +243,11 @@ const notes = [
   ["09:15", "Anywhere", "Go through my unread emails and tell me what needs a reply.", "Read all nine and listed the three that do, with who and why."],
   ["10:05", "Anywhere, in Hinglish", "Mera PAN card kholo.", "Found it among your documents and opened it."],
   ["11:40", "Safari, a long article", "Summarise this.", "Five lines in a panel. Nothing typed."],
-  ["13:10", "Anywhere", "Send Roma a message on WhatsApp saying I’ll be 10 minutes late.", "Showed the exact words, sent them after a yes, and checked they went."],
+  ["13:10", "Anywhere", "Send Arjun a message on WhatsApp saying I’ll be 10 minutes late.", "Showed the exact words, sent them after a yes, and checked they went."],
   ["15:30", "Search, ⇧⌘Space", "The clause about pets in the lease.", "Found the lease and the passage that matched."],
   ["17:05", "Finder, a folder of videos", "Play the second one.", "Played the second video in that window."],
   ["18:45", "Anywhere", "Build a React app with a login page.", "Started Claude Code on it in a new project folder."],
-  ["21:00", "Anywhere", "Remember that Mom is Roma, on WhatsApp.", "Now “message Mom” goes to Roma on WhatsApp, every time."],
+  ["21:00", "Anywhere", "Remember that Priya is my manager, on Slack.", "Now “message my manager” goes to Priya on Slack, every time."],
 ];
 
 // Who it helps, and what they say to it.
@@ -265,7 +265,7 @@ const uses = [
   {
     title: "If you live in chats",
     problem: "A quick message shouldn’t mean finding the app, the person and the box.",
-    says: ["Text Mom I’m on my way.", "WhatsApp Arjun the meeting link.", "Tell the team on Slack I’m off tomorrow."],
+    says: ["Text Neha I’m on my way.", "WhatsApp Arjun the meeting link.", "Tell the team on Slack I’m off tomorrow."],
   },
   {
     title: "If you can never find the file",
@@ -280,7 +280,7 @@ const uses = [
   {
     title: "If you think in Hinglish",
     problem: "Most assistants want pure English. You don’t talk that way.",
-    says: ["Mujhe PDF kholkar do.", "Mama ko message karo ki main late hoon.", "Kal subah 9 baje call karte hain."],
+    says: ["Mujhe PDF kholkar do.", "Arjun ko message karo ki main late hoon.", "Kal subah 9 baje call karte hain."],
   },
 ];
 
@@ -299,7 +299,7 @@ function Uses() {
 }
 
 const learns = [
-  ["Memory", "Tell it once: “Mom is Roma on WhatsApp”, “open links in Chrome”, “call me Shubham”. It also notices who you message where, and follows on from your last command: after a message to Roma, “and ask when she’s back” just works. The Memory page shows everything, each line with an × to forget it."],
+  ["Memory", "Tell it once: “Priya is my manager, on Slack”, “open links in Chrome”, “keep my replies short”. It also notices who you message where, and follows on from your last command: after a message to Arjun, “and ask when he’s back” just works. The Memory page shows everything, each line with an × to forget it."],
   ["Skills", "Teach the agent how you want things done, in the same SKILL.md format Claude uses. Murmur comes with a skill for working carefully on your Mac (look, act, check it worked) and one for Cua Driver. Add any skill from a GitHub link, or write your own."],
   ["Permissions", "Allow once, for this task, or always: the same choices Claude gives you. Settings shows what’s always allowed and takes it back. Money always asks."],
 ];
