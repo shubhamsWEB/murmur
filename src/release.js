@@ -31,3 +31,37 @@ export function useRelease() {
   }, []);
   return { ...release, sizeText: release.sizeMB ? `${release.sizeMB} MB` : null };
 }
+
+// Murmur for Windows (beta): dictation and file search. Published as releases tagged windows-…, kept apart from the
+// Mac's (they're never "latest", so the Mac link above is untouched). This link is the first beta's; the page swaps in
+// the newest beta's when it opens.
+export const windowsInstaller = "Murmur-Windows-Setup.exe";
+export const windowsDownloadUrl = import.meta.env.VITE_WINDOWS_DOWNLOAD_URL
+  || `${releasesUrl}/download/windows-beta-1/${windowsInstaller}`;
+
+export function useWindowsRelease() {
+  const [release, setRelease] = useState({ url: windowsDownloadUrl, page: `${releasesUrl}/tag/windows-beta-1`, sizeMB: null });
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`https://api.github.com/repos/${repo}/releases?per_page=30`, { headers: { Accept: "application/vnd.github+json" } })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data) => {
+        if (!Array.isArray(data) || cancelled) return;
+        const newest = data.find((r) => !r.draft && String(r.tag_name).startsWith("windows-")
+          && r.assets?.some((a) => a.name === windowsInstaller));
+        if (!newest) return;
+        const asset = newest.assets.find((a) => a.name === windowsInstaller);
+        setRelease({ url: asset.browser_download_url, page: newest.html_url, sizeMB: Math.max(1, Math.round(asset.size / 1_000_000)) });
+      })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, []);
+  return { ...release, sizeText: release.sizeMB ? `${release.sizeMB} MB` : null };
+}
+
+// Whether the visitor is on Windows, so the main button offers the right download.
+export function onWindows() {
+  if (typeof navigator === "undefined") return false;
+  const platform = navigator.userAgentData?.platform || navigator.platform || navigator.userAgent || "";
+  return /windows|win32|win64|^win/i.test(platform);
+}

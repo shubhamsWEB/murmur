@@ -497,6 +497,16 @@ mark.fit { padding: 0 2px; border-radius: 4px; background: var(--coral-tint); co
 .install-cta .bird { width: 44px; }
 .install-cta span { font-size: 15px; color: var(--ink-2); }
 .small-link { font-size: 15px; color: var(--ink-2); text-underline-offset: 3px; }
+.also { display: inline-flex; align-items: center; gap: 8px; }
+
+/* Now on Windows: what the beta does beside its download. */
+.windows { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+.windows-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+.windows-list li { font-size: 17px; line-height: 1.55; color: var(--ink-2); }
+.windows-list b { color: var(--ink); }
+.windows-cta { display: grid; gap: 14px; justify-items: start; padding: 26px; border-radius: var(--radius); background: var(--paper); border: 1px solid var(--rule); }
+.windows-cta span { font-size: 15px; color: var(--ink-2); }
+.windows-cta .note { font-size: 14px; line-height: 1.5; }
 
 /* Questions */
 .faq { max-width: 860px; }
@@ -538,7 +548,7 @@ mark.fit { padding: 0 2px; border-radius: 4px; background: var(--coral-tint); co
 @media (max-width: 980px) {
   .feature, .feature.flip { grid-template-columns: minmax(0, 1fr); }
   .feature.flip .feature-text { order: 0; }
-  .askfirst, .keys, .install, .privacy { grid-template-columns: minmax(0, 1fr); }
+  .askfirst, .keys, .install, .privacy, .windows { grid-template-columns: minmax(0, 1fr); }
   .mic-cards, .trio { grid-template-columns: minmax(0, 1fr); }
   .install-cta { position: static; }
   .keys-screen { aspect-ratio: auto; min-height: 140px; place-items: center; padding: 24px 16px; }

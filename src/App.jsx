@@ -5,20 +5,29 @@ import {
   AskFirst, ButtonScene, CleanupScene, DictateScene, FitScene, HinglishScene, KeysScene, MicCards, ScreenScene,
   SearchScene, TaskScene,
 } from "./Scenes";
-import { downloadUrl, releasesUrl, useRelease } from "./release";
+import { downloadUrl, onWindows, releasesUrl, useRelease, useWindowsRelease } from "./release";
 
 // Murmur's Product Hunt page: a quiet line above the page, and the official badge in the footer.
 const productHunt = "https://www.producthunt.com/products/murmur-18?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-murmur-27023602-121b-4eab-968c-bfa99febae2b";
 const github = "https://github.com/shubhamsWEB/murmur-app";
 
-function DownloadButton({ small = false }) {
+// The download for the visitor's computer: the Mac's, or on a Windows PC the Windows beta's (`href`).
+function DownloadButton({ small = false, windows = false, href = downloadUrl }) {
   return (
-    <a className={`download${small ? " small" : ""}`} href={downloadUrl} download>
+    <a className={`download${small ? " small" : ""}`} href={href} download>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 19.5h14" /></svg>
-      {small ? "Download" : "Download for Mac"}
+      {small ? "Download" : windows ? "Download for Windows" : "Download for Mac"}
     </a>
   );
 }
+
+// What Murmur for Windows does today, and what's still Mac-only.
+const onWindowsNow = [
+  ["Dictation", "Hold Ctrl + Windows (or Right Ctrl, or Right Alt), talk, let go. Typed wherever your cursor is."],
+  ["Hinglish and 25 languages", "The same speech models as the Mac: Parakeet for English and Europe’s languages, Oriserve’s Apex for Hinglish."],
+  ["File search", "Press Ctrl + Space and describe the file. The same index of what’s inside your documents, photos, audio and video."],
+  ["The Murmur button", "The same pill above your taskbar. The listening pill grows out of it."],
+];
 
 // What the flock spells, and what Murmur's capsule says at the same moment.
 const heroPhrases = [
@@ -126,10 +135,11 @@ const questions = (sizeText) => [
   ["Which languages does it understand?", "Dictation: English, Hinglish (typed in English letters) and 25 European languages. Commands: English and Hinglish, so “mujhe PDF kholkar do” works as well as “open the PDF”."],
   ["Do I need an AI subscription?", "No. Dictation, file search and quick commands like “open Slack” or “volume 30” need nothing. For the rest, use a free local model through Ollama, or your own Claude or OpenAI key, which handles long tasks best."],
   ["Is it really free?", "Yes, and open source under the MIT licence. Speech recognition and file search run on your Mac."],
-  ["What does it need?", `A Mac with Apple silicon on macOS 14 or later. The app is ${sizeText ? `a ${sizeText}` : "a small"} download; the speech and search models download on first launch.`],
+  ["What does it need?", `A Mac with Apple silicon on macOS 14 or later. The app is ${sizeText ? `a ${sizeText}` : "a small"} download; the speech and search models download on first launch. The Windows beta needs 64-bit Windows 10 or 11.`],
+  ["Is there a Windows version?", "Yes, in beta: dictation in English, Hinglish and 25 European languages, file search and the Murmur button, in the same window as the Mac app. Commands and whole tasks are Mac-only for now. The installer isn’t code-signed yet, so if Chrome or SmartScreen warns, choose Keep, then More info → Run anyway."],
 ];
 
-const links = [["#features", "Features"], ["#languages", "Hinglish"], ["#tasks", "Tasks"], ["#privacy", "Privacy"], ["#install", "Install"]];
+const links = [["#features", "Features"], ["#languages", "Hinglish"], ["#tasks", "Tasks"], ["#windows", "Windows"], ["#privacy", "Privacy"], ["#install", "Install"]];
 
 // On phones the links fold into a small menu; picking one closes it.
 function MobileMenu() {
@@ -146,6 +156,9 @@ function MobileMenu() {
 
 export default function App() {
   const { version, sizeText } = useRelease();
+  const windows = useWindowsRelease();
+  const [isWindows] = useState(onWindows);
+  const mainDownload = isWindows ? windows.url : downloadUrl;
   const [hud, setHud] = useState({ phase: "listening", index: 0 });
 
   return (
@@ -165,7 +178,7 @@ export default function App() {
           {links.map(([href, label]) => <a key={href} href={href}>{label}</a>)}
         </nav>
         <MobileMenu />
-        <DownloadButton small />
+        <DownloadButton small href={mainDownload} />
       </header>
 
       <main id="main">
@@ -174,11 +187,23 @@ export default function App() {
           <Flock phrases={heroPhrases} onPhase={(phase, index) => setHud({ phase, index })} />
           <div className="hero-foot">
             <div className="hero-copy">
-              <p className="hero-line">A free voice assistant for your Mac.</p>
-              <p>Hold <kbd>fn</kbd> and talk. Murmur types in any app, reads what’s on your screen, finds your files and does whole jobs across your apps and the web. In English, Hinglish and 25 more languages, and your voice never leaves your Mac.</p>
+              {isWindows ? (
+                <>
+                  <p className="hero-line">A free voice assistant, now on Windows.</p>
+                  <p>Hold <kbd>Ctrl</kbd> <kbd>⊞</kbd> and talk. Murmur types in any app and finds your files from a description. In English, Hinglish and 25 more languages, and your voice never leaves your PC. On a Mac it also reads your screen and does whole jobs for you.</p>
+                </>
+              ) : (
+                <>
+                  <p className="hero-line">A free voice assistant for your Mac.</p>
+                  <p>Hold <kbd>fn</kbd> and talk. Murmur types in any app, reads what’s on your screen, finds your files and does whole jobs across your apps and the web. In English, Hinglish and 25 more languages, and your voice never leaves your Mac.</p>
+                </>
+              )}
               <div className="hero-actions">
-                <DownloadButton />
-                <span>Free and open source · Apple silicon · macOS 14+</span>
+                <DownloadButton windows={isWindows} href={mainDownload} />
+                <span>{isWindows ? "Free and open source · Windows 10 and 11 · beta" : "Free and open source · Apple silicon · macOS 14+"}</span>
+                {isWindows
+                  ? <a className="small-link" href={downloadUrl} download>Also for Mac</a>
+                  : <span className="also"><a className="small-link" href="#windows">Also on Windows</a><span className="badge">Beta</span></span>}
               </div>
             </div>
             <HeroPill phase={hud.phase} index={hud.index} />
@@ -247,6 +272,20 @@ export default function App() {
           <KeysScene />
         </Section>
 
+        <Section id="windows" title="Now on Windows" lede="Murmur for Windows is in beta: dictation and file search, with the same speech models and the same window as the Mac. Commands and whole tasks come next.">
+          <div className="windows">
+            <ul className="windows-list">
+              {onWindowsNow.map(([title, text]) => <li key={title}><b>{title}.</b> {text}</li>)}
+            </ul>
+            <div className="windows-cta">
+              <DownloadButton windows href={windows.url} />
+              <span>Windows 10 and 11, 64-bit{windows.sizeText ? ` · ${windows.sizeText}` : ""} · installs for your account, no admin rights</span>
+              <span className="note">Not code-signed yet: if Chrome blocks it, choose <b>Keep</b> in its downloads; if SmartScreen warns, click <b>More info → Run anyway</b>.</span>
+              <a className="small-link" href={windows.page}>Windows release notes</a>
+            </div>
+          </div>
+        </Section>
+
         <Section id="privacy" className="dark" title="Private by design" lede="Your voice and your files never leave your Mac. By default, nothing does.">
           <div className="privacy">
             <div>
@@ -276,6 +315,7 @@ export default function App() {
               <DownloadButton />
               <span>Version {version}{sizeText ? ` · ${sizeText}` : ""}<br />Apple silicon · macOS 14 or later</span>
               <a className="small-link" href={releasesUrl}>Release notes and earlier versions</a>
+              <a className="small-link" href="#windows">On Windows? Get the beta</a>
               <a className="small-link" href={github}>Source code on GitHub</a>
             </div>
           </div>
@@ -295,7 +335,7 @@ export default function App() {
 
       <footer className="footer">
         <a className="brand" href="#top" aria-label="Murmur, home"><Bird mono /><span>Murmur</span></a>
-        <p>A free, open-source voice assistant for your Mac.</p>
+        <p>A free, open-source voice assistant for your Mac, and now in beta on Windows.</p>
         <a className="ph-badge" href={productHunt} target="_blank" rel="noopener noreferrer">
           <img alt="Murmur - Talk to your Mac. A free, private voice assistant | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1280346&theme=light&t=1792047746820" />
         </a>
