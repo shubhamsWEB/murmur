@@ -32,26 +32,33 @@ export function useRelease() {
   return { ...release, sizeText: release.sizeMB ? `${release.sizeMB} MB` : null };
 }
 
-// Murmur for Windows (beta): dictation and file search. Published as releases tagged windows-…, kept apart from the
-// Mac's (they're never "latest", so the Mac link above is untouched). This link is the first beta's; the page swaps in
-// the newest beta's when it opens.
+// Murmur for Windows: Murmur-Windows-Setup.exe in the newest release, which carries both apps from 1.4.0 on. Until a
+// release has it, the newest Windows beta's (releases tagged windows-…, never "latest", so the Mac link above is
+// untouched). The page looks when it opens; this link is the fallback.
 export const windowsInstaller = "Murmur-Windows-Setup.exe";
 export const windowsDownloadUrl = import.meta.env.VITE_WINDOWS_DOWNLOAD_URL
   || `${releasesUrl}/download/windows-beta-1/${windowsInstaller}`;
 
 export function useWindowsRelease() {
-  const [release, setRelease] = useState({ url: windowsDownloadUrl, page: `${releasesUrl}/tag/windows-beta-1`, sizeMB: null });
+  const [release, setRelease] = useState({ url: windowsDownloadUrl, page: `${releasesUrl}/tag/windows-beta-1`, sizeMB: null, beta: true });
   useEffect(() => {
     let cancelled = false;
     fetch(`https://api.github.com/repos/${repo}/releases?per_page=30`, { headers: { Accept: "application/vnd.github+json" } })
       .then((response) => (response.ok ? response.json() : null))
       .then((data) => {
         if (!Array.isArray(data) || cancelled) return;
-        const newest = data.find((r) => !r.draft && String(r.tag_name).startsWith("windows-")
-          && r.assets?.some((a) => a.name === windowsInstaller));
+        const carries = (r) => !r.draft && r.assets?.some((a) => a.name === windowsInstaller);
+        // A full release (not a pre-release) first: the newest one with the installer; otherwise the newest beta.
+        const newest = data.find((r) => carries(r) && !r.prerelease)
+          ?? data.find((r) => carries(r) && String(r.tag_name).startsWith("windows-"));
         if (!newest) return;
         const asset = newest.assets.find((a) => a.name === windowsInstaller);
-        setRelease({ url: asset.browser_download_url, page: newest.html_url, sizeMB: Math.max(1, Math.round(asset.size / 1_000_000)) });
+        setRelease({
+          url: newest.prerelease ? asset.browser_download_url : `${releasesUrl}/latest/download/${windowsInstaller}`,
+          page: newest.html_url,
+          sizeMB: Math.max(1, Math.round(asset.size / 1_000_000)),
+          beta: newest.prerelease,
+        });
       })
       .catch(() => {});
     return () => { cancelled = true; };
