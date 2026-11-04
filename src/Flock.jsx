@@ -29,23 +29,23 @@ function targetsFor(text, w, h, count) {
   const ctx = canvas.getContext("2d");
   const narrow = w < 720;
   // Typed text, so the typed face: bold enough that a few birds per stroke still read.
-  let size = Math.round(Math.min(190, Math.max(52, w / (narrow ? 5.2 : 8))));
+  let size = Math.round(Math.min(200, Math.max(52, w / (narrow ? 5 : 7.4))));
   let lines;
-  const room = h * (narrow ? 0.36 : 0.44);
+  const room = h * (narrow ? 0.5 : 0.56);
   for (;;) {
-    ctx.font = `400 ${size}px "Young Serif", Georgia, serif`;
-    lines = wrap(ctx, text, Math.min(1240, w * (narrow ? 0.92 : 0.9)));
+    ctx.font = `700 ${size}px "Montagu Slab", Georgia, serif`;
+    lines = wrap(ctx, text, Math.min(1200, w * (narrow ? 0.92 : 0.9)));
     if (lines.length * size * 1.02 <= room || size <= 36) break;
     size -= 4;
   }
   const lineHeight = size * 1.02;
-  const top = h * (narrow ? 0.1 : 0.11);
+  const top = h * (narrow ? 0.12 : 0.14);
   ctx.fillStyle = "#000";
   ctx.textBaseline = "top";
   lines.forEach((line, i) => {
     const width = ctx.measureText(line).width;
     const gutter = Math.min(56, Math.max(16, w * 0.04));
-    const x = Math.max(gutter, (w - 1240) / 2);
+    const x = Math.max(gutter, (w - 1200) / 2);
     ctx.fillText(line, x, top + i * lineHeight);
   });
   const data = ctx.getImageData(0, 0, w, h).data;
@@ -68,7 +68,7 @@ function targetsFor(text, w, h, count) {
   return { points: out, minX, span: Math.max(1, maxX - minX) };
 }
 
-export default function Flock({ phrases, onPhase }) {
+export default function Flock({ phrases, onPhase, color = "rgba(236, 235, 250, 0.92)" }) {
   const canvasRef = useRef(null);
   const phaseRef = useRef(onPhase);
   phaseRef.current = onPhase;
@@ -110,7 +110,7 @@ export default function Flock({ phrases, onPhase }) {
 
     function draw(points) {
       ctx.clearRect(0, 0, w, h);
-      ctx.strokeStyle = "rgba(23, 25, 30, 0.88)";
+      ctx.strokeStyle = color;
       ctx.lineWidth = w < 720 ? 1.5 : 1.7;
       ctx.lineCap = "round";
       ctx.beginPath();
@@ -144,7 +144,7 @@ export default function Flock({ phrases, onPhase }) {
       const t = elapsed / 1000;
       const target = targets[index];
       const cx = w * 0.56 + Math.sin(t * 0.31) * w * 0.17 + Math.sin(t * 0.83) * w * 0.04;
-      const cy = h * 0.32 + Math.cos(t * 0.27) * h * 0.08;
+      const cy = h * 0.4 + Math.cos(t * 0.27) * h * 0.08;
       const rx = w * (w < 720 ? 0.34 : 0.2);
       const ry = h * 0.11;
       const turn = t * 0.45;
@@ -181,7 +181,7 @@ export default function Flock({ phrases, onPhase }) {
       setPhase("done", 0);
     }
 
-    const ready = document.fonts?.load ? document.fonts.load('400 64px "Young Serif"').catch(() => {}) : Promise.resolve();
+    const ready = document.fonts?.load ? document.fonts.load('700 64px "Montagu Slab"').catch(() => {}) : Promise.resolve();
     let observer;
     ready.then(() => {
       if (reduced) {
@@ -200,7 +200,7 @@ export default function Flock({ phrases, onPhase }) {
     const io = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; });
     io.observe(canvas);
     return () => { cancelAnimationFrame(frame); observer?.disconnect(); io.disconnect(); };
-  }, [phrases]);
+  }, [phrases, color]);
 
   return <canvas ref={canvasRef} className="flock" aria-hidden="true" />;
 }

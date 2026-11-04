@@ -23,7 +23,7 @@ visitor's browser, so a new release shows up without redeploying. Set `VITE_DOWN
 
 ## Deploying
 
-**GitHub Pages** (live at https://shubhamsweb.github.io/murmur/): every push to `main` builds and publishes
+**GitHub Pages** (live at https://usemurmur.live): every push to `main` builds and publishes
 the site through `.github/workflows/pages.yml`. One-time setup: repo **Settings → Pages → Build and deployment →
 Source: GitHub Actions**. The workflow sets the base path and the full address for link previews itself, and still
 works if you add a custom domain.
@@ -33,13 +33,21 @@ Elsewhere, set `VITE_SITE_URL` to the site's address so link previews show their
 
 ## How it's put together
 
-- `src/App.jsx` holds all the copy and sections.
-- `src/Flock.jsx` draws the hero: starlings that gather into a phrase, letter by letter, then scatter. It respects
-  `prefers-reduced-motion` and pauses off-screen.
-- `src/Sonogram.jsx` draws a picture of a spoken sentence; the words are typed under it as a playhead passes.
-- `src/Figures.jsx` holds the keyboard figure and the privacy range map, as SVG.
-- `src/release.js` holds the download link and fetches the latest release's version and size.
-- Type: Young Serif for headings and spoken words, Atkinson Hyperlegible for everything else (Google Fonts).
-- Colours: ink, starling teal, beak yellow, and the brand coral for the Starling and the capsule.
-- The Starling is inline SVG from the app icon's geometry (`Resources/AppIcon/appicon.svg` in the app repo).
-- `public/brand/*.png` are earlier brand references; the site doesn't use them.
+One theme, an explainer collage: newsprint paper, halftone cut-outs, torn scraps with tape, a yellow highlighter and
+pen marks that draw themselves in as you scroll.
+
+- `src/App.jsx` lays out the sections; `src/content.js` holds their words.
+- `src/Collage.jsx` holds the collage pieces: `Cut` (a cut-out from `public/collage`), `Mark` (a pen mark), `Note`
+  (handwriting in the margin) and `Hi` (the highlighter).
+- `public/collage/*.webp` are halftone cut-outs made from photos with `scripts/halftone.py`
+  (`python3 scripts/halftone.py photo.png public/collage/name.webp 1d1a17 6`).
+- `src/motion.js` holds all scroll motion: smooth scrolling (Lenis), `data-reveal` for things that are stuck onto the
+  page once, and `data-scroll`, which gives an element `--p` (its progress through the screen) for CSS to animate
+  with. With reduced motion nothing moves.
+- `src/Flock.jsx` draws the hero: starlings that gather into a phrase, letter by letter, then scatter.
+- `src/Scenes.jsx` holds the small live scenes and the Mac/Windows shortcuts.
+- `src/releases.js` is the "Recent releases" list. Add a line when you publish a release.
+- `src/release.js` holds the download links and fetches the latest release's version and size.
+- Type: Montagu Slab for headings and for what people say (light), Hedvig Letters Sans to read, Kalam for notes in
+  the margin (Google Fonts).
+- Colours: paper `#f1ebdd`, ink `#1d1a17`, highlighter `#ffe14d`, pen `#2b55c7`, and the brand coral `#ff6f61`.
