@@ -223,7 +223,7 @@ const windowsKeys = [
   [["ctrl", "⊞", "shift"], "Only type what I say, never a command."],
   [["ctrl", "⊞", "alt"], "This is a command."],
   [["ctrl", "shift", "space"], "Search your files."],
-  [["esc"], "Cancel dictation."],
+  [["esc"], "Cancel dictation, or stop a command."],
 ];
 
 function Keys({ keys }) {

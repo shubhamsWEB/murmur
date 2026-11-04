@@ -80,7 +80,7 @@ export const parity = [
   ["Terminal commands", true, "PowerShell"],
   ["Read the screen, click and scroll for you", true, false],
   ["Send messages and files in your chats", true, false],
-  ["Murmur’s own models", true, false],
+  ["Murmur’s own models", true, "Murmur Cleanup"],
   ["Updates itself", true, true],
 ];
 
