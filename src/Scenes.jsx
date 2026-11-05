@@ -256,3 +256,82 @@ export function Shortcuts({ initial = "mac" }) {
     </div>
   );
 }
+
+const seenWindows = [
+  { app: "Slack", where: "#design", text: "Priya: can you send me the Q3 deck by Friday?", kept: true },
+  { app: "Mail", where: "Your itinerary", text: "Bengaluru to Raipur, Sun 8 Nov, 10:15. Check-in closes 09:15.", kept: true },
+  { app: "Browser", where: "A feed", text: "Ten habits of founders who ship…", kept: false },
+];
+
+const memoryCards = [
+  ["Priya Shah", "Your manager. On Slack."],
+  ["Asked of you", "Send Priya the Q3 deck, by Friday."],
+  ["Coming up", "Flight to Raipur, Sun 10:15. Check-in closes 09:15."],
+];
+
+// Memory: what you worked on goes in, what matters comes out as index cards, and the next command uses them.
+export function MemoryScene() {
+  // 0 windows · 1 cards · 2 you ask · 3 done
+  const [ref, step] = useTimeline([1900, 2100, 2000, 3800]);
+  return (
+    <figure className="scene memory-scene" ref={ref}>
+      <div className="mem">
+        <div className="mem-in">
+          <p className="mem-label">What you worked on</p>
+          <ul>
+            {seenWindows.map((w) => (
+              <li key={w.app} className={`mem-window${w.kept ? "" : " passing"}`}>
+                <span className="mem-app">{w.app}<small>{w.where}</small></span>
+                <span className="mem-text">{w.text}</span>
+                {!w.kept && <span className="mem-only">only seen</span>}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className={`mem-out${step >= 1 ? " shown" : ""}`}>
+          <p className="mem-label">What Murmur keeps</p>
+          <ul>
+            {memoryCards.map(([title, text], i) => (
+              <li key={title} className="mem-card" style={{ "--i": i }}><b>{title}</b><span>{text}</span></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div className="scene-foot">
+        <Said className={step >= 2 ? "" : "faded"}>Tell Priya I’ll send it tonight.</Said>
+        <Pill state={step === 3 ? "done" : step === 2 ? "working" : "idle"} className={step >= 2 ? "" : "faded"}>
+          {step === 3 ? "Sent to Priya Shah on Slack" : step === 2 ? "Working" : "Remembering"}
+        </Pill>
+      </div>
+      <figcaption className="sr-only">A Slack request and a flight itinerary become memories: Priya is your manager on Slack, you owe her the Q3 deck by Friday, and your flight is on Sunday at 10:15. A feed post is only seen. Then “tell Priya I’ll send it tonight” is sent to Priya Shah on Slack.</figcaption>
+    </figure>
+  );
+}
+
+// Another AI tool using Murmur's memory: Claude Code asks it what you did and what you owe, then writes the notes.
+export function AgentMemoryScene() {
+  // 0 asked · 1 first lookup · 2 second lookup · 3 answer
+  const [ref, step] = useTimeline([1600, 1800, 1800, 4200]);
+  return (
+    <figure className="scene" ref={ref}>
+      <Window title="Terminal — claude" className="term">
+        <p className="term-you"><span>&gt;</span> write this week’s release notes from what I shipped</p>
+        <div className={`term-call${step >= 1 ? " shown" : ""}`}>
+          <p className="term-tool">murmur · <b>What you did</b> <small>this week</small></p>
+          <p className="term-result">Payments release in Xcode, Mon to Thu. Fixed the refund bug Arjun reported. New pricing page in Figma.</p>
+        </div>
+        <div className={`term-call${step >= 2 ? " shown" : ""}`}>
+          <p className="term-tool">murmur · <b>Promises</b></p>
+          <p className="term-result">Asked of you: send Priya the Q3 deck, by Friday.</p>
+        </div>
+        <div className={`term-answer${step >= 3 ? " shown" : ""}`}>
+          <p><b>This week</b></p>
+          <p>• Payments: the new release, and refunds that no longer fail twice.</p>
+          <p>• A new pricing page.</p>
+          <p className="term-dim">Still to do: the Q3 deck for Priya, due Friday.</p>
+        </div>
+      </Window>
+      <figcaption className="sr-only">In Claude Code, “write this week’s release notes from what I shipped” makes Claude ask Murmur’s memory what you did this week and what you promised, then write the notes with the Q3 deck still to do.</figcaption>
+    </figure>
+  );
+}

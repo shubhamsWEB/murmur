@@ -665,3 +665,78 @@ kbd + kbd { margin-left: 3px; }
   .mascot-say { max-width: 150px; font-size: 16px; padding: 8px 10px; }
   .footer-say p { max-width: none; }
 }
+
+/* Memory (1.6): how it's made (numbered), the scene and what you can say, the AI tools that use it, and trust. */
+.memory-steps { margin-bottom: clamp(70px, 8vw, 110px); }
+.memory-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.memory-chips li { padding: 1px 9px; border: 1.5px solid var(--ink); border-radius: 999px; background: #fff; font: 600 12.5px/1.6 var(--slab); }
+.memory-chips li:nth-child(6) { background: var(--yellow); }
+.memory-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(32px, 5vw, 76px); align-items: center; }
+.memory-stage { position: relative; --rest-tilt: -1deg; }
+.memory-cut { right: -46px; bottom: -120px; width: 170px; transform: rotate(-7deg); z-index: 2; }
+.memory-note { left: 6px; bottom: -48px; }
+.memory-sub { margin-bottom: 18px; font: 600 clamp(26px, 2.6vw, 36px)/1.15 var(--slab); }
+.memory-examples dl { display: grid; gap: 22px; }
+.memory-examples dt .voice { font-size: clamp(21px, 2vw, 26px); }
+.memory-examples dd { margin-top: 4px; color: var(--ink-2); font-size: 16px; line-height: 1.55; }
+.memory-agents { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(32px, 5vw, 76px); align-items: center; margin-top: clamp(110px, 12vw, 160px); }
+.memory-agents-copy > p:first-of-type { max-width: 34em; color: var(--ink-2); }
+.memory-tools { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 26px; margin-top: 22px; }
+.memory-tools dt { font: 600 16px/1.3 var(--slab); }
+.memory-tools dd { color: var(--ink-3); font-size: 14.5px; line-height: 1.45; }
+.memory-how { margin-top: 24px; font-size: 16px; }
+.memory-command { display: block; margin-top: 8px; padding: 10px 14px; overflow-x: auto; border: 1.5px solid var(--ink); border-radius: 8px; background: var(--ink); color: var(--sheet); font: 14px/1.5 ui-monospace, "SF Mono", Menlo, monospace; white-space: nowrap; }
+.memory-agents-scene { position: relative; --rest-tilt: 1deg; }
+.memory-agents-note { right: 10px; bottom: -44px; }
+.memory-trust { margin-top: clamp(90px, 10vw, 130px); grid-template-columns: repeat(4, 1fr); }
+
+.term .win-body { display: grid; gap: 12px; min-height: 330px; background: #1d1a17; color: #e9e3d6; font: 14px/1.5 ui-monospace, "SF Mono", Menlo, monospace; }
+.term .win-bar { background: #2a2622; border-bottom-color: #2a2622; }
+.term .win-title { color: #b8b0a3; }
+.term-you span { color: var(--coral); }
+.term-call { padding-left: 14px; border-left: 2px solid #4a4540; opacity: 0.15; transition: opacity 0.45s var(--ease); }
+.term-call.shown { opacity: 1; }
+.term-tool { color: var(--yellow); }
+.term-tool b { font: 600 14px ui-monospace, "SF Mono", Menlo, monospace; }
+.term-tool small { color: #b8b0a3; font-size: 13px; }
+.term-result { color: #cfc7b8; }
+.term-answer { padding-top: 6px; border-top: 1px dashed #4a4540; opacity: 0.15; transition: opacity 0.5s var(--ease); }
+.term-answer.shown { opacity: 1; }
+.term-answer b { font: 600 15px ui-monospace, "SF Mono", Menlo, monospace; color: #fff; }
+.term-dim { color: #b8b0a3; }
+
+.mem { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.mem-in, .mem-out { overflow: hidden; border: 1.5px solid var(--ink); border-radius: 10px; background: #fff; padding: 14px 14px 16px; }
+.mem-label { margin-bottom: 10px; color: var(--ink-3); font-size: 13px; }
+.mem ul { display: grid; gap: 9px; }
+.mem-window { position: relative; display: grid; gap: 3px; padding: 9px 11px; border: 1px solid var(--rule); border-radius: 7px; background: var(--sheet); font-size: 13.5px; line-height: 1.4; }
+.mem-app { font: 600 13.5px var(--slab); }
+.mem-app small { margin-left: 6px; color: var(--ink-3); font: 400 12.5px var(--sans); }
+.mem-text { color: var(--ink-2); }
+.mem-window.passing { opacity: 0.55; }
+.mem-window.passing .mem-text { text-decoration: line-through; text-decoration-color: var(--coral-deep); }
+.mem-only { position: absolute; right: 8px; top: 7px; font: 700 15px/1 var(--hand); color: var(--pen); transform: rotate(-4deg); }
+.mem-card { display: grid; gap: 2px; padding: 9px 11px 10px; border-top: 3px solid var(--coral); background: var(--sheet) repeating-linear-gradient(transparent 0 21px, rgba(43, 85, 199, 0.14) 21px 22px) 0 30px / 100% calc(100% - 30px) no-repeat; box-shadow: var(--drop); font-size: 13.5px; line-height: 1.45; opacity: 0.2; transform: translateY(6px); transition: opacity 0.45s var(--ease) calc(var(--i) * 0.35s), transform 0.6s var(--pop) calc(var(--i) * 0.35s); }
+.mem-card b { font-size: 14px; }
+.mem-card span { color: var(--ink-2); }
+.mem-out.shown .mem-card { opacity: 1; transform: none; }
+.mem-card:nth-child(2) { border-top-color: var(--yellow); }
+.mem-card:nth-child(3) { border-top-color: var(--pen); }
+.faded { opacity: 0.35; transition: opacity 0.4s; }
+
+@media (max-width: 1020px) {
+  .memory-grid, .memory-agents { grid-template-columns: 1fr; }
+  .memory-examples { margin-top: 70px; }
+  .memory-agents-scene { margin-top: 20px; }
+  .memory-trust { grid-template-columns: 1fr 1fr; }
+  .memory-cut { width: 140px; bottom: -70px; right: -8px; }
+}
+@media (max-width: 640px) {
+  .mem { grid-template-columns: 1fr; }
+  .memory-cut { display: none; }
+  .memory-note { bottom: -40px; white-space: normal; }
+  .memory-tools, .memory-trust { grid-template-columns: 1fr; }
+  .term .win-body { font-size: 13px; min-height: 0; }
+}
+.memory-grid > *, .memory-agents > *, .memory-steps > * { min-width: 0; }
+@media (max-width: 640px) { .memory-command { white-space: normal; overflow-wrap: anywhere; } }

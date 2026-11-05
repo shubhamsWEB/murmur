@@ -5,6 +5,7 @@ export const heroPhrases = [
   { said: "it reads for you", result: "Summarised 9 unread emails" },
   { said: "pdf kholo", result: "Opened Lease 2025.pdf" },
   { said: "it does the job", result: "Sent on WhatsApp to Arjun" },
+  { said: "it remembers", result: "Your flight is Sunday, 10:15" },
   { said: "stays on device", result: "Done, nothing sent anywhere" },
 ];
 
@@ -16,11 +17,48 @@ export const modes = [
 ];
 
 export const whatsNew = [
-  ["Murmur’s own models", "Murmur Agent and Murmur Cleanup are trained for Murmur and run on your Mac through Ollama. A command step takes a couple of seconds, where a general model took half a minute, and it picks the right tool more often."],
-  ["Stop any command", "Press Esc, or choose Stop Command in the menu bar. A new command stops the one before it, so two never run at once."],
-  ["Answer its questions", "When Murmur asks “Which resume do you mean?”, say “the latest one” and the same task carries on."],
-  ["Messages by name", "WhatsApp, Telegram, Signal, Discord and Teams chats open by the person’s name, even if they have no number in Contacts."],
-  ["Quicker screen vision", "macOS reads the text on screen, and the vision model only looks at what the picture shows. Looking at an app takes seconds, not a minute."],
+  ["A memory for your whole Mac", "Murmur learns who’s who, what’s coming up and what you promised, from your apps and the windows you work in. Every command uses it, your AI tools can too, and it stays on your Mac."],
+  ["Promises and plans", "“Can you send the deck by Friday?” in Slack, a flight you booked: they become open loops with a due date, and close themselves when Murmur sees they’re done."],
+  ["Morning brief, evening wrap-up", "At 9:00, what’s due today and where you left off. At 18:30, what you did and what’s still open."],
+  ["Your AI tools remember too", "Claude Code, Claude Desktop, Cursor and other AI tools on your Mac can ask Murmur’s memory what you’re working on, read-only, with one command."],
+  ["Your apps, connected", "Sign in to Linear, Notion, or Jira and Confluence on their own page. Then ask about your issues and docs, or update them, by voice."],
+  ["A reader built in", "Memory runs on a model Murmur downloads and runs itself, with no Ollama to set up. It reads while you’re away, or a little at a time when the Mac is plugged in and quiet."],
+];
+
+// The memory section: one memory for the whole Mac, how it's made, what it answers, and the AI tools that use it.
+export const memorySources = ["Contacts", "Calendar", "Reminders", "Notes", "Mail", "The windows you work in", "Linear", "Notion", "Jira and Confluence"];
+
+// How the memory is made: a sequence, so it's numbered on the page.
+export const memorySteps = [
+  ["It learns", "From the apps you turn on, and, if you let it, from the windows you work in: the Slack thread, the email, the doc, the booking page. Nothing to type in."],
+  ["It keeps what’s yours", "Your conversations and your work become memories, promises and plans. Feeds, adverts and strangers’ posts are only seen, never kept as facts about you."],
+  ["It stays current", "A new fact replaces the old one (a new job, a new number). What never comes up again fades. A promise closes itself when Murmur sees it done."],
+  ["Everything can use it", "Every Murmur command, and any AI tool on your Mac that can connect to it: Claude Code, Claude Desktop, Cursor and others."],
+];
+
+// What you say, and what memory lets Murmur do with it. All made-up people.
+export const memoryExamples = [
+  ["Message Priya I’m running late.", "Goes to Priya Shah on Slack, because that’s where you two talk. Not to the other Priya in your Contacts."],
+  ["When’s my flight?", "Sunday at 10:15 from Bengaluru, Terminal 1. Check-in closes at 09:15. It read that from your booking, and reminds you the evening before."],
+  ["What did I promise this week?", "The Q3 deck for Priya by Friday, Arjun’s pull request, and a call back to the accountant. Each one from where you said it."],
+  ["What did I do yesterday?", "Three hours on the payments release in Xcode, a call with Arjun about the launch, and the new pricing page in Figma."],
+];
+
+// What other AI tools can ask (MemoryServer's tools, in plain words).
+export const memoryTools = [
+  ["Who and what", "people, their work and how to reach them, projects, facts and preferences, each with where it came from"],
+  ["Promises", "what you said you’d do and what you’re waiting on, soonest due first"],
+  ["What you did", "a summary of any hour, day, month or year"],
+  ["Where your time went", "apps and sites, between any two days"],
+  ["What you saw", "pages, documents, chats and email you had open"],
+  ["What’s coming up", "events, plans and things to do"],
+];
+
+export const memoryTrust = [
+  ["On your Mac", "The memory is one file on your Mac. Murmur’s own model reads and writes it. No account, no server."],
+  ["Never read", "Password managers, private windows and password fields, and any app or site you add to Never read."],
+  ["No pictures kept", "When a window has little text, Murmur looks at a small picture of it, then deletes the picture."],
+  ["Yours to edit", "Every line on the Memory page has an × to forget it. Forget a person, everything from your screen, or all of it."],
 ];
 
 export const dictation = [
@@ -56,14 +94,15 @@ export const models = [
   ["Dictation in English", "NVIDIA Parakeet", "Runs on the Neural Engine. Your audio is held in memory only while it’s transcribed."],
   ["Dictation in Hinglish", "Oriserve Whisper Hindi2Hinglish Apex", "Hindi and English, mixed as you speak, typed in English letters. About 1 GB."],
   ["25 European languages", "NVIDIA Parakeet Ultra", "From Bulgarian to Ukrainian. About 630 MB."],
-  ["File search", "Google EmbeddingGemma", "Indexes only the folders you choose."],
-  ["Commands", "Murmur Agent", "New. Qwen3.5 4B, trained on Murmur’s own tools. 2.8 GB, through Ollama."],
-  ["AI cleanup", "Murmur Cleanup", "New. Qwen3.5 0.8B, trained to tidy dictation without rewording it. 0.5 GB."],
+  ["File search and memory", "Google EmbeddingGemma", "Finds files, and memories, by what they mean. Indexes only the folders you choose."],
+  ["Memory", "Qwen3 4B, built in", "New. Turns what you work on into memories, promises and plans. 2.5 GB, run by Murmur itself, no Ollama."],
+  ["Commands", "Murmur Agent", "Qwen3.5 4B, trained on Murmur’s own tools. 2.8 GB, through Ollama."],
+  ["AI cleanup", "Murmur Cleanup", "Qwen3.5 0.8B, trained to tidy dictation without rewording it. 0.5 GB."],
   ["Screen vision", "Qwen3-VL 4B Instruct", "Looks at what only a picture shows. 3.3 GB, through Ollama."],
 ];
 
 export const learns = [
-  ["Memory", "Tell it once: “Priya is my manager, on Slack”, “open links in Chrome”. It also notices who you message where. The Memory page lists everything it knows, each line with an × to forget it."],
+  ["Memory", "Tell it once: “Priya is my manager, on Slack”, “open links in Chrome”, and it remembers for good. Everything else it learns fades unless it comes up again. The Memory page lists it all, each line with an × to forget it."],
   ["Skills", "Teach it how you like things done, in the same SKILL.md format Claude uses. It comes with skills for email, chats, research, shopping, forms and long tasks, and you can add any from a GitHub link."],
   ["Permissions", "Before it sends, deletes or runs a script, it asks: Allow, Allow for This Task, or Always Allow. Settings shows what’s always allowed and takes it back. Anything that pays always asks."],
 ];
@@ -79,6 +118,7 @@ export const parity = [
   ["Photos by what they show", true, "Words in images"],
   ["Terminal commands", true, "PowerShell"],
   ["Read the screen, click and scroll for you", true, false],
+  ["Memory: people, promises, plans", true, false],
   ["Send messages and files in your chats", true, false],
   ["Murmur’s own models", true, "Murmur Cleanup"],
   ["Updates itself", true, true],
@@ -94,6 +134,9 @@ export const steps = [
 
 export const questions = (macSize, windowsSize) => [
   ["Does Murmur listen all the time?", "No. Only while you hold the key, or after you double-tap it for hands-free, until you tap again. Esc cancels."],
+  ["Does Murmur record my screen?", "No video, ever, and only if you turn on Remember what I work on. Then Murmur reads the text of the window you’re working in when it changes, and takes a small picture only when a window has little text. Pictures are deleted once they’re read. It never reads password managers, private windows or password fields, and you can add any app or site to Never read."],
+  ["What does Murmur remember, and can I make it forget?", "People, organisations, projects, what’s coming up, and what you promised or are owed, each with where it came from. Things fade unless they come up again. Forget one line, a person, everything from your screen, or all of it, from the Memory page. Memory is on the Mac for now."],
+  ["Can my other AI tools use Murmur’s memory?", "Yes, any that connect to tools over MCP: Claude Code, Claude Desktop, Cursor and others. On the Memory page, Use your memory in Claude Code copies the one command that adds it. They can read it, never change it, and what they read goes to the model they use."],
   ["Does it change what I say?", "Not unless you ask it to. By default your words go in exactly as heard; Murmur only fits the spacing, the first letter and the final full stop to the sentence around your cursor. AI cleanup, which takes out the ums and applies your corrections, is off until you turn it on. If the model changes more than that, your words go in as heard."],
   ["How does it tell a command from dictation?", "Typing is the default. Clear commands like “open Slack” or “PDF kholo” run at once. To decide yourself, hold ⇧ with fn to only type, or ⌃ with fn to make it a command."],
   ["Can I stop a command halfway?", "Yes. Press Esc, or choose Stop Command in the menu bar, and it stops after the step it’s on. If it had a task list, say “continue” later to pick it up."],
@@ -104,4 +147,4 @@ export const questions = (macSize, windowsSize) => [
   ["Why does Windows warn about the installer?", "The Windows installer isn’t code-signed yet. If Chrome blocks the download, choose Keep in its downloads. If SmartScreen says it protected your PC, click More info, then Run anyway. The Mac app is signed by Apple and opens without a warning."],
 ];
 
-export const links = [["#how", "How it works"], ["#features", "Features"], ["#languages", "Languages"], ["#models", "Models"], ["#privacy", "Privacy"], ["#windows", "Windows"], ["#install", "Install"]];
+export const links = [["#how", "How it works"], ["#memory", "Memory"], ["#features", "Features"], ["#languages", "Languages"], ["#models", "Models"], ["#privacy", "Privacy"], ["#windows", "Windows"], ["#install", "Install"]];
