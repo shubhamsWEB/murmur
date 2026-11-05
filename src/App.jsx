@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import Flock from "./Flock";
 import { Bird, Pill } from "./Bird";
-import { CleanupScene, DictateScene, MemoryScene, ReadScene, SearchScene, Shortcuts, TaskScene } from "./Scenes";
+import { AgentMemoryScene, CleanupScene, DictateScene, MemoryScene, ReadScene, SearchScene, Shortcuts, TaskScene } from "./Scenes";
 import { Cut, Hi, Mark, Note } from "./Collage";
 import { downloadUrl, onWindows, releasesUrl, useRelease, useWindowsRelease } from "./release";
 import { recentReleases } from "./releases";
 import { useScrollMotion } from "./motion";
 import {
-  chatApps, dictation, heroPhrases, jobs, learns, links, memoryPowers, memorySources, models, modes, parity, questions,
+  chatApps, dictation, heroPhrases, jobs, learns, links, memoryExamples, memorySources, memorySteps, memoryTools, memoryTrust, models, modes, parity, questions,
   spoken, steps, whatsNew,
 } from "./content";
 
@@ -177,37 +177,65 @@ function MobileMenu() {
   );
 }
 
-const memoryAsks = ["Who is Arjun?", "What did I promise this week?", "When’s my flight?", "What did I work on yesterday?"];
-
-// Memory, the 1.6 headline: what goes in, what it keeps, and what you can ask it.
+// Memory, the 1.6 headline: one memory for the whole Mac. How it's made, what it answers, the AI tools that use it,
+// and why it's safe to have.
 function Memory() {
   return (
     <section className="block memory" id="memory" aria-labelledby="memory-title">
-      <Head id="memory-title" title="Murmur now" hi="remembers" lede="Who’s who, what’s coming up and what you said you’d do. Murmur learns it from your apps and from what you work on, keeps what’s about you, and uses it in every command. On your Mac, nowhere else." note="new in 1.6" />
+      <Head id="memory-title" title="One memory for" hi="your whole Mac"
+        lede="Murmur now keeps a private memory of your working life: who people are, what you’re working on, what you promised and what’s coming up. It builds it from your apps and the windows you work in, uses it in every command, and lets your other AI tools use it too."
+        note="new in 1.6" />
+
+      <ol className="flow memory-steps">
+        {memorySteps.map(([title, text], i) => (
+          <li key={title} className="flow-step scrap" data-reveal data-delay={i * 110}>
+            <span className="flow-n" aria-hidden="true">{i + 1}</span>
+            <h3>{title}</h3>
+            <p>{text}</p>
+            {i === 0 && <ul className="memory-chips">{memorySources.map((s) => <li key={s}>{s}</li>)}</ul>}
+            {i < memorySteps.length - 1 && <Mark kind="arrow" className="flow-arrow" />}
+          </li>
+        ))}
+      </ol>
+
       <div className="memory-grid">
         <div className="memory-stage" data-reveal>
           <div className="stage-paper taped"><MemoryScene /></div>
           <Cut name="cards" className="memory-cut" depth="0.4" />
-          <Note className="memory-note">stays on this Mac</Note>
+          <Note className="memory-note">what you worked on, kept as cards</Note>
         </div>
-        <div className="memory-side">
-          <div className="memory-sources" data-reveal>
-            <p className="memory-from">It learns from</p>
-            <ul>{memorySources.map((s) => <li key={s}>{s}</li>)}</ul>
-          </div>
-          <ul className="memory-powers">
-            {memoryPowers.map(([title, text], i) => (
-              <li key={title} className="card" data-reveal data-delay={i * 80}><h3>{title}</h3><p>{text}</p></li>
+        <div className="memory-examples">
+          <h3 className="memory-sub">So you can just say</h3>
+          <dl>
+            {memoryExamples.map(([said, does], i) => (
+              <div key={said} data-reveal data-delay={i * 80}><dt><q className="voice">{said}</q></dt><dd>{does}</dd></div>
             ))}
-          </ul>
+          </dl>
         </div>
       </div>
-      <div className="memory-ask scrap" data-reveal>
-        <p className="memory-ask-head">Ask it anything about your own world</p>
-        <ul>{memoryAsks.map((q) => <li key={q}><q className="voice">{q}</q></li>)}</ul>
-        <p className="note">Claude Code, Claude Desktop and Cursor can ask Murmur what it knows too, read-only, on this Mac.</p>
-        <Mark kind="underline" className="memory-ask-mark" />
+
+      <div className="memory-agents">
+        <div className="memory-agents-copy" data-reveal>
+          <h3 className="memory-sub">Your AI tools get it too</h3>
+          <p>Claude Code, Claude Desktop, Cursor and any other AI tool on your Mac that connects to tools over MCP can ask Murmur’s memory before they answer. So your coding agent knows what you shipped this week, who owns the payments code, and what you promised to fix.</p>
+          <dl className="memory-tools">
+            {memoryTools.map(([title, text]) => <div key={title}><dt>{title}</dt><dd>{text}</dd></div>)}
+          </dl>
+          <p className="memory-how">Add it with one command, copied from <b>Memory → Use your memory in Claude Code</b>:</p>
+          <code className="memory-command">claude mcp add --scope user murmur -- …/murmur-memory mcp</code>
+          <p className="note">Read-only: they can ask, never change. What a tool reads goes to the model that tool uses.</p>
+        </div>
+        <div className="memory-agents-scene" data-reveal data-delay="100">
+          <div className="stage-paper taped"><AgentMemoryScene /></div>
+          <Note className="memory-agents-note">Claude Code, asking Murmur</Note>
+        </div>
       </div>
+
+      <dl className="details memory-trust">
+        {memoryTrust.map(([title, text], i) => (
+          <div key={title} className="sticky" data-reveal data-delay={i * 80}><dt>{title}</dt><dd>{text}</dd></div>
+        ))}
+      </dl>
     </section>
   );
 }
@@ -264,7 +292,7 @@ export default function App() {
             <div className="hero-copy">
               <a className="stamp" href="#memory">New in {latest[0]}: Murmur remembers</a>
               <h1>Hold a key and <Hi>say it.</Hi></h1>
-              <p className="hero-lede">Murmur types what you say in any app, answers questions about your screen, finds your files and carries out whole jobs across your apps and the web. Now it remembers who’s who and what you promised, too. In English, Hinglish or 25 more languages. Free, and its models run on your own computer.</p>
+              <p className="hero-lede">Murmur types what you say in any app, answers questions about your screen, finds your files and carries out whole jobs across your apps and the web. Now it remembers your work, too: who’s who, what you promised and what’s coming up, for Murmur and for your other AI tools. In English, Hinglish or 25 more languages. Free, and its models run on your own computer.</p>
               <div className="hero-actions">{isWindows ? <>{win}{mac}</> : <>{mac}{win}</>}</div>
               <p className="hero-meta">Free and open source. Mac with Apple silicon on macOS 14 or later, or Windows 10 and 11.</p>
             </div>

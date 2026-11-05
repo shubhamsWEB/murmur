@@ -307,3 +307,31 @@ export function MemoryScene() {
     </figure>
   );
 }
+
+// Another AI tool using Murmur's memory: Claude Code asks it what you did and what you owe, then writes the notes.
+export function AgentMemoryScene() {
+  // 0 asked · 1 first lookup · 2 second lookup · 3 answer
+  const [ref, step] = useTimeline([1600, 1800, 1800, 4200]);
+  return (
+    <figure className="scene" ref={ref}>
+      <Window title="Terminal — claude" className="term">
+        <p className="term-you"><span>&gt;</span> write this week’s release notes from what I shipped</p>
+        <div className={`term-call${step >= 1 ? " shown" : ""}`}>
+          <p className="term-tool">murmur · <b>What you did</b> <small>this week</small></p>
+          <p className="term-result">Payments release in Xcode, Mon to Thu. Fixed the refund bug Arjun reported. New pricing page in Figma.</p>
+        </div>
+        <div className={`term-call${step >= 2 ? " shown" : ""}`}>
+          <p className="term-tool">murmur · <b>Promises</b></p>
+          <p className="term-result">Asked of you: send Priya the Q3 deck, by Friday.</p>
+        </div>
+        <div className={`term-answer${step >= 3 ? " shown" : ""}`}>
+          <p><b>This week</b></p>
+          <p>• Payments: the new release, and refunds that no longer fail twice.</p>
+          <p>• A new pricing page.</p>
+          <p className="term-dim">Still to do: the Q3 deck for Priya, due Friday.</p>
+        </div>
+      </Window>
+      <figcaption className="sr-only">In Claude Code, “write this week’s release notes from what I shipped” makes Claude ask Murmur’s memory what you did this week and what you promised, then write the notes with the Q3 deck still to do.</figcaption>
+    </figure>
+  );
+}
