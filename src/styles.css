@@ -665,3 +665,57 @@ kbd + kbd { margin-left: 3px; }
   .mascot-say { max-width: 150px; font-size: 16px; padding: 8px 10px; }
   .footer-say p { max-width: none; }
 }
+
+/* Memory (1.6): what you worked on in, index cards out, and the next command using them. */
+.memory-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: start; }
+.memory-stage { position: relative; --rest-tilt: -1deg; }
+.memory-cut { right: -46px; bottom: -120px; width: 180px; transform: rotate(-7deg); z-index: 2; }
+.memory-note { left: 6px; bottom: -48px; }
+.memory-from { color: var(--ink-3); font-size: 15px; }
+.memory-sources ul { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.memory-sources li { padding: 3px 11px; border: 1.5px solid var(--ink); border-radius: 999px; background: var(--sheet); font: 600 14.5px/1.5 var(--slab); }
+.memory-sources li:nth-child(6) { background: var(--yellow); }
+.memory-powers { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 26px; }
+.memory-powers .card { padding: 20px 20px 22px; }
+.memory-powers .card:nth-child(odd) { --rest-tilt: -0.6deg; }
+.memory-powers .card:nth-child(even) { --rest-tilt: 0.5deg; }
+.memory-powers p { margin-top: 8px; color: var(--ink-2); font-size: 15.5px; line-height: 1.55; }
+.memory-ask { margin-top: clamp(70px, 8vw, 110px); padding: 30px 32px 38px; --rest-tilt: 0.4deg; }
+.memory-ask-head { font: 600 22px/1.3 var(--slab); }
+.memory-ask ul { display: flex; flex-wrap: wrap; gap: 14px 34px; margin-top: 16px; }
+.memory-ask .voice { font-size: clamp(22px, 2.4vw, 30px); }
+.memory-ask-mark { left: 32px; top: 58px; width: 280px; height: 14px; }
+
+.mem { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.mem-in, .mem-out { overflow: hidden; border: 1.5px solid var(--ink); border-radius: 10px; background: #fff; padding: 14px 14px 16px; }
+.mem-label { margin-bottom: 10px; color: var(--ink-3); font-size: 13px; }
+.mem ul { display: grid; gap: 9px; }
+.mem-window { position: relative; display: grid; gap: 3px; padding: 9px 11px; border: 1px solid var(--rule); border-radius: 7px; background: var(--sheet); font-size: 13.5px; line-height: 1.4; }
+.mem-app { font: 600 13.5px var(--slab); }
+.mem-app small { margin-left: 6px; color: var(--ink-3); font: 400 12.5px var(--sans); }
+.mem-text { color: var(--ink-2); }
+.mem-window.passing { opacity: 0.55; }
+.mem-window.passing .mem-text { text-decoration: line-through; text-decoration-color: var(--coral-deep); }
+.mem-only { position: absolute; right: 8px; top: 7px; font: 700 15px/1 var(--hand); color: var(--pen); transform: rotate(-4deg); }
+.mem-card { display: grid; gap: 2px; padding: 9px 11px 10px; border-top: 3px solid var(--coral); background: var(--sheet) repeating-linear-gradient(transparent 0 21px, rgba(43, 85, 199, 0.14) 21px 22px) 0 30px / 100% calc(100% - 30px) no-repeat; box-shadow: var(--drop); font-size: 13.5px; line-height: 1.45; opacity: 0.2; transform: translateY(6px); transition: opacity 0.45s var(--ease) calc(var(--i) * 0.35s), transform 0.6s var(--pop) calc(var(--i) * 0.35s); }
+.mem-card b { font-size: 14px; }
+.mem-card span { color: var(--ink-2); }
+.mem-out.shown .mem-card { opacity: 1; transform: none; }
+.mem-card:nth-child(2) { border-top-color: var(--yellow); }
+.mem-card:nth-child(3) { border-top-color: var(--pen); }
+.faded { opacity: 0.35; transition: opacity 0.4s; }
+
+@media (max-width: 1020px) {
+  .memory-grid { grid-template-columns: 1fr; }
+  .memory-side { margin-top: 64px; }
+  .memory-cut { width: 150px; bottom: -70px; right: -8px; }
+}
+@media (max-width: 640px) {
+  .mem { grid-template-columns: 1fr; }
+  .memory-powers { grid-template-columns: 1fr; }
+  .memory-cut { display: none; }
+  .memory-note { bottom: -40px; }
+  .memory-ask { padding: 24px 20px 30px; }
+  .memory-ask ul { flex-direction: column; gap: 8px; }
+  .memory-ask-mark { display: none; }
+}

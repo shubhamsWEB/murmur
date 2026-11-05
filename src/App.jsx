@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import Flock from "./Flock";
 import { Bird, Pill } from "./Bird";
-import { CleanupScene, DictateScene, ReadScene, SearchScene, Shortcuts, TaskScene } from "./Scenes";
+import { CleanupScene, DictateScene, MemoryScene, ReadScene, SearchScene, Shortcuts, TaskScene } from "./Scenes";
 import { Cut, Hi, Mark, Note } from "./Collage";
 import { downloadUrl, onWindows, releasesUrl, useRelease, useWindowsRelease } from "./release";
 import { recentReleases } from "./releases";
 import { useScrollMotion } from "./motion";
 import {
-  chatApps, dictation, heroPhrases, jobs, learns, links, models, modes, parity, questions, spoken, steps, whatsNew,
+  chatApps, dictation, heroPhrases, jobs, learns, links, memoryPowers, memorySources, models, modes, parity, questions,
+  spoken, steps, whatsNew,
 } from "./content";
 
 const github = "https://github.com/shubhamsWEB/murmur-app";
@@ -29,7 +30,7 @@ function DownloadButton({ os = "mac", href, quiet = false }) {
   );
 }
 
-const ticker = ["Free", "Open source", "Runs on your computer", "English", "Hinglish", "25 European languages", "Mac", "Windows", "Your own models", "No account"];
+const ticker = ["Free", "Open source", "Remembers for you", "Runs on your computer", "English", "Hinglish", "25 European languages", "Mac", "Windows", "Your own models", "No account"];
 
 const flow = [
   ["You hold the key and talk", "fn on a Mac, Ctrl and the Windows key on a PC. The capsule at the bottom of the screen shows it’s listening.", null],
@@ -176,6 +177,41 @@ function MobileMenu() {
   );
 }
 
+const memoryAsks = ["Who is Arjun?", "What did I promise this week?", "When’s my flight?", "What did I work on yesterday?"];
+
+// Memory, the 1.6 headline: what goes in, what it keeps, and what you can ask it.
+function Memory() {
+  return (
+    <section className="block memory" id="memory" aria-labelledby="memory-title">
+      <Head id="memory-title" title="Murmur now" hi="remembers" lede="Who’s who, what’s coming up and what you said you’d do. Murmur learns it from your apps and from what you work on, keeps what’s about you, and uses it in every command. On your Mac, nowhere else." note="new in 1.6" />
+      <div className="memory-grid">
+        <div className="memory-stage" data-reveal>
+          <div className="stage-paper taped"><MemoryScene /></div>
+          <Cut name="cards" className="memory-cut" depth="0.4" />
+          <Note className="memory-note">stays on this Mac</Note>
+        </div>
+        <div className="memory-side">
+          <div className="memory-sources" data-reveal>
+            <p className="memory-from">It learns from</p>
+            <ul>{memorySources.map((s) => <li key={s}>{s}</li>)}</ul>
+          </div>
+          <ul className="memory-powers">
+            {memoryPowers.map(([title, text], i) => (
+              <li key={title} className="card" data-reveal data-delay={i * 80}><h3>{title}</h3><p>{text}</p></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div className="memory-ask scrap" data-reveal>
+        <p className="memory-ask-head">Ask it anything about your own world</p>
+        <ul>{memoryAsks.map((q) => <li key={q}><q className="voice">{q}</q></li>)}</ul>
+        <p className="note">Claude Code, Claude Desktop and Cursor can ask Murmur what it knows too, read-only, on this Mac.</p>
+        <Mark kind="underline" className="memory-ask-mark" />
+      </div>
+    </section>
+  );
+}
+
 function Check({ value }) {
   if (value === true) return <span className="yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13c3 2 4 4 5 6 3-7 7-11 11-14" /></svg><span className="sr-only">Yes</span></span>;
   if (value === false) return <span className="no">Not yet</span>;
@@ -226,9 +262,9 @@ export default function App() {
           </div>
           <div className="hero-grid">
             <div className="hero-copy">
-              <a className="stamp" href="#new">New in {latest[0]}: Murmur’s own models</a>
+              <a className="stamp" href="#memory">New in {latest[0]}: Murmur remembers</a>
               <h1>Hold a key and <Hi>say it.</Hi></h1>
-              <p className="hero-lede">Murmur types what you say in any app, answers questions about your screen, finds your files and carries out whole jobs across your apps and the web. In English, Hinglish or 25 more languages. Free, and its models run on your own computer.</p>
+              <p className="hero-lede">Murmur types what you say in any app, answers questions about your screen, finds your files and carries out whole jobs across your apps and the web. Now it remembers who’s who and what you promised, too. In English, Hinglish or 25 more languages. Free, and its models run on your own computer.</p>
               <div className="hero-actions">{isWindows ? <>{win}{mac}</> : <>{mac}{win}</>}</div>
               <p className="hero-meta">Free and open source. Mac with Apple silicon on macOS 14 or later, or Windows 10 and 11.</p>
             </div>
@@ -255,6 +291,8 @@ export default function App() {
         </div>
 
         <section className="film-wrap" data-scroll aria-label="Murmur at work, a 51-second film"><Film /></section>
+
+        <Memory />
 
         <section className="block" aria-labelledby="modes-title">
           <Head id="modes-title" title="One key does" hi="four things" lede="Hold fn on a Mac, or Ctrl and the Windows key on a PC, and talk. Murmur works out whether you’re writing, asking or handing it a job." />
@@ -298,7 +336,7 @@ export default function App() {
               <li key={title} className={`scrap${i === 0 ? " lead taped" : ""}`} data-reveal data-delay={i * 80}>
                 {i === 0 && <>
                   <span className="seal" aria-hidden="true">new</span>
-                  <dl className="lead-facts"><div><dt>Murmur Agent</dt><dd>2.8 GB</dd></div><div><dt>Murmur Cleanup</dt><dd>0.5 GB</dd></div></dl>
+                  <dl className="lead-facts"><div><dt>Memory reader</dt><dd>2.5 GB</dd></div><div><dt>Leaves your Mac</dt><dd>Nothing</dd></div></dl>
                 </>}
                 <h3>{title}</h3><p>{text}</p>
               </li>
@@ -335,7 +373,7 @@ export default function App() {
         <section className="block" id="models" aria-labelledby="models-title">
           <Head id="models-title" title="The models run on" hi="your computer" lede="Each one downloads once, when you first need it. After that, Murmur works offline." />
           <div className="sheet taped" data-reveal>
-            <Note className="sheet-note">new in 1.5</Note>
+            <Note className="sheet-note">new in 1.6</Note>
             <table className="model-table">
               <thead><tr><th scope="col">What it does</th><th scope="col">Model</th><th scope="col">Details</th></tr></thead>
               <tbody>
@@ -356,7 +394,7 @@ export default function App() {
             <Cut name="lock" className="privacy-lock" depth="0.5" />
             <div className="scrap" data-reveal>
               <h3>Stays on your computer</h3>
-              <p>Your audio, your files and the index of what’s in them, your memory, and by default every command and cleanup.</p>
+              <p>Your audio, your files and the index of what’s in them, everything Murmur remembers and what it read from your screen, and by default every command and cleanup.</p>
               <Mark kind="circle" className="privacy-circle" />
             </div>
             <div className="scrap" data-reveal data-delay="100">
