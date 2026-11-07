@@ -740,3 +740,63 @@ kbd + kbd { margin-left: 3px; }
 }
 .memory-grid > *, .memory-agents > *, .memory-steps > * { min-width: 0; }
 @media (max-width: 640px) { .memory-command { white-space: normal; overflow-wrap: anywhere; } }
+
+/* The 1.7 design pass. -------------------------------------------------------------------------------------------- */
+
+/* Paragraphs end on more than one word, and quotes hang in the margin so the words line up with the text below. */
+p, dd, li, summary { text-wrap: pretty; }
+.memory-examples dt .voice, .mode .voice { display: block; text-indent: -0.42em; }
+.timeline time { font-variant-numeric: tabular-nums; }
+
+/* What's new: the lead card runs the full height, and the last card takes the row beside it, so none is left alone.
+   The seal keeps clear of the facts. */
+.new-grid li.lead { grid-row: span 3; }
+.new-grid li:nth-child(6):last-child { grid-column: 2 / -1; }
+.lead-facts { flex-wrap: wrap; gap: 10px 28px; padding-right: 92px; }
+
+/* A margin note sits under the paragraph it annotates, not on its last line. */
+.head:has(.lede) .head-note { bottom: -40px; }
+
+/* The pen circle goes round the words it means. */
+.circled { position: relative; display: inline-block; }
+.privacy-circle { left: -16px; top: -12px; width: calc(100% + 32px); height: calc(100% + 24px); }
+
+/* Windows: the download stays beside the table as it scrolls, rather than leaving the column empty. */
+@media (min-width: 1021px) {
+  #windows .two > :first-child { position: sticky; top: 112px; }
+}
+
+/* Questions: the heading stays beside the answers. */
+.faq-block { display: grid; grid-template-columns: minmax(0, 0.62fr) minmax(0, 1.5fr); gap: 0 56px; align-items: start; }
+.faq-side { position: sticky; top: 112px; }
+.faq-block .head { margin-bottom: 14px; }
+.faq-block .faq { max-width: none; }
+
+@media (max-width: 1020px) {
+  .new-grid li.lead { grid-row: auto; }
+  .new-grid li:nth-child(6):last-child { grid-column: 1 / -1; }
+  .memory-cut { bottom: -128px; }
+  .faq-block { display: block; }
+  .faq-side { position: static; margin-bottom: 30px; }
+}
+@media (max-width: 640px) {
+  .seal { width: 58px; height: 58px; font-size: 18px; right: 14px; top: 14px; }
+  .lead-facts { padding-right: 66px; }
+  .lead-facts dd { font-size: 28px; }
+}
+
+/* The lead card shows what 1.7 is about: threads, as the morning brief lists them. */
+.lead-threads { display: grid; gap: 8px; margin: 4px 0 28px; padding: 14px 16px; background: var(--sheet); box-shadow: var(--drop); transform: rotate(1.2deg); }
+.lead-threads li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0 12px; align-items: baseline; padding-bottom: 8px; border-bottom: 1px dashed var(--rule); }
+.lead-threads li:last-child { padding-bottom: 0; border-bottom: 0; }
+.lead-threads b { font-size: 16px; }
+.lead-threads span { grid-column: 1; color: var(--ink-3); font-size: 14.5px; }
+.lead-threads em { grid-column: 2; grid-row: 1 / span 2; align-self: center; padding: 2px 8px; border: 1.5px solid var(--ink); border-radius: 999px; font: 600 13px/1.4 var(--sans); font-style: normal; white-space: nowrap; }
+.lead-threads em.yours { background: var(--yellow); }
+.faq-block { grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.5fr); }
+.faq-side h2 { font-size: clamp(38px, 4.4vw, 64px); }
+@media (max-width: 1020px) { .memory-cut { bottom: -176px; } .lead-threads { margin-top: 0; } }
+@media (max-width: 640px) {
+  .lead-threads li { grid-template-columns: 1fr; }
+  .lead-threads em { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 6px; }
+}

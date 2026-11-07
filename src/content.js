@@ -25,6 +25,13 @@ export const whatsNew = [
   ["On Windows: the key from the start", "The dictation key now works the moment Murmur opens, with no restart, and with keys sent by remote desktops and virtual machines."],
 ];
 
+// The lead card's picture of 1.7: threads as the morning brief lists them. Made-up people.
+export const leadThreads = [
+  ["Priya Shah", "The Q3 deck", "Your turn"],
+  ["Arjun Mehta", "Launch date", "Follow up today"],
+  ["Neha, accountant", "GST filing", "Waiting on her"],
+];
+
 // The memory section: one memory for the whole Mac, how it's made, what it answers, and the AI tools that use it.
 export const memorySources = ["Contacts", "Calendar", "Reminders", "Notes", "Mail", "The windows you work in", "Linear", "Notion", "Jira and Confluence"];
 
