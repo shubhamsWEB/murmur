@@ -21,6 +21,22 @@ To publish one, run `./scripts/release.sh` in the app repo.
 The version and size on the page come from the latest release: once when the site is built, and again in the
 visitor's browser, so a new release shows up without redeploying. Set `VITE_DOWNLOAD_URL` to link somewhere else.
 
+## The launch film
+
+The film plays in [Video.js](https://videojs.org) (`@videojs/react`, `src/FilmPlayer.jsx`). The page shows only the
+poster and a button until then. The player loads in the background once the page has loaded and the film is near
+the screen, and takes over on the click.
+
+- **Streamed** (HLS, `public/media/film/master.m3u8`): 1080p, 720p, 480p and 360p, chosen for the connection and the
+  player's size, or picked in the settings menu. Where streaming isn't possible, or the stream fails, the MP4 in
+  `public/media/murmur-launch.mp4` plays from the same point.
+- **Chapters** on the timeline (`public/media/film/chapters.vtt`, written by hand), and a preview frame while
+  scrubbing (`storyboard.jpg` and `storyboard.vtt`).
+- The film's captions are part of the picture, so the player has none of its own.
+
+For a new film, put its master MP4 through `scripts/film.sh` (it needs ffmpeg). Then write its chapters, and replace
+`murmur-launch.mp4` and `murmur-launch.jpg`.
+
 ## Deploying
 
 **GitHub Pages** (live at https://usemurmur.live): every push to `main` builds and publishes

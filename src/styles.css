@@ -326,6 +326,8 @@ kbd + kbd { margin-left: 3px; }
 /* The film, taped to the page, straightening as it scrolls up. */
 .film-wrap { --grow: min(1, calc(var(--p, 0.5) * 2.4)); }
 .film { position: relative; aspect-ratio: 16 / 9; padding: 12px; background: var(--sheet); box-shadow: var(--drop); transform: rotate(calc(-1.6deg * (1 - var(--grow)))) scale(calc(0.9 + 0.1 * var(--grow))); transform-origin: 50% 0; }
+/* Playing, it lies flat and holds still: a scroll-tilted, scaled video reads as shaking. */
+.film.playing { transform: none; transition: transform 0.6s var(--ease); }
 .film video { display: block; width: 100%; height: 100%; object-fit: cover; background: var(--ink); }
 .film-play {
   position: absolute;
@@ -346,6 +348,23 @@ kbd + kbd { margin-left: 3px; }
 .film-icon { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: var(--coral); transition: transform 0.25s var(--pop); }
 .film-icon svg { width: 20px; height: 20px; fill: var(--ink); margin-left: 2px; }
 .film-play:hover .film-icon { transform: scale(1.12); }
+.film-play:disabled { cursor: progress; }
+.film-play:focus-visible { outline: 3px solid var(--pen); outline-offset: 3px; }
+/* Until it plays: the poster, laid over the player while the player loads. */
+.film-poster { position: absolute; inset: var(--film-pad, 12px); width: calc(100% - 2 * var(--film-pad, 12px)); height: calc(100% - 2 * var(--film-pad, 12px)); object-fit: cover; background: var(--ink); }
+.film-spinner { width: 20px; height: 20px; border: 2.5px solid var(--ink); border-right-color: transparent; border-radius: 50%; animation: film-spin 0.8s linear infinite; }
+@keyframes film-spin { to { transform: rotate(360deg); } }
+/* Video.js, in the site's colours and type. */
+.film-player {
+  width: 100%;
+  height: 100%;
+  --media-accent-color: var(--coral);
+  --media-accent-text-color: var(--ink);
+  --media-font-family: var(--sans);
+  --media-border-radius: 0;
+  --media-border-color: transparent;
+  --media-object-fit: cover;
+}
 
 /* Four modes. */
 .modes { display: grid; gap: 18px; }
@@ -602,6 +621,7 @@ kbd + kbd { margin-left: 3px; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .flock-band, .film, .rail, .rail.back { transform: none !important; opacity: 1; }
+  .film-spinner { border-right-color: var(--ink); opacity: 0.6; }
   .timeline::before { transform: none; }
 }
 
@@ -662,7 +682,7 @@ kbd + kbd { margin-left: 3px; }
   .timeline li { grid-template-columns: 1fr; gap: 4px; }
   .doc-page { padding-right: 0; }
   .answer { position: relative; inset: auto; width: auto; margin-top: 16px; transform: none; }
-  .film { padding: 8px; }
+  .film { padding: 8px; --film-pad: 8px; }
   .film-play { font-size: 14px; left: 18px; bottom: 18px; }
   .mascot { width: 150px; }
   .mascot-say { max-width: 150px; font-size: 16px; padding: 8px 10px; }

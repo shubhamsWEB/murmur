@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import Flock from "./Flock";
 import { Bird, Pill } from "./Bird";
 import { AgentMemoryScene, CleanupScene, DictateScene, MemoryScene, ReadScene, SearchScene, Shortcuts, TaskScene } from "./Scenes";
@@ -52,24 +52,51 @@ const openSource = [
   ["Releases and notes", "Every version, what changed in it, and the SHA-256 of each download.", "https://github.com/shubhamsWEB/murmur-app/releases"],
 ];
 
+// The launch film. Until it's played, only its poster and a button: the player (Video.js, src/FilmPlayer.jsx) starts
+// loading when the visitor nears the film and takes over on the click, playing from the start with sound.
+const FilmPlayer = lazy(() => import("./FilmPlayer"));
+const filmLabel = "Murmur's launch film: hold a key and speak; it types where your cursor is in many languages, reads and summarises a long document, opens apps, plans a whole job like sending your resume, finds a file you describe and learns from what you work on, and your voice never leaves your computer.";
+
 function Film() {
-  const video = useRef(null);
+  const figure = useRef(null);
   const [started, setStarted] = useState(false);
-  const play = () => {
-    setStarted(true);
-    video.current?.play().catch(() => {});
-  };
+  const [ready, setReady] = useState(false);
+  // Near the film (or on the first hover or focus), fetch the player so the click plays at once; never before the
+  // page itself has loaded, and only when the browser is idle.
+  const warm = () => { import("./FilmPlayer"); };
+  useEffect(() => {
+    const element = figure.current;
+    if (!element || !("IntersectionObserver" in window)) return;
+    const idle = (run) => {
+      const later = () => (window.requestIdleCallback ? window.requestIdleCallback(run, { timeout: 3000 }) : setTimeout(run, 1500));
+      if (document.readyState === "complete") later(); else window.addEventListener("load", later, { once: true });
+    };
+    const watch = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) { idle(warm); watch.disconnect(); }
+    }, { rootMargin: "300px 0px" });
+    watch.observe(element);
+    return () => watch.disconnect();
+  }, []);
+  const facade = (busy) => (
+    <>
+      <img className="film-poster" src={`${media}murmur-launch.jpg`} alt="" decoding="async" />
+      <button type="button" className="film-play" onClick={() => setStarted(true)} onPointerEnter={warm} onFocus={warm}
+        aria-label="Play the film, 1 minute 28 seconds, with sound" aria-busy={busy || undefined} disabled={busy}>
+        <span className="film-icon" aria-hidden="true">
+          {busy ? <span className="film-spinner" /> : <svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" /></svg>}
+        </span>
+        <span>{busy ? "Starting the film" : "Watch Murmur at work"} <small>1:28</small></span>
+      </button>
+    </>
+  );
   return (
-    <figure className="film taped">
-      <video ref={video} src={`${media}murmur-launch.mp4`} poster={`${media}murmur-launch.jpg`} preload="none"
-        playsInline controls={started} onPlay={() => setStarted(true)}
-        aria-label="Murmur's launch film: hold a key and speak; it types where your cursor is in many languages, reads and summarises a long document, opens apps, plans a whole job like sending your resume, finds a file you describe and learns from what you work on, and your voice never leaves your computer." />
-      {!started && (
-        <button type="button" className="film-play" onClick={play} aria-label="Play the film, 1 minute 28 seconds, with sound">
-          <span className="film-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" /></svg></span>
-          <span>Watch Murmur at work <small>1:28</small></span>
-        </button>
-      )}
+    <figure ref={figure} className={`film taped${started ? " playing" : ""}`}>
+      {started ? (
+        <Suspense fallback={facade(true)}>
+          <FilmPlayer label={filmLabel} onReady={() => setReady(true)} />
+          {!ready && facade(true)}
+        </Suspense>
+      ) : facade(false)}
     </figure>
   );
 }
@@ -320,7 +347,7 @@ export default function App() {
           </div>
         </div>
 
-        <section className="film-wrap" data-scroll aria-label="Murmur at work, a 51-second film"><Film /></section>
+        <section className="film-wrap" data-scroll aria-label="Murmur at work, a film of 1 minute 28 seconds"><Film /></section>
 
         <Memory />
 
