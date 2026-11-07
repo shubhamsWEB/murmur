@@ -4,7 +4,7 @@ import { Hi } from "./Collage";
 import { DownloadButton, Head, SiteFooter, SiteHeader, sitePath, useOnWindows } from "./Parts";
 import { downloadUrl, useWindowsRelease } from "./release";
 import { useScrollMotion } from "./motion";
-import { chapters, clock } from "./launch";
+import { chapters, clock, film } from "./launch";
 import { guides } from "./guides";
 
 // The launch film's own page: the film first, as the page's main content, so search engines index it as a video,
@@ -40,6 +40,7 @@ export default function FilmPage() {
 
         <section className="film-wrap film-solo" aria-label="The film, 1 minute 28 seconds">
           <Film asVideo startAt={startAt} request={request} />
+          <p className="film-more"><a className="text-link" href={film.youtube}>Watch it on YouTube</a></p>
         </section>
 
         <section className="guide-hero film-about">

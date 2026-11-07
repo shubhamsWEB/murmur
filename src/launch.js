@@ -7,6 +7,7 @@ export const film = {
   name: "Murmur: hold a key and say it",
   duration: 88,
   uploaded: "2026-11-07T12:00:00+05:30",
+  youtube: "https://www.youtube.com/watch?v=rlO7OproEmE",
   label: "Murmur's launch film: hold a key and speak; it types where your cursor is in many languages, reads and summarises a long document, opens apps, plans a whole job like sending your resume, finds a file you describe and learns from what you work on, and your voice never leaves your computer.",
 };
 

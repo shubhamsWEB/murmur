@@ -105,6 +105,8 @@ function filmVideo(site, url) {
     embedUrl: url,
     inLanguage: "en",
     isFamilyFriendly: true,
+    // The same film on YouTube.
+    sameAs: [film.youtube],
     author: { "@id": `${site}/#author` },
     about: { "@id": `${site}/#app` },
     hasPart: chapters.map(([start, end, title]) => ({
@@ -253,7 +255,7 @@ export function llmsText(site) {
     "## Pages",
     "",
     `- [Murmur, the voice assistant](${site}/): everything Murmur does, with the launch film, the models, privacy, shortcuts and FAQ.`,
-    `- [The launch film](${site}${film.path}): ${film.description}`,
+    `- [The launch film](${site}${film.path}): ${film.description} Also on YouTube: ${film.youtube}`,
     ...guides.map((g) => `- [${g.nav}](${site}${g.path}): ${g.description}`),
     "",
     "## Download",
