@@ -17,7 +17,7 @@ const site = (process.env.VITE_SITE_URL
   || process.env.URL
   || "https://usemurmur.live").replace(/\/$/, "");
 
-const { routes, render, headFor, notFoundHead, llmsText } = await import(pathToFileURL(server).href);
+const { routes, render, headFor, notFoundHead, llmsText, filmSitemapEntry } = await import(pathToFileURL(server).href);
 const template = readFileSync(join(dist, "index.html"), "utf8");
 const seoBlock = /<!--seo-->[\s\S]*?<!--\/seo-->/;
 if (!seoBlock.test(template) || !template.includes('<div id="root"></div>')) {
@@ -43,8 +43,9 @@ write("404.html", page(notFoundHead(), render("/404/")));
 const day = built.toISOString().slice(0, 10);
 write("sitemap.xml", [
   '<?xml version="1.0" encoding="UTF-8"?>',
-  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-  ...routes.map((route) => `  <url><loc>${site}${route}</loc><lastmod>${day}</lastmod></url>`),
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">',
+  ...routes.filter((route) => route !== "/film/").map((route) => `  <url><loc>${site}${route}</loc><lastmod>${day}</lastmod></url>`),
+  ...filmSitemapEntry(site),
   "</urlset>",
   "",
 ].join("\n"));

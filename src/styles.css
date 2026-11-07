@@ -870,3 +870,23 @@ p, dd, li, summary { text-wrap: pretty; }
   .compare tr > * { padding: 4px 0 !important; }
 }
 .footer-guides + .footer-meta { margin-top: 48px; }
+
+/* The launch film's own page (src/FilmPage.jsx), and the link to it under the film on the home page. */
+.film video.film-poster { width: calc(100% - 2 * var(--film-pad, 12px)); height: calc(100% - 2 * var(--film-pad, 12px)); }
+.film-more { margin-top: 18px; text-align: right; }
+.film-page .guide-hero { padding-top: 104px; }
+.film-page .guide-hero h1 { font-size: clamp(40px, 5.4vw, 84px); }
+.film-solo { margin-top: 40px; }
+.film-page .film-about { padding-top: 36px; }
+.chapters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; max-width: 1040px; list-style: none; }
+.chapters button { display: grid; grid-template-columns: 64px 1fr; gap: 12px; width: 100%; padding: 16px 0; border: 0; border-bottom: 1.5px dashed var(--rule); background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.chapters time { color: var(--coral-deep); font: 700 20px/1.3 var(--hand); }
+.chapters b { display: block; font: 600 18px/1.3 var(--slab); }
+.chapters span { color: var(--ink-2); font-size: 16px; line-height: 1.5; }
+.chapters button:hover b { background: linear-gradient(transparent 55%, var(--yellow) 55%); }
+.film-guides { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 30px; list-style: none; }
+@media (max-width: 640px) {
+  .film-page .guide-hero { padding-top: 80px; }
+  .chapters { grid-template-columns: 1fr; }
+  .film-more { text-align: left; }
+}
