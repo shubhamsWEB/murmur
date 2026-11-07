@@ -63,11 +63,11 @@ function Film() {
     <figure className="film taped">
       <video ref={video} src={`${media}murmur-launch.mp4`} poster={`${media}murmur-launch.jpg`} preload="none"
         playsInline controls={started} onPlay={() => setStarted(true)}
-        aria-label="Murmur's launch film: hold fn and speak; it types where your cursor is, plays a YouTube video, summarises and translates selected text, finds your resume and changes settings, and your voice never leaves your Mac." />
+        aria-label="Murmur's launch film: hold a key and speak; it types where your cursor is in many languages, reads and summarises a long document, opens apps, plans a whole job like sending your resume, finds a file you describe and learns from what you work on, and your voice never leaves your computer." />
       {!started && (
-        <button type="button" className="film-play" onClick={play} aria-label="Play the film, 51 seconds, with sound">
+        <button type="button" className="film-play" onClick={play} aria-label="Play the film, 1 minute 28 seconds, with sound">
           <span className="film-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" /></svg></span>
-          <span>Watch Murmur at work <small>0:51</small></span>
+          <span>Watch Murmur at work <small>1:28</small></span>
         </button>
       )}
     </figure>
