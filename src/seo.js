@@ -3,6 +3,7 @@ import { guides } from "./guides";
 import { models, questions } from "./content";
 import { downloadUrl, releasesUrl, windowsInstaller } from "./release";
 import { recentReleases } from "./releases";
+import { chapters, film } from "./launch";
 
 // What search engines and AI assistants read about each page: its title and description, the address it should be
 // known by, link previews, and structured data (schema.org JSON-LD) saying what Murmur is. Used only at build time,
@@ -89,9 +90,56 @@ const faqPage = (url, items) => ({
   mainEntity: items.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })),
 });
 
+// The launch film, on its own page: Google indexes a video only where it's the page's main content. Its chapters
+// are Clips, so a search result can link straight to one (?t= starts the film there).
+function filmVideo(site, url) {
+  return {
+    "@type": "VideoObject",
+    "@id": `${url}#film`,
+    name: film.name,
+    description: film.description,
+    thumbnailUrl: [`${site}/media/murmur-launch.jpg`, `${site}/og.png`],
+    uploadDate: film.uploaded,
+    duration: `PT1M${film.duration - 60}S`,
+    contentUrl: `${site}/media/murmur-launch.mp4`,
+    embedUrl: url,
+    inLanguage: "en",
+    isFamilyFriendly: true,
+    author: { "@id": `${site}/#author` },
+    about: { "@id": `${site}/#app` },
+    hasPart: chapters.map(([start, end, title]) => ({
+      "@type": "Clip",
+      name: title,
+      startOffset: Math.floor(start),
+      endOffset: Math.ceil(end),
+      url: `${url}?t=${Math.floor(start)}`,
+    })),
+  };
+}
+
+// The film's entry in sitemap.xml, so Google finds the video file and its thumbnail directly.
+export function filmSitemapEntry(site) {
+  const x = (text) => escape(text).replace(/'/g, "&apos;");
+  return [
+    `  <url>`,
+    `    <loc>${site}${film.path}</loc>`,
+    `    <video:video>`,
+    `      <video:thumbnail_loc>${site}/media/murmur-launch.jpg</video:thumbnail_loc>`,
+    `      <video:title>${x(film.name)}</video:title>`,
+    `      <video:description>${x(film.description)}</video:description>`,
+    `      <video:content_loc>${site}/media/murmur-launch.mp4</video:content_loc>`,
+    `      <video:duration>${film.duration}</video:duration>`,
+    `      <video:publication_date>${film.uploaded}</video:publication_date>`,
+    `      <video:family_friendly>yes</video:family_friendly>`,
+    `    </video:video>`,
+    `  </url>`,
+  ];
+}
+
 // Everything between <!--seo--> and <!--/seo--> in index.html, for one page.
 export function headFor(path, { site, built = new Date() }) {
-  const guide = guides.find((g) => g.path === path);
+  const isFilm = path === film.path;
+  const guide = isFilm ? { ...film, nav: "The launch film" } : guides.find((g) => g.path === path);
   const url = `${site}${path}`;
   const page = guide ?? home;
   const modified = built.toISOString().slice(0, 10);
@@ -111,7 +159,8 @@ export function headFor(path, { site, built = new Date() }) {
         isPartOf: { "@id": `${site}/#website` },
         about: { "@id": `${site}/#app` },
         breadcrumb: { "@id": `${url}#breadcrumb` },
-        primaryImageOfPage: `${site}/og.png`,
+        primaryImageOfPage: isFilm ? `${site}/media/murmur-launch.jpg` : `${site}/og.png`,
+        ...(isFilm ? { video: { "@id": `${url}#film` } } : {}),
         dateModified: modified,
       },
       {
@@ -122,7 +171,7 @@ export function headFor(path, { site, built = new Date() }) {
           { "@type": "ListItem", position: 2, name: guide.nav, item: url },
         ],
       },
-      faqPage(url, guide.faq),
+      isFilm ? filmVideo(site, url) : faqPage(url, guide.faq),
     );
   } else {
     graph.push(
@@ -136,19 +185,7 @@ export function headFor(path, { site, built = new Date() }) {
         isPartOf: { "@id": `${site}/#website` },
         about: { "@id": `${site}/#app` },
         primaryImageOfPage: `${site}/og.png`,
-        video: { "@id": `${url}#film` },
         dateModified: modified,
-      },
-      {
-        "@type": "VideoObject",
-        "@id": `${url}#film`,
-        name: "Murmur: hold a key and say it",
-        description: "Murmur, the free and open-source voice assistant for Mac and Windows: it types where your cursor is, cleans up what you said, answers questions about your screen, carries out whole jobs, finds your files and remembers your work, on your own computer.",
-        thumbnailUrl: `${site}/media/murmur-launch.jpg`,
-        uploadDate: "2026-11-07",
-        duration: "PT1M28S",
-        contentUrl: `${site}/media/murmur-launch.mp4`,
-        inLanguage: "en",
       },
       faqPage(url, questions(dmgMB ? `${dmgMB} MB` : null, null)),
     );
@@ -160,7 +197,7 @@ export function headFor(path, { site, built = new Date() }) {
     `<link rel="canonical" href="${escape(url)}" />`,
     `<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />`,
     `<meta name="author" content="Shubham Agrawal" />`,
-    `<meta property="og:type" content="website" />`,
+    `<meta property="og:type" content="${isFilm ? "video.other" : "website"}" />`,
     `<meta property="og:site_name" content="Murmur" />`,
     `<meta property="og:locale" content="en_US" />`,
     `<meta property="og:title" content="${escape(shareTitle)}" />`,
@@ -170,7 +207,7 @@ export function headFor(path, { site, built = new Date() }) {
     `<meta property="og:image:width" content="1200" />`,
     `<meta property="og:image:height" content="630" />`,
     `<meta property="og:image:alt" content="${escape(home.shareImageAlt)}" />`,
-    ...(guide ? [] : [
+    ...(guide && !isFilm ? [] : [
       `<meta property="og:video" content="${site}/media/murmur-launch.mp4" />`,
       `<meta property="og:video:type" content="video/mp4" />`,
       `<meta property="og:video:width" content="1920" />`,
@@ -216,6 +253,7 @@ export function llmsText(site) {
     "## Pages",
     "",
     `- [Murmur, the voice assistant](${site}/): everything Murmur does, with the launch film, the models, privacy, shortcuts and FAQ.`,
+    `- [The launch film](${site}${film.path}): ${film.description}`,
     ...guides.map((g) => `- [${g.nav}](${site}${g.path}): ${g.description}`),
     "",
     "## Download",

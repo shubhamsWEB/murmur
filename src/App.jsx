@@ -1,7 +1,8 @@
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Film from "./Film";
 import Flock from "./Flock";
 import { Bird, Pill } from "./Bird";
-import { Check, DownloadButton, Head, SiteFooter, SiteHeader, github, useOnWindows } from "./Parts";
+import { Check, DownloadButton, Head, SiteFooter, SiteHeader, github, sitePath, useOnWindows } from "./Parts";
 import { AgentMemoryScene, CleanupScene, DictateScene, MemoryScene, ReadScene, SearchScene, Shortcuts, TaskScene } from "./Scenes";
 import { Cut, Hi, Mark, Note } from "./Collage";
 import { downloadUrl, releasesUrl, repo, useRelease, useWindowsRelease } from "./release";
@@ -12,7 +13,6 @@ import {
   spoken, steps, whatsNew,
 } from "./content";
 
-const media = `${import.meta.env.BASE_URL}media/`;
 
 const ticker = ["Free", "Open source", "Remembers for you", "Runs on your computer", "English", "Hinglish", "25 European languages", "Mac", "Windows", "Your own models", "No account"];
 
@@ -35,55 +35,6 @@ const openSource = [
   ["The Windows app", "A Tauri app in the same repository, with the same speech models and the same window.", "https://github.com/shubhamsWEB/murmur-app/tree/main/shell"],
   ["Releases and notes", "Every version, what changed in it, and the SHA-256 of each download.", "https://github.com/shubhamsWEB/murmur-app/releases"],
 ];
-
-// The launch film. Until it's played, only its poster and a button: the player (Video.js, src/FilmPlayer.jsx) starts
-// loading when the visitor nears the film and takes over on the click, playing from the start with sound.
-const FilmPlayer = lazy(() => import("./FilmPlayer"));
-const filmLabel = "Murmur's launch film: hold a key and speak; it types where your cursor is in many languages, reads and summarises a long document, opens apps, plans a whole job like sending your resume, finds a file you describe and learns from what you work on, and your voice never leaves your computer.";
-
-function Film() {
-  const figure = useRef(null);
-  const [started, setStarted] = useState(false);
-  const [ready, setReady] = useState(false);
-  // Near the film (or on the first hover or focus), fetch the player so the click plays at once; never before the
-  // page itself has loaded, and only when the browser is idle.
-  const warm = () => { import("./FilmPlayer"); };
-  useEffect(() => {
-    const element = figure.current;
-    if (!element || !("IntersectionObserver" in window)) return;
-    const idle = (run) => {
-      const later = () => (window.requestIdleCallback ? window.requestIdleCallback(run, { timeout: 3000 }) : setTimeout(run, 1500));
-      if (document.readyState === "complete") later(); else window.addEventListener("load", later, { once: true });
-    };
-    const watch = new IntersectionObserver((entries) => {
-      if (entries.some((entry) => entry.isIntersecting)) { idle(warm); watch.disconnect(); }
-    }, { rootMargin: "300px 0px" });
-    watch.observe(element);
-    return () => watch.disconnect();
-  }, []);
-  const facade = (busy) => (
-    <>
-      <img className="film-poster" src={`${media}murmur-launch.jpg`} alt="" decoding="async" />
-      <button type="button" className="film-play" onClick={() => setStarted(true)} onPointerEnter={warm} onFocus={warm}
-        aria-label="Play the film, 1 minute 28 seconds, with sound" aria-busy={busy || undefined} disabled={busy}>
-        <span className="film-icon" aria-hidden="true">
-          {busy ? <span className="film-spinner" /> : <svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" /></svg>}
-        </span>
-        <span>{busy ? "Starting the film" : "Watch Murmur at work"} <small>1:28</small></span>
-      </button>
-    </>
-  );
-  return (
-    <figure ref={figure} className={`film taped${started ? " playing" : ""}`}>
-      {started ? (
-        <Suspense fallback={facade(true)}>
-          <FilmPlayer label={filmLabel} onReady={() => setReady(true)} />
-          {!ready && facade(true)}
-        </Suspense>
-      ) : facade(false)}
-    </figure>
-  );
-}
 
 // The story: the words scroll past while the taped-up screenshot beside them changes with each step.
 const story = [
@@ -280,7 +231,10 @@ export default function App() {
           </div>
         </div>
 
-        <section className="film-wrap" data-scroll aria-label="Murmur at work, a film of 1 minute 28 seconds"><Film /></section>
+        <section className="film-wrap" data-scroll aria-label="Murmur at work, a film of 1 minute 28 seconds">
+          <Film />
+          <p className="film-more"><a className="text-link" href={sitePath("/film/")}>Watch it on its own page, with chapters</a></p>
+        </section>
 
         <Memory />
 

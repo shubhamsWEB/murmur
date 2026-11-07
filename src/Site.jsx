@@ -1,5 +1,7 @@
 import App from "./App";
 import Guide from "./Guide";
+import FilmPage from "./FilmPage";
+import { film } from "./launch";
 import { Hi } from "./Collage";
 import { SiteFooter, SiteHeader } from "./Parts";
 import { guides } from "./guides";
@@ -7,7 +9,7 @@ import { guides } from "./guides";
 // Which page an address shows. Every one is pre-rendered at build time (scripts/prerender.mjs) and picked up by the
 // same code in the browser (src/main.jsx).
 
-export const routes = ["/", ...guides.map((g) => g.path)];
+export const routes = ["/", film.path, ...guides.map((g) => g.path)];
 
 // "/murmur/voice-typing-mac" → "/voice-typing-mac/", whatever base path the site is served from.
 export function pathOf(pathname) {
@@ -36,6 +38,7 @@ function NotFound() {
 
 export default function Site({ path }) {
   if (path === "/") return <App />;
+  if (path === film.path) return <FilmPage />;
   const guide = guides.find((g) => g.path === path);
   return guide ? <Guide guide={guide} /> : <NotFound />;
 }
