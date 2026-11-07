@@ -183,8 +183,8 @@ function Memory() {
   return (
     <section className="block memory" id="memory" aria-labelledby="memory-title">
       <Head id="memory-title" title="One memory for" hi="your whole Mac"
-        lede="Murmur now keeps a private memory of your working life: who people are, what you’re working on, what you promised and what’s coming up. It builds it from your apps and the windows you work in, uses it in every command, and lets your other AI tools use it too."
-        note="new in 1.6" />
+        lede="Murmur keeps a private memory of your working life: who people are, what you’re working on, who’s waiting on a reply, what you promised and what’s coming up. It builds it from your apps and the windows you work in, uses it in every command, and lets your other AI tools use it too."
+        note="threads, new in 1.7" />
 
       <ol className="flow memory-steps">
         {memorySteps.map(([title, text], i) => (
@@ -364,7 +364,7 @@ export default function App() {
               <li key={title} className={`scrap${i === 0 ? " lead taped" : ""}`} data-reveal data-delay={i * 80}>
                 {i === 0 && <>
                   <span className="seal" aria-hidden="true">new</span>
-                  <dl className="lead-facts"><div><dt>Memory reader</dt><dd>2.5 GB</dd></div><div><dt>Leaves your Mac</dt><dd>Nothing</dd></div></dl>
+                  <dl className="lead-facts"><div><dt>Follow-up after</dt><dd>4 days</dd></div><div><dt>Sent anywhere by default</dt><dd>Nothing</dd></div></dl>
                 </>}
                 <h3>{title}</h3><p>{text}</p>
               </li>
@@ -401,7 +401,6 @@ export default function App() {
         <section className="block" id="models" aria-labelledby="models-title">
           <Head id="models-title" title="The models run on" hi="your computer" lede="Each one downloads once, when you first need it. After that, Murmur works offline." />
           <div className="sheet taped" data-reveal>
-            <Note className="sheet-note">new in 1.6</Note>
             <table className="model-table">
               <thead><tr><th scope="col">What it does</th><th scope="col">Model</th><th scope="col">Details</th></tr></thead>
               <tbody>
@@ -422,12 +421,12 @@ export default function App() {
             <Cut name="lock" className="privacy-lock" depth="0.5" />
             <div className="scrap" data-reveal>
               <h3>Stays on your computer</h3>
-              <p>Your audio, your files and the index of what’s in them, everything Murmur remembers and what it read from your screen, and by default every command and cleanup.</p>
+              <p>Your audio, your files and the index of what’s in them, everything Murmur remembers, and by default what it read from your screen and every command and cleanup.</p>
               <Mark kind="circle" className="privacy-circle" />
             </div>
             <div className="scrap" data-reveal data-delay="100">
               <h3>Leaves only if you choose</h3>
-              <p>With your own Claude or OpenAI key, the command and what Murmur reads to carry it out, or the dictation it tidies. Never audio, never files. Models download once from Hugging Face and Ollama.</p>
+              <p>With your own Claude or OpenAI key, the command and what Murmur reads to carry it out, the dictation it tidies, or, if you turn it on, what Murmur saw while you worked, never banking, health, ID or password pages. Never audio, never files. Models download once from Hugging Face and Ollama.</p>
             </div>
           </div>
         </section>
