@@ -9,7 +9,8 @@ import { recentReleases } from "./releases";
 // by scripts/prerender.mjs, which writes it into each page's <head>.
 
 const repoUrl = "https://github.com/shubhamsWEB/murmur-app";
-const authorUrl = "https://github.com/shubhamsWEB";
+const authorUrl = "https://shubhamsweb.netlify.app/";
+const authorGithub = "https://github.com/shubhamsWEB";
 // Without GitHub at build time the version falls back to 0.1.0; then the newest line in releases.js.
 const version = __MURMUR_VERSION__ && __MURMUR_VERSION__ !== "0.1.0" ? __MURMUR_VERSION__ : recentReleases[0][0];
 const dmgMB = __MURMUR_DMG_MB__;
@@ -70,7 +71,7 @@ function app(site) {
   };
 }
 
-const author = (site) => ({ "@type": "Person", "@id": `${site}/#author`, name: "Shubham Agrawal", url: authorUrl, sameAs: [authorUrl] });
+const author = (site) => ({ "@type": "Person", "@id": `${site}/#author`, name: "Shubham Agrawal", url: authorUrl, sameAs: [authorUrl, authorGithub] });
 
 const website = (site) => ({
   "@type": "WebSite",
@@ -198,7 +199,7 @@ export function llmsText(site) {
     "",
     "> Murmur (usemurmur.live) is a free, open-source voice assistant for Mac and Windows. Hold a key and talk: it types what you say in any app, and it can clean up dictation, answer questions about your screen, find files by what's in them, carry out multi-step jobs across apps and the web, and on a Mac keep a private memory of your work. Its speech models run on your own computer.",
     "",
-    "Not to be confused with other apps called Murmur: this one is by Shubham Agrawal, source at https://github.com/shubhamsWEB/murmur-app.",
+    "Not to be confused with other apps called Murmur: this one is by Shubham Agrawal (https://shubhamsweb.netlify.app/), source at https://github.com/shubhamsWEB/murmur-app.",
     "",
     "## Facts",
     "",

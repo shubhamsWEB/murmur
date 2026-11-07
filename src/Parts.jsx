@@ -118,7 +118,7 @@ export function SiteFooter({ actions, current }) {
         </ul>
       </nav>
       <div className="footer-meta">
-        <p>Murmur is free and open source under the MIT licence. Made by <a href="https://github.com/shubhamsWEB">Shubham Agrawal</a>.</p>
+        <p>Murmur is free and open source under the MIT licence. Made by <a href="https://shubhamsweb.netlify.app/">Shubham Agrawal</a>.</p>
         <a href={github}>Source code on GitHub</a>
       </div>
     </footer>
