@@ -4,7 +4,7 @@ import { Bird, Pill } from "./Bird";
 import { AgentMemoryScene, CleanupScene, DictateScene, MemoryScene, ReadScene, SearchScene, Shortcuts, TaskScene } from "./Scenes";
 import { Cut, Hi, Mark, Note } from "./Collage";
 import { downloadUrl, onWindows, releasesUrl, repo, useRelease, useWindowsRelease } from "./release";
-import { recentReleases } from "./releases";
+import { featured, useRecentReleases } from "./releases";
 import { useScrollMotion } from "./motion";
 import {
   chatApps, dictation, heroPhrases, jobs, leadThreads, learns, links, memoryExamples, memorySources, memorySteps, memoryTools, memoryTrust, models, modes, parity, questions,
@@ -269,6 +269,7 @@ export default function App() {
 
   const mac = <DownloadButton os="mac" href={downloadUrl} quiet={isWindows} />;
   const win = <DownloadButton os="windows" href={windows.url} quiet={!isWindows} />;
+  const recentReleases = useRecentReleases();
   const latest = recentReleases[0];
   const shownVersion = version && version !== "0.1.0" ? version : latest[0];
 
@@ -291,7 +292,7 @@ export default function App() {
           </div>
           <div className="hero-grid">
             <div className="hero-copy">
-              <a className="stamp" href="#memory">New in {latest[0]}: Murmur remembers</a>
+              <a className="stamp" href="#memory">New in {featured}: Murmur remembers</a>
               <h1>Hold a key and <Hi>say it.</Hi></h1>
               <p className="hero-lede">Murmur types what you say in any app, answers questions about your screen, finds your files and carries out whole jobs across your apps and the web. Now it remembers your work, too: who’s who, what you promised and what’s coming up, for Murmur and for your other AI tools. In English, Hinglish or 25 more languages. Free, and its models run on your own computer.</p>
               <div className="hero-actions">{isWindows ? <>{win}{mac}</> : <>{mac}{win}</>}</div>
@@ -359,7 +360,7 @@ export default function App() {
         </section>
 
         <section className="block" id="new" aria-labelledby="new-title">
-          <Head id="new-title" title={`New in Murmur ${latest[0]}`} lede={<>Released on {latest[1]}. Murmur updates itself, or <a href={`${releasesUrl}/tag/v${latest[0]}`}>read the full notes</a>.</>} />
+          <Head id="new-title" title={`New in Murmur ${featured}`} lede={<>The newest, Murmur {latest[0]}, came out on {latest[1]}. Murmur updates itself, or <a href={`${releasesUrl}/tag/v${latest[0]}`}>read the full notes</a>.</>} />
           <ul className="new-grid">
             {whatsNew.map(([title, text], i) => (
               <li key={title} className={`scrap${i === 0 ? " lead taped" : ""}`} data-reveal data-delay={i * 80}>

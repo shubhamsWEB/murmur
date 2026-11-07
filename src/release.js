@@ -39,12 +39,21 @@ export const windowsInstaller = "Murmur-Windows-Setup.exe";
 export const windowsDownloadUrl = import.meta.env.VITE_WINDOWS_DOWNLOAD_URL
   || `${releasesUrl}/download/windows-beta-1/${windowsInstaller}`;
 
+// The newest 30 releases from GitHub, asked for once however many parts of the page want them (GitHub allows a
+// visitor 60 questions an hour). Null when GitHub doesn't answer.
+let releases = null;
+export function releaseList() {
+  releases ??= fetch(`https://api.github.com/repos/${repo}/releases?per_page=30`, { headers: { Accept: "application/vnd.github+json" } })
+    .then((response) => (response.ok ? response.json() : null))
+    .catch(() => null);
+  return releases;
+}
+
 export function useWindowsRelease() {
   const [release, setRelease] = useState({ url: windowsDownloadUrl, page: `${releasesUrl}/tag/windows-beta-1`, sizeMB: null, beta: true });
   useEffect(() => {
     let cancelled = false;
-    fetch(`https://api.github.com/repos/${repo}/releases?per_page=30`, { headers: { Accept: "application/vnd.github+json" } })
-      .then((response) => (response.ok ? response.json() : null))
+    releaseList()
       .then((data) => {
         if (!Array.isArray(data) || cancelled) return;
         const carries = (r) => !r.draft && r.assets?.some((a) => a.name === windowsInstaller);
