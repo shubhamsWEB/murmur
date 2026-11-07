@@ -43,17 +43,6 @@ async function latestRelease() {
   }
 }
 
-// Link previews need an absolute address for the image. Set VITE_SITE_URL, or let Vercel / Netlify supply theirs.
-const siteUrl = (process.env.VITE_SITE_URL
-  || (process.env.VERCEL_PROJECT_PRODUCTION_URL && `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`)
-  || process.env.URL
-  || "").replace(/\/$/, "");
-
-const shareTags = {
-  name: "murmur-share-tags",
-  transformIndexHtml: (html) => html.replaceAll("%SITE_URL%", siteUrl),
-};
-
 export default defineConfig(async () => {
   // Newest release on GitHub first; otherwise, next to the app's source, its Info.plist and built DMG.
   const release = await latestRelease();
@@ -62,7 +51,7 @@ export default defineConfig(async () => {
   return {
     // GitHub Pages serves the site from /<repo>/ (here /murmur/); the Pages workflow sets BASE_PATH.
     base: process.env.BASE_PATH || "/",
-    plugins: [react(), shareTags],
+    plugins: [react()],
     define: {
       __MURMUR_VERSION__: JSON.stringify(version),
       __MURMUR_DMG_MB__: JSON.stringify(sizeMB),

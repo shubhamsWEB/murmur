@@ -141,6 +141,8 @@ export const steps = [
 ];
 
 export const questions = (macSize, windowsSize) => [
+  ["What is Murmur?", "Murmur is a free, open-source voice assistant for Mac and Windows. Hold a key and talk, and it types what you say in any app. It also answers questions about your screen, finds your files by what’s in them, carries out whole jobs across your apps and, on a Mac, remembers your work. Its speech models run on your own computer."],
+  ["Is Murmur a free alternative to Wispr Flow?", "Yes. Like Wispr Flow, you hold a key, talk, and it’s typed in any app. Murmur is free with no word limit, its source is open, and your speech is turned into text on your own computer rather than in the cloud. Murmur has no phone app."],
   ["Does Murmur listen all the time?", "No. Only while you hold the key, or after you double-tap it for hands-free, until you tap again. Esc cancels."],
   ["Does Murmur record my screen?", "No video, ever, and only if you turn on Remember what I work on. Then Murmur reads the text of the window you’re working in when it changes, and takes a small picture only when a window has little text. Pictures are deleted once they’re read. It never reads password managers, private windows or password fields, and you can add any app or site to Never read."],
   ["What does Murmur remember, and can I make it forget?", "People, organisations, projects, conversations and whose turn it is to reply, what’s coming up, and what you promised or are owed, each with where it came from. Things fade unless they come up again. Forget one line, a person, everything from your screen, or all of it, from the Memory page. Memory is on the Mac for now."],

@@ -1,34 +1,18 @@
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import Flock from "./Flock";
 import { Bird, Pill } from "./Bird";
+import { Check, DownloadButton, Head, SiteFooter, SiteHeader, github, useOnWindows } from "./Parts";
 import { AgentMemoryScene, CleanupScene, DictateScene, MemoryScene, ReadScene, SearchScene, Shortcuts, TaskScene } from "./Scenes";
 import { Cut, Hi, Mark, Note } from "./Collage";
-import { downloadUrl, onWindows, releasesUrl, repo, useRelease, useWindowsRelease } from "./release";
+import { downloadUrl, releasesUrl, repo, useRelease, useWindowsRelease } from "./release";
 import { featured, useRecentReleases } from "./releases";
 import { useScrollMotion } from "./motion";
 import {
-  chatApps, dictation, heroPhrases, jobs, leadThreads, learns, links, memoryExamples, memorySources, memorySteps, memoryTools, memoryTrust, models, modes, parity, questions,
+  chatApps, dictation, heroPhrases, jobs, leadThreads, learns, memoryExamples, memorySources, memorySteps, memoryTools, memoryTrust, models, modes, parity, questions,
   spoken, steps, whatsNew,
 } from "./content";
 
-const github = "https://github.com/shubhamsWEB/murmur-app";
 const media = `${import.meta.env.BASE_URL}media/`;
-
-function Apple() {
-  return <svg className="os" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.8-3.5.8-.7 0-1.9-.8-3-.8-1.6 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.2.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2-1.1 2.8-2.2.9-1.3 1.2-2.5 1.3-2.6-.1 0-2.5-1-2.5-3.6zM14.1 5.6c.6-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.1 1.8-1 2.9 1.1.1 2.1-.6 2.8-1.4z" /></svg>;
-}
-function WindowsLogo() {
-  return <svg className="os" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.3 10.4 4.3v7.1H3zm8.3-1.1L21 2.8v8.6h-9.7zM3 12.4h7.4v7.2L3 18.6zm8.3 0H21v8.7l-9.7-1.4z" /></svg>;
-}
-
-function DownloadButton({ os = "mac", href, quiet = false }) {
-  return (
-    <a className={`download${quiet ? " quiet" : ""}`} href={href} download>
-      {os === "mac" ? <Apple /> : <WindowsLogo />}
-      {os === "mac" ? "Download for Mac" : "Download for Windows"}
-    </a>
-  );
-}
 
 const ticker = ["Free", "Open source", "Remembers for you", "Runs on your computer", "English", "Hinglish", "25 European languages", "Mac", "Windows", "Your own models", "No account"];
 
@@ -177,33 +161,6 @@ function Story() {
   );
 }
 
-// Which section is on screen, so the bar can underline its link.
-function useActiveSection() {
-  const [active, setActive] = useState("");
-  useEffect(() => {
-    const ids = links.map(([href]) => href.slice(1));
-    const els = ids.map((id) => document.getElementById(id)).filter(Boolean);
-    const io = new IntersectionObserver((entries) => {
-      for (const e of entries) if (e.isIntersecting) setActive(e.target.id);
-    }, { rootMargin: "-40% 0px -55% 0px" });
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, []);
-  return active;
-}
-
-function MobileMenu() {
-  const menu = useRef(null);
-  return (
-    <details className="mobile-menu" ref={menu}>
-      <summary aria-label="Menu">Menu</summary>
-      <nav aria-label="Sections" className="scrap">
-        {links.map(([href, label]) => <a key={href} href={href} onClick={() => { menu.current.open = false; }}>{label}</a>)}
-      </nav>
-    </details>
-  );
-}
-
 // Memory, the 1.6 headline: one memory for the whole Mac. How it's made, what it answers, the AI tools that use it,
 // and why it's safe to have.
 function Memory() {
@@ -267,32 +224,13 @@ function Memory() {
   );
 }
 
-function Check({ value }) {
-  if (value === true) return <span className="yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13c3 2 4 4 5 6 3-7 7-11 11-14" /></svg><span className="sr-only">Yes</span></span>;
-  if (value === false) return <span className="no">Not yet</span>;
-  return <span className="partly">{value}</span>;
-}
-
-// A section heading. Only the few that carry the page's promise (`loud`: your memory, your privacy, the way you
-// talk) get the highlighter on their last words, so it still means something when it appears.
-function Head({ id, title, hi, lede, note, loud = false }) {
-  return (
-    <header className="head" data-reveal>
-      <h2 id={id}>{title}{hi && <> {loud ? <Hi>{hi}</Hi> : hi}</>}</h2>
-      {lede && <p className="lede">{lede}</p>}
-      {note && <Note className="head-note">{note}</Note>}
-    </header>
-  );
-}
-
 export default function App() {
   const { version, sizeText } = useRelease();
   const windows = useWindowsRelease();
-  const [isWindows] = useState(onWindows);
+  const isWindows = useOnWindows();
   const [hud, setHud] = useState({ phase: "listening", index: 0 });
   const listening = hud.phase !== "done";
   useScrollMotion();
-  const current = useActiveSection();
 
   const mac = <DownloadButton os="mac" href={downloadUrl} quiet={isWindows} />;
   const win = <DownloadButton os="windows" href={windows.url} quiet={!isWindows} />;
@@ -305,12 +243,7 @@ export default function App() {
       <a className="skip" href="#main">Skip to content</a>
       <div className="progress" aria-hidden="true" />
 
-      <header className="nav">
-        <a className="brand" href="#top" aria-label="Murmur, home"><Bird /><span>Murmur</span></a>
-        <nav aria-label="Primary">{links.map(([href, label]) => <a key={href} href={href} aria-current={current === href.slice(1) ? "true" : undefined}>{label}</a>)}</nav>
-        <MobileMenu />
-        <a className="nav-get" href="#install">Get Murmur</a>
-      </header>
+      <SiteHeader home />
 
       <main id="main">
         <section className="hero" id="top" data-scroll>
@@ -320,7 +253,7 @@ export default function App() {
           <div className="hero-grid">
             <div className="hero-copy">
               <a className="stamp" href="#memory">New in {featured}: Murmur remembers</a>
-              <h1>Hold a key and <Hi>say it.</Hi></h1>
+              <h1>Hold a key and <Hi>say it.</Hi><span className="h1-sub">Free voice typing and an AI assistant for Mac and Windows</span></h1>
               <p className="hero-lede">Murmur types what you say in any app, answers questions about your screen, finds your files and carries out whole jobs across your apps and the web. Now it remembers your work, too: who’s who, what you promised and what’s coming up, for Murmur and for your other AI tools. In English, Hinglish or 25 more languages. Free, and its models run on your own computer.</p>
               <div className="hero-actions">{isWindows ? <>{win}{mac}</> : <>{mac}{win}</>}</div>
               <p className="hero-meta">Free and open source. Mac with Apple silicon on macOS 14 or later, or Windows 10 and 11.</p>
@@ -546,20 +479,7 @@ export default function App() {
         </section>
       </main>
 
-      <footer className="footer">
-        <div className="mascot" aria-hidden="true">
-          <span className="mascot-say">Bye for now! Hold fn when you need me.</span>
-          <Cut name="mascot" className="mascot-bird" />
-        </div>
-        <div className="footer-say" data-reveal>
-          <p>Hold a key and <Hi>say it.</Hi></p>
-          <div className="footer-actions">{mac}{win}</div>
-        </div>
-        <div className="footer-meta">
-          <p>Murmur is free and open source under the MIT licence.</p>
-          <a href={github}>Source code on GitHub</a>
-        </div>
-      </footer>
+      <SiteFooter actions={<>{mac}{win}</>} current="/" />
     </>
   );
 }

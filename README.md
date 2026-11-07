@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-`npm run build` writes the production site to `dist/`.
+`npm run build` writes the production site to `dist/`, with every page already rendered (see below).
 
 ## Where downloads come from
 
@@ -37,6 +37,24 @@ the screen, and takes over on the click.
 For a new film, put its master MP4 through `scripts/film.sh` (it needs ffmpeg). Then write its chapters, and replace
 `murmur-launch.mp4` and `murmur-launch.jpg`.
 
+## Search engines and AI assistants
+
+Most crawlers, and almost every AI assistant's, read a page without running its JavaScript. So `npm run build` renders
+every page to finished HTML: it builds the site, builds `src/entry-server.jsx` for Node, and runs
+`scripts/prerender.mjs`, which writes each page's `index.html` with its own title, description, canonical address,
+link previews and structured data (schema.org JSON-LD, from `src/seo.js`). In the browser, React takes over the HTML
+that's there. `npm run dev` still renders in the browser, without any of that.
+
+- **Pages**: the home page, and the guides in `src/guides.js`, one page each for what people search for: a Wispr Flow
+  alternative, voice typing on Mac, on Windows, Hinglish voice typing, offline speech to text. Each is listed in the
+  sitemap and linked from every page's footer. To add one, add it to `guides`; it gets its address, head and sitemap
+  entry from there. The comparison's prices are dated (`comparedOn`): check them again before changing them.
+- **Also written**: `sitemap.xml`, `robots.txt` (every crawler welcome, AI assistants' included), `llms.txt` (a plain
+  summary for AI assistants and coding agents) and `404.html` (not indexed).
+- **IndexNow**: after each deploy, `scripts/indexnow.mjs` asks Bing and the other IndexNow engines to crawl the
+  pages again. The key is the file `public/<key>.txt`; it's public by design.
+- The site's address comes from `VITE_SITE_URL` (the Pages workflow sets it), otherwise https://usemurmur.live.
+
 ## Deploying
 
 **GitHub Pages** (live at https://usemurmur.live): every push to `main` builds and publishes
@@ -45,14 +63,15 @@ Source: GitHub Actions**. The workflow sets the base path and the full address f
 works if you add a custom domain.
 
 Any other static host works too (Vercel, Netlify): build command `npm run build`, output directory `dist`.
-Elsewhere, set `VITE_SITE_URL` to the site's address so link previews show their image.
+Elsewhere, set `VITE_SITE_URL` to the site's address.
 
 ## How it's put together
 
 One theme, an explainer collage: newsprint paper, halftone cut-outs, torn scraps with tape, a yellow highlighter and
 pen marks that draw themselves in as you scroll.
 
-- `src/App.jsx` lays out the sections; `src/content.js` holds their words.
+- `src/App.jsx` lays out the home page's sections; `src/content.js` holds their words. `src/Site.jsx` picks the page
+  for an address; `src/Parts.jsx` holds what every page shares (the bar, the footer, the download buttons, headings).
 - `src/Collage.jsx` holds the collage pieces: `Cut` (a cut-out from `public/collage`), `Mark` (a pen mark), `Note`
   (handwriting in the margin) and `Hi` (the highlighter).
 - `public/collage/*.webp` are halftone cut-outs made from photos with `scripts/halftone.py`
