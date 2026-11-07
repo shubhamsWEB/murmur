@@ -1,6 +1,7 @@
 // The latest releases, newest first, for the "Recent releases" list. Add a line when you publish one; the full notes
 // live on GitHub (scripts/release-notes/<version>.md in the app repo).
 export const recentReleases = [
+  ["1.7.0", "7 Nov 2026", "Memory keeps the details: who you wrote to, whose turn it is to reply, and when to follow up. It reads as you work, and can use Claude or OpenAI if you choose. On Windows, the dictation key works from the start."],
   ["1.6.0", "6 Nov 2026", "Memory: Murmur remembers who’s who, what’s coming up and what you promised, from your apps and what you work on. Morning brief and evening wrap-up, and Linear, Notion and Jira by voice."],
   ["1.5.1", "4 Nov 2026", "On Windows: Murmur Cleanup, stopping a command with Esc, and answering Murmur’s questions mid-task."],
   ["1.5.0", "2 Nov 2026", "Murmur’s own models for commands and cleanup. Stop a command with Esc, answer its questions mid-task, message anyone in your chats by name, and quicker screen vision."],
