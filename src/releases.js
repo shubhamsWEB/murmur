@@ -10,6 +10,7 @@ export const featured = "1.7";
 // up from its notes); a line here only words it better. The full notes live on GitHub
 // (scripts/release-notes/<version>.md in the app repo).
 export const recentReleases = [
+  ["1.7.3", "11 Nov 2026", "Your day: clicking the morning brief or evening wrap-up opens everything behind it, from what needs you to what you worked on, session by session."],
   ["1.7.2", "10 Nov 2026", "Commands finish the job on screen instead of stopping halfway, and type where pasting doesn’t. Dictation catches your first word, changes your voice less, and spells names right."],
   ["1.7.1", "7 Nov 2026", "Questions about your own work are answered from memory, not the web: what you released, posted and sent, and to whom. One memory, searched as one, and names heard the way you say them."],
   ["1.7.0", "7 Nov 2026", "Memory keeps the details: who you wrote to, whose turn it is to reply, and when to follow up. It reads as you work, and can use Claude or OpenAI if you choose. On Windows, the dictation key works from the start."],
