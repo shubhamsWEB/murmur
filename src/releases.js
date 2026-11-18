@@ -3,13 +3,16 @@ import { releaseList } from "./release";
 
 // The release the "New in" cards describe: its line ("1.7"), so a patch (1.7.1) doesn't make them say something
 // else. Change it with the cards.
-export const featured = "1.7";
+export const featured = "1.8";
 
 // The latest releases, newest first, for the "Recent releases" list: one line each, written for the site. A release
 // published since then shows up on its own (useRecentReleases reads GitHub when the page opens, and sums a missing one
 // up from its notes); a line here only words it better. The full notes live on GitHub
 // (scripts/release-notes/<version>.md in the app repo).
 export const recentReleases = [
+  ["1.8.0", "19 Nov 2026", "Meeting notes: Murmur listens to your call, keeps notes and drafts answers you can read out, hidden from screen sharing. Sarvam for Indian languages, and commands that learn from their mistakes. On Mac and Windows."],
+  ["1.7.5", "13 Nov 2026", "The microphone starts after you switch, from EarPods to AirPods or back, without quitting Murmur."],
+  ["1.7.4", "12 Nov 2026", "Murmur sets your microphone level, so a microphone turned down too far no longer makes dictation mishear you."],
   ["1.7.3", "11 Nov 2026", "Your day: clicking the morning brief or evening wrap-up opens everything behind it, from what needs you to what you worked on, session by session."],
   ["1.7.2", "10 Nov 2026", "Commands finish the job on screen instead of stopping halfway, and type where pasting doesn’t. Dictation catches your first word, changes your voice less, and spells names right."],
   ["1.7.1", "7 Nov 2026", "Questions about your own work are answered from memory, not the web: what you released, posted and sent, and to whom. One memory, searched as one, and names heard the way you say them."],

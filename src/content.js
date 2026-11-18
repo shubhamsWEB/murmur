@@ -17,19 +17,20 @@ export const modes = [
 ];
 
 export const whatsNew = [
-  ["Memory that keeps the details", "Murmur follows your conversations as threads: who you wrote to, what about, and whose turn it is. An email you send is remembered with who it went to and what you said."],
-  ["Who’s waiting on you", "The morning brief lists the replies you owe, the people to follow up with, and where you left off. A thread with no answer after four days becomes a follow-up."],
-  ["Reads as you work", "Murmur groups what it sees into pieces of work (a project, a release, a booking) and reads each one while you carry on, a little at a time when the Mac is plugged in and quiet."],
-  ["Answers straight away", "“Has Arjun replied?”, “When’s my flight?” and “What’s on my plate today?” are answered from memory at once, without waiting for a model."],
-  ["Claude or OpenAI, if you choose", "Turn on Read with Claude or OpenAI for sharper memories, with your own key. Banking, health, ID and password pages are always read on your Mac, and addresses and numbers are taken out first."],
-  ["On Windows: the key from the start", "The dictation key now works the moment Murmur opens, with no restart, and with keys sent by remote desktops and virtual machines."],
+  ["Meeting notes", "Murmur sits in on your Zoom, Teams or Meet call. It writes down what’s said and keeps notes as it goes: what was decided, who does what, and the details. When someone asks you something, an answer you can read out appears beside the call while it’s being written."],
+  ["Hidden from screen sharing", "The meeting panel never shows in a shared screen or a recording, and nor do Murmur’s other windows unless you choose otherwise."],
+  ["Answers you can say", "The main point first, then the details, an example, and working code when code was asked for. Ask for a recap, follow-up questions or what to say next, or about what’s on the shared screen."],
+  ["Notes that are kept", "When the call ends, the notes and the transcript are saved to Documents, ready to search under Meetings, with a follow-up email drafted if you want one."],
+  ["Sarvam for Indian languages", "Add a Sarvam key to dictate in Hindi, English and 20 more Indian languages, mixed as you speak. Use Sarvam for commands and meetings too."],
+  ["Commands that learn", "When a command goes wrong, or you correct it, Murmur works out why and writes a rule for next time. It keeps the rules that help and turns off the ones that don’t."],
 ];
 
-// The lead card's picture of 1.7: threads as the morning brief lists them. Made-up people.
+// The lead card's picture of 1.8: a question from the call and the answer Murmur drafts, as the panel shows them.
+// Made-up people.
 export const leadThreads = [
-  ["Priya Shah", "The Q3 deck", "Your turn"],
-  ["Arjun Mehta", "Launch date", "Follow up today"],
-  ["Neha, accountant", "GST filing", "Waiting on her"],
+  ["Priya", "How would you rate-limit our public API?", "Asked"],
+  ["Murmur", "A token bucket per API key, kept in Redis.", "Your answer"],
+  ["Notes", "Decision: limits per plan, launch Friday", "Saved"],
 ];
 
 // The memory section: one memory for the whole Mac, how it's made, what it answers, and the AI tools that use it.
@@ -127,6 +128,8 @@ export const parity = [
   ["Terminal commands", true, "PowerShell"],
   ["Read the screen, click and scroll for you", true, false],
   ["Memory: people, promises, plans", true, false],
+  ["Meeting notes and live answers", true, true],
+  ["Hidden from screen sharing", true, true],
   ["Send messages and files in your chats", true, false],
   ["Murmur’s own models", true, "Murmur Cleanup"],
   ["Updates itself", true, true],
@@ -143,7 +146,10 @@ export const steps = [
 export const questions = (macSize, windowsSize) => [
   ["What is Murmur?", "Murmur is a free, open-source voice assistant for Mac and Windows. Hold a key and talk, and it types what you say in any app. It also answers questions about your screen, finds your files by what’s in them, carries out whole jobs across your apps and, on a Mac, remembers your work. Its speech models run on your own computer."],
   ["Is Murmur a free alternative to Wispr Flow?", "Yes. Like Wispr Flow, you hold a key, talk, and it’s typed in any app. Murmur is free with no word limit, its source is open, and your speech is turned into text on your own computer rather than in the cloud. Murmur has no phone app."],
-  ["Does Murmur listen all the time?", "No. Only while you hold the key, or after you double-tap it for hands-free, until you tap again. Esc cancels."],
+  ["Does Murmur take meeting notes?", "Yes, on Mac and Windows. Murmur listens to your Zoom, Teams or Meet call and your microphone, writes down what’s said, and keeps notes: decisions, who does what, and the details. No bot joins the call. The notes and transcript are saved to your Documents folder when the call ends."],
+  ["Can other people see Murmur when I share my screen?", "No. Murmur’s meeting panel is left out of shared screens and recordings, and its other windows are too unless you turn that off. Tell the people you meet that you’re taking notes; in many places the law asks you to."],
+  ["Is Murmur a free alternative to Cluely?", "Yes. Like Cluely, Murmur drafts answers during a call and takes the notes, in a panel that’s hidden from screen sharing. Murmur is free, open source, and works on Windows as well as the Mac. You choose the AI: your own Claude, OpenAI or Sarvam key, or a model on your computer."],
+  ["Does Murmur listen all the time?", "No. Only while you hold the key, or after you double-tap it for hands-free, until you tap again. Esc cancels. Meeting notes listen from when you start them until the call ends."],
   ["Does Murmur record my screen?", "No video, ever, and only if you turn on Remember what I work on. Then Murmur reads the text of the window you’re working in when it changes, and takes a small picture only when a window has little text. Pictures are deleted once they’re read. It never reads password managers, private windows or password fields, and you can add any app or site to Never read."],
   ["What does Murmur remember, and can I make it forget?", "People, organisations, projects, conversations and whose turn it is to reply, what’s coming up, and what you promised or are owed, each with where it came from. Things fade unless they come up again. Forget one line, a person, everything from your screen, or all of it, from the Memory page. Memory is on the Mac for now."],
   ["Does memory send anything to the cloud?", "Not unless you turn on Read with Claude or OpenAI on the Memory page, with your own key. Then what Murmur saw while you worked goes to that provider to be read, after email addresses, phone and account numbers and booking references are taken out. Banking, payments, investing, tax, ID, health, insurance and password pages are never sent, and are read on your Mac instead."],
@@ -158,4 +164,135 @@ export const questions = (macSize, windowsSize) => [
   ["Why does Windows warn about the installer?", "The Windows installer isn’t code-signed yet. If Chrome blocks the download, choose Keep in its downloads. If SmartScreen says it protected your PC, click More info, then Run anyway. The Mac app is signed by Apple and opens without a warning."],
 ];
 
-export const links = [["#how", "How it works"], ["#memory", "Memory"], ["#features", "Features"], ["#languages", "Languages"], ["#models", "Models"], ["#privacy", "Privacy"], ["#windows", "Windows"], ["#install", "Install"]];
+export const links = [["#write", "Write"], ["#ask", "Ask and do"], ["#meetings", "Meetings"], ["#memory", "Memory"], ["#free", "Free"], ["#privacy", "Privacy"], ["#questions", "Questions"]];
+
+// The top of the page: one sentence, said five ways. Each is a tab on the demo beside the headline, and the
+// headline's last word. Made-up people.
+export const heroModes = [
+  { id: "type", tab: "Write", word: "typed.", label: "You say", said: "Running ten minutes late, start without me.", pill: "Typed into Slack" },
+  { id: "ask", tab: "Ask", word: "answered.", label: "You say", said: "What does this email want from me, and by when?", pill: "Read from your screen" },
+  { id: "do", tab: "Do", word: "done.", label: "You say", said: "Send my resume to Arjun on WhatsApp.", pill: "Sent to Arjun on WhatsApp", hold: 6400 },
+  { id: "meet", tab: "Meet", word: "noted.", label: "On your call, Priya asks", said: "How would you rate-limit the public API?", pill: "Only you can see this" },
+  { id: "recall", tab: "Remember", word: "remembered.", label: "You say", said: "When’s my flight?", pill: "From your booking email" },
+];
+
+// Under the headline: the four things to know before anything else.
+export const proof = [
+  ["Free, for good", "No subscription, no account and no word limit. The code is open under the MIT licence."],
+  ["Private by default", "Your speech becomes text on your own computer. Nothing is uploaded unless you choose a cloud model."],
+  ["Wherever you type", "Mail, Slack, Docs, your code editor, any browser. On a Mac and on Windows."],
+  ["In your language", "English, Hinglish and 25 European languages. Hindi and 20 more Indian languages with Sarvam."],
+];
+
+// Write: what makes dictation good, beside the scene.
+export const writePoints = [
+  ["The ums go, your corrections stick", "Turn on AI cleanup and “let’s meet at 5, no, 6” is typed as “Let’s meet at 6”. It’s off until you want it."],
+  ["It fits the sentence", "Dictate into the middle of a line and the space, the capital and the full stop come out right. Your words never change."],
+  ["Hands-free when you need it", "Double-tap the key and talk for as long as you like. Tap again to finish."],
+];
+
+// Ask and do: three things the same key does, each with its scene.
+export const ways = [
+  { id: "read", title: "Ask about what’s in front of you", said: "Summarise pages one to twenty-two.",
+    text: "Murmur reads the page, the email or the PDF on your screen, all the way to the end, and answers beside your work. Select some text and say “make this shorter” to rewrite it in place." },
+  { id: "task", title: "Hand it a whole job", said: "Send my resume to Arjun on WhatsApp.",
+    text: "It writes itself a task list and works through it in your apps and your own browser. When it needs you, it asks, and you answer out loud. Esc stops it at any step." },
+  { id: "find", title: "Find a file by describing it", said: "My cat on the blue sofa.",
+    text: "It searches inside your PDFs, documents, audio and video, and what your photos show, in the folders you choose. It reads the words in images too: receipts, screenshots, signs." },
+];
+
+// What the same things cost elsewhere, each from its own site (guides.js has the full comparisons, dated).
+export const receipt = [
+  ["Voice typing", "Wispr Flow Pro", 15, "/wispr-flow-alternative/"],
+  ["Meeting notes", "Otter Pro", 16.99, "/otter-alternative/"],
+  ["Answers on a call", "Cluely Pro", 19.99, "/cluely-alternative/"],
+];
+
+export const freeReasons = [
+  ["Free means free", "No trial that runs out, no tiers, no word limit and no account to make. Murmur is open source under the MIT licence."],
+  ["Your AI, or none", "Murmur’s own models run on your computer and cost nothing. Add your own Claude, OpenAI or Sarvam key when you want a bigger one, and pay only that provider."],
+  ["Nothing to take on trust", "Every line is on GitHub. The Mac app is signed and notarized by Apple, and each release lists the SHA-256 of its download."],
+];
+
+// Privacy, as a ledger: what stays, and what leaves only when you say so.
+export const privacyLedger = [
+  ["Stays on your computer", [
+    "Your voice, and the text it becomes",
+    "Your files, and the index of what’s in them",
+    "Everything Murmur remembers",
+    "What it reads from your screen, and every command and cleanup, unless you choose a cloud AI",
+  ]],
+  ["Leaves only if you choose", [
+    "With your own Claude, OpenAI or Sarvam key: the command and what Murmur reads to carry it out, the dictation it tidies, or what was said in a meeting",
+    "Your audio, only if you pick Sarvam’s or OpenAI’s speech model",
+    "What Murmur saw while you worked, only if you turn on reading with Claude or OpenAI",
+    "Never banking, health, ID or password pages",
+  ]],
+];
+
+// How it works, in the order it happens.
+export const flow = [
+  ["You hold the key and talk", "fn on a Mac, Ctrl and the Windows key on a PC. The capsule at the bottom of the screen shows it’s listening."],
+  ["Your speech becomes text, on your computer", "Parakeet for English and Europe’s languages, Oriserve’s Apex for Hinglish. The audio is held in memory only while it’s transcribed."],
+  ["Murmur decides what you meant", "Writing is typed straight away. Clear commands like “open Slack” or “volume 30” run at once, with no model at all."],
+  ["Anything bigger is planned", "Murmur Agent, or your own Claude or OpenAI key, works out the steps and does them. It asks before it sends, deletes or runs anything."],
+];
+
+// Meetings, the 1.8 headline: a call played beat by beat on the laptop (Meetings.jsx). Made-up people. Each beat:
+// who's speaking and their caption, and what Murmur's panel shows then.
+export const meetingBeats = [
+  { label: "It listens", clock: "12:04", speaker: "Arjun", tab: "live",
+    caption: "So the release moves to Friday. QA found two blockers in checkout.",
+    noted: "Noted: release moves to Friday",
+    summary: "Both sides of the call are written down as they’re said, and what matters goes into the notes." },
+  { label: "A question for you", clock: "12:31", speaker: "Priya", tab: "live", drafting: true,
+    question: "How would you rate-limit the public API?",
+    caption: "Before we go on: how would you rate-limit the public API?",
+    summary: "Murmur hears that Priya asked you something, waits until she’s finished asking, and starts on an answer." },
+  { label: "The answer, as it’s written", clock: "12:34", speaker: "You", tab: "live",
+    question: "How would you rate-limit the public API?",
+    answer: {
+      headline: "I’d use a token bucket per API key, kept in Redis.",
+      points: [
+        "Each key gets a bucket that refills at a fixed rate, say 100 requests a minute.",
+        "With no tokens left we return 429 with a Retry-After header.",
+        "Redis keeps the counts shared across servers, updated in one atomic step.",
+      ],
+      also: "Ask what their peak traffic looks like.",
+    },
+    caption: "I’d use a token bucket per API key, kept in Redis. Each key gets a bucket…",
+    summary: "The main point first, in a sentence you can say, then the details in the order you’d say them. You read it in your own voice." },
+  { label: "About the shared screen", clock: "19:47", speaker: "Neha", tab: "live", screen: true,
+    question: "What happened in week four on this chart?",
+    answer: {
+      headline: "Checkout conversion fell to 2.1% in week four, from about 3.4%.",
+      points: [
+        "It’s the only week under 3%, and it lines up with the payment-page release.",
+        "Weeks five and six recover, so it looks like a bug that was fixed, not a trend.",
+      ],
+    },
+    caption: "Can someone tell me what happened in week four on this chart?",
+    summary: "Murmur looks at the meeting’s window, the slide or chart being shared, and answers from what’s on it." },
+  { label: "Notes, kept", clock: "31:10", speaker: "Arjun", tab: "notes",
+    caption: "Great, thanks everyone. Talk Friday.",
+    notes: { title: "Weekly product sync", sections: [
+      ["Decisions", ["Release moves to Friday (two QA blockers)", "Rate limits: token bucket per API key"]],
+      ["Action items", ["You: share the rate-limit design by Monday", "Neha: retest checkout on Thursday"]],
+    ] },
+    summary: "When the call ends, the notes and the full transcript are saved, with a follow-up email drafted if you want one." },
+];
+
+export const meetingHidden = [
+  ["On your own screen", "Visible", "—"],
+  ["A screen you share in Zoom, Teams or Meet", "Visible", "Hidden"],
+  ["A recording of the call", "Visible", "Hidden"],
+  ["The list of people in the call", "No bot joins", "No bot joins"],
+];
+
+export const meetingApps = ["Zoom", "Microsoft Teams", "Google Meet", "Slack huddles", "Webex", "Discord", "WhatsApp calls"];
+
+// The other meeting assistants, each with its guide (guides.js has the comparisons, dated).
+export const meetingCompared = [
+  ["Cluely", "/cluely-alternative/"], ["Granola", "/granola-alternative/"], ["Otter", "/otter-alternative/"],
+  ["Fireflies", "/fireflies-alternative/"], ["Fathom", "/fathom-alternative/"], ["Final Round AI", "/final-round-ai-alternative/"],
+];

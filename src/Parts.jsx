@@ -97,9 +97,10 @@ export function SiteHeader({ home = false }) {
 }
 
 // The footer: the sign-off, the download buttons, and links to the guides, so every page reaches every other.
-export function SiteFooter({ actions, current }) {
+export function SiteFooter({ actions, current, sky = null }) {
   return (
-    <footer className="footer">
+    <footer className={`footer${sky ? " has-sky" : ""}`}>
+      {sky && <div className="footer-sky">{sky}</div>}
       <div className="mascot" aria-hidden="true">
         <span className="mascot-say">Bye for now! Hold fn when you need me.</span>
         <Cut name="mascot" className="mascot-bird" />
