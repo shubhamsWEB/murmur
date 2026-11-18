@@ -17,19 +17,20 @@ export const modes = [
 ];
 
 export const whatsNew = [
-  ["Memory that keeps the details", "Murmur follows your conversations as threads: who you wrote to, what about, and whose turn it is. An email you send is remembered with who it went to and what you said."],
-  ["Who’s waiting on you", "The morning brief lists the replies you owe, the people to follow up with, and where you left off. A thread with no answer after four days becomes a follow-up."],
-  ["Reads as you work", "Murmur groups what it sees into pieces of work (a project, a release, a booking) and reads each one while you carry on, a little at a time when the Mac is plugged in and quiet."],
-  ["Answers straight away", "“Has Arjun replied?”, “When’s my flight?” and “What’s on my plate today?” are answered from memory at once, without waiting for a model."],
-  ["Claude or OpenAI, if you choose", "Turn on Read with Claude or OpenAI for sharper memories, with your own key. Banking, health, ID and password pages are always read on your Mac, and addresses and numbers are taken out first."],
-  ["On Windows: the key from the start", "The dictation key now works the moment Murmur opens, with no restart, and with keys sent by remote desktops and virtual machines."],
+  ["Meeting notes", "Murmur sits in on your Zoom, Teams or Meet call. It writes down what’s said and keeps notes as it goes: what was decided, who does what, and the details. When someone asks you something, an answer you can read out appears beside the call while it’s being written."],
+  ["Hidden from screen sharing", "The meeting panel never shows in a shared screen or a recording, and nor do Murmur’s other windows unless you choose otherwise."],
+  ["Answers you can say", "The main point first, then the details, an example, and working code when code was asked for. Ask for a recap, follow-up questions or what to say next, or about what’s on the shared screen."],
+  ["Notes that are kept", "When the call ends, the notes and the transcript are saved to Documents, ready to search under Meetings, with a follow-up email drafted if you want one."],
+  ["Sarvam for Indian languages", "Add a Sarvam key to dictate in Hindi, English and 20 more Indian languages, mixed as you speak. Use Sarvam for commands and meetings too."],
+  ["Commands that learn", "When a command goes wrong, or you correct it, Murmur works out why and writes a rule for next time. It keeps the rules that help and turns off the ones that don’t."],
 ];
 
-// The lead card's picture of 1.7: threads as the morning brief lists them. Made-up people.
+// The lead card's picture of 1.8: a question from the call and the answer Murmur drafts, as the panel shows them.
+// Made-up people.
 export const leadThreads = [
-  ["Priya Shah", "The Q3 deck", "Your turn"],
-  ["Arjun Mehta", "Launch date", "Follow up today"],
-  ["Neha, accountant", "GST filing", "Waiting on her"],
+  ["Priya", "How would you rate-limit our public API?", "Asked"],
+  ["Murmur", "A token bucket per API key, kept in Redis.", "Your answer"],
+  ["Notes", "Decision: limits per plan, launch Friday", "Saved"],
 ];
 
 // The memory section: one memory for the whole Mac, how it's made, what it answers, and the AI tools that use it.
@@ -127,6 +128,8 @@ export const parity = [
   ["Terminal commands", true, "PowerShell"],
   ["Read the screen, click and scroll for you", true, false],
   ["Memory: people, promises, plans", true, false],
+  ["Meeting notes and live answers", true, true],
+  ["Hidden from screen sharing", true, true],
   ["Send messages and files in your chats", true, false],
   ["Murmur’s own models", true, "Murmur Cleanup"],
   ["Updates itself", true, true],

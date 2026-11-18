@@ -203,7 +203,7 @@ export default function App() {
           </div>
           <div className="hero-grid">
             <div className="hero-copy">
-              <a className="stamp" href="#memory">New in {featured}: Murmur remembers</a>
+              <a className="stamp" href="#new">New in {featured}: meeting notes</a>
               <h1>Hold a key and <Hi>say it.</Hi><span className="h1-sub">Free voice typing and an AI assistant for Mac and Windows</span></h1>
               <p className="hero-lede">Murmur types what you say in any app, answers questions about your screen, finds your files and carries out whole jobs across your apps and the web. Now it remembers your work, too: who’s who, what you promised and what’s coming up, for Murmur and for your other AI tools. In English, Hinglish or 25 more languages. Free, and its models run on your own computer.</p>
               <div className="hero-actions">{isWindows ? <>{win}{mac}</> : <>{mac}{win}</>}</div>
@@ -280,10 +280,10 @@ export default function App() {
               <li key={title} className={`scrap${i === 0 ? " lead taped" : ""}`} data-reveal data-delay={i * 80}>
                 {i === 0 && <>
                   <span className="seal" aria-hidden="true">new</span>
-                  <dl className="lead-facts"><div><dt>Follow-up after</dt><dd>4 days</dd></div><div><dt>Sent anywhere by default</dt><dd>Nothing</dd></div></dl>
-                  <ul className="lead-threads" aria-label="Threads in the morning brief">
+                  <dl className="lead-facts"><div><dt>Answer now</dt><dd>One key</dd></div><div><dt>Seen in screen shares</dt><dd>Never</dd></div></dl>
+                  <ul className="lead-threads" aria-label="A question on a call, and the answer Murmur drafts">
                     {leadThreads.map(([who, what, whose]) => (
-                      <li key={who}><b>{who}</b><span>{what}</span><em className={whose === "Your turn" ? "yours" : ""}>{whose}</em></li>
+                      <li key={who}><b>{who}</b><span>{what}</span><em className={whose === "Your answer" ? "yours" : ""}>{whose}</em></li>
                     ))}
                   </ul>
                 </>}
