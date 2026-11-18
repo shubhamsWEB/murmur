@@ -165,6 +165,267 @@ export const guides = [
     ],
   },
   {
+    path: "/granola-alternative/",
+    nav: "A free Granola alternative",
+    title: "Murmur: a free, open-source Granola alternative",
+    description: "Murmur is a free, open-source Granola alternative for Mac and Windows: meeting notes without a bot, kept as files on your computer, plus live answers.",
+    kicker: "Free and open source, for Mac and Windows",
+    h1: "A free, open-source alternative to",
+    hi: "Granola",
+    lede: "Like Granola, Murmur takes meeting notes from your own computer, with no bot in the call. Murmur is free with no limit on history, keeps your notes as plain files on your computer rather than in a cloud, and can also draft answers while the meeting is still going.",
+    sections: [
+      {
+        h2: "What you get, free",
+        points: [
+          ["Notes from your own computer", "Murmur listens to the call’s sound and your microphone. Nothing joins the call, and nothing is installed in Zoom, Teams or Meet."],
+          ["Decisions and action items", "What was decided, who does what and by when, the numbers and names, shaped to the kind of meeting it is. A full transcript is saved under the notes."],
+          ["Live answers, too", "When someone asks you something, an answer you can read out appears beside the call while it’s being written. Ask for a recap or follow-up questions at any point."],
+          ["Hidden from screen sharing", "Murmur’s panel is left out of shared screens and recordings, so sharing your screen never shows your notes."],
+        ],
+      },
+      {
+        h2: "Murmur and Granola, side by side",
+        table: {
+          head: ["", "Price", "How it hears the call", "Where notes are kept", "Source code"],
+          rows: [
+            ["Murmur", "Free, no limits", "From your computer; nothing joins", "A file on your computer", "Open source (MIT)"],
+            ["Granola", "Free with 30 days of history, Business $14 a user a month", "From your computer; nothing joins", "Granola’s cloud", "Closed"],
+          ],
+          note: `Their prices and plans as listed on their own sites in ${comparedOn}. Check theirs for the latest. With Murmur, a cloud AI is paid for with your own key; a model on your computer costs nothing.`,
+        },
+      },
+      {
+        h2: "Where Murmur is different",
+        paragraphs: [
+          "Your notes are yours as files. Each meeting is a Markdown file in your Documents folder, with the full transcript, readable in any editor and by any tool, for as long as you keep it. There’s no 30-day window and no account.",
+          "It helps during the meeting, not only after. When someone asks you something, Murmur drafts an answer beside the call, and it can answer about the slide or chart being shared.",
+          "And you choose the AI, including one that runs on your own computer, so a meeting can stay on your machine from the first word to the last note.",
+        ],
+      },
+      {
+        h2: "Where Granola may suit you better",
+        paragraphs: [
+          "Granola lets you type your own notes during the meeting and builds on them, shares notes with a team, links to your calendar, and has phone apps. Murmur writes the notes for you and keeps them on one computer. If you want a shared team notebook, or notes on your phone, Granola may suit you better.",
+        ],
+      },
+    ],
+    faq: [
+      ["Is Murmur really free?", "Yes. Murmur is free and open source, with no limit on meetings or minutes. If notes and answers are written by Claude, OpenAI or Sarvam, you pay that provider with your own key; a model on your own computer costs nothing."],
+      ["Does a bot join my meeting?", "No. Murmur listens from your own computer, so nothing is added to the call and nothing shows in the list of people."],
+      ["Where are my notes kept?", "In Documents › Murmur Meetings on your own computer, one Markdown file per meeting with the notes and the transcript. Murmur has no servers."],
+      ["Should I tell people I’m taking notes?", "Yes. Tell the people in the meeting; in many places the law asks you to before anything is recorded or transcribed."],
+    ],
+  },
+  {
+    path: "/otter-alternative/",
+    nav: "A free Otter alternative",
+    title: "Murmur: a free Otter alternative, with no meeting bot",
+    description: "Murmur is a free, open-source Otter alternative for Mac and Windows: AI meeting notes with no bot in the call, kept on your computer, plus live answers.",
+    kicker: "Free and open source, for Mac and Windows",
+    h1: "A free, open-source alternative to",
+    hi: "Otter",
+    lede: "Murmur takes meeting notes the way Otter does, but from your own computer: no notetaker joins the call, nothing is uploaded to a notes service, and there’s no monthly cap. It’s free and open source, and it can also draft answers while the meeting is still going.",
+    sections: [
+      {
+        h2: "What you get, free",
+        points: [
+          ["Notes from your own computer", "Murmur listens to the call’s sound and your microphone. Nothing joins the call, and nothing is installed in Zoom, Teams or Meet."],
+          ["Decisions and action items", "What was decided, who does what and by when, the numbers and names, shaped to the kind of meeting it is. A full transcript is saved under the notes."],
+          ["Live answers, too", "When someone asks you something, an answer you can read out appears beside the call while it’s being written. Ask for a recap or follow-up questions at any point."],
+          ["Hidden from screen sharing", "Murmur’s panel is left out of shared screens and recordings, so sharing your screen never shows your notes."],
+        ],
+      },
+      {
+        h2: "Murmur and Otter, side by side",
+        table: {
+          head: ["", "Price", "How it hears the call", "Where notes are kept", "Source code"],
+          rows: [
+            ["Murmur", "Free, no limits", "From your computer; nothing joins", "A file on your computer", "Open source (MIT)"],
+            ["Otter", "Free for 300 minutes a month, Pro $16.99 a month", "Usually a notetaker that joins the call", "Otter’s cloud", "Closed"],
+          ],
+          note: `Their prices and plans as listed on their own sites in ${comparedOn}. Check theirs for the latest. With Murmur, a cloud AI is paid for with your own key; a model on your computer costs nothing.`,
+        },
+      },
+      {
+        h2: "Where Murmur is different",
+        paragraphs: [
+          "Nobody sees a notetaker arrive. Murmur hears the call from your own computer, so there’s no extra participant, and nothing for the host to admit. You should still tell people you’re taking notes.",
+          "Your notes stay with you. Each meeting is a Markdown file in your Documents folder with the full transcript. Speech can be turned into text on your own computer, and the notes can be written by a model on your computer too.",
+          "It helps during the meeting, not only after. When someone asks you something, Murmur drafts an answer beside the call, hidden from screen sharing.",
+        ],
+      },
+      {
+        h2: "Where Otter may suit you better",
+        paragraphs: [
+          "Otter keeps a searchable team workspace in the cloud, can join and take notes for meetings you don’t attend, and has phone apps. Murmur is for one person on one computer, and it only takes notes when you’re in the meeting. If your team needs a shared, searchable record of every call, Otter may suit you better.",
+        ],
+      },
+    ],
+    faq: [
+      ["Is Murmur really free?", "Yes. Murmur is free and open source, with no limit on meetings or minutes. If notes and answers are written by Claude, OpenAI or Sarvam, you pay that provider with your own key; a model on your own computer costs nothing."],
+      ["Does a bot join my meeting?", "No. Murmur listens from your own computer, so nothing is added to the call and nothing shows in the list of people."],
+      ["Where are my notes kept?", "In Documents › Murmur Meetings on your own computer, one Markdown file per meeting with the notes and the transcript. Murmur has no servers."],
+      ["Should I tell people I’m taking notes?", "Yes. Tell the people in the meeting; in many places the law asks you to before anything is recorded or transcribed."],
+    ],
+  },
+  {
+    path: "/fireflies-alternative/",
+    nav: "A free Fireflies alternative",
+    title: "Murmur: a free Fireflies alternative, with no meeting bot",
+    description: "Murmur is a free, open-source Fireflies alternative for Mac and Windows: AI meeting notes with no bot in the call, kept on your computer, plus live answers.",
+    kicker: "Free and open source, for Mac and Windows",
+    h1: "A free, open-source alternative to",
+    hi: "Fireflies",
+    lede: "Murmur takes meeting notes the way Fireflies does, but from your own computer: no notetaker joins the call, nothing is uploaded to a notes service, and there’s no monthly cap. It’s free and open source, and it can also draft answers while the meeting is still going.",
+    sections: [
+      {
+        h2: "What you get, free",
+        points: [
+          ["Notes from your own computer", "Murmur listens to the call’s sound and your microphone. Nothing joins the call, and nothing is installed in Zoom, Teams or Meet."],
+          ["Decisions and action items", "What was decided, who does what and by when, the numbers and names, shaped to the kind of meeting it is. A full transcript is saved under the notes."],
+          ["Live answers, too", "When someone asks you something, an answer you can read out appears beside the call while it’s being written. Ask for a recap or follow-up questions at any point."],
+          ["Hidden from screen sharing", "Murmur’s panel is left out of shared screens and recordings, so sharing your screen never shows your notes."],
+        ],
+      },
+      {
+        h2: "Murmur and Fireflies, side by side",
+        table: {
+          head: ["", "Price", "How it hears the call", "Where notes are kept", "Source code"],
+          rows: [
+            ["Murmur", "Free, no limits", "From your computer; nothing joins", "A file on your computer", "Open source (MIT)"],
+            ["Fireflies", "Free with limits, Pro $10 a seat a month billed yearly", "Usually a notetaker that joins the call", "Fireflies’s cloud", "Closed"],
+          ],
+          note: `Their prices and plans as listed on their own sites in ${comparedOn}. Check theirs for the latest. With Murmur, a cloud AI is paid for with your own key; a model on your computer costs nothing.`,
+        },
+      },
+      {
+        h2: "Where Murmur is different",
+        paragraphs: [
+          "Nobody sees a notetaker arrive. Murmur hears the call from your own computer, so there’s no extra participant, and nothing for the host to admit. You should still tell people you’re taking notes.",
+          "Your notes stay with you. Each meeting is a Markdown file in your Documents folder with the full transcript. Speech can be turned into text on your own computer, and the notes can be written by a model on your computer too.",
+          "It helps during the meeting, not only after. When someone asks you something, Murmur drafts an answer beside the call, hidden from screen sharing.",
+        ],
+      },
+      {
+        h2: "Where Fireflies may suit you better",
+        paragraphs: [
+          "Fireflies keeps a searchable team library in the cloud, connects to CRMs and other tools, and can join meetings from your calendar by itself. Murmur is for one person on one computer, and it only takes notes when you’re in the meeting. If your team needs a shared, searchable record of every call, Fireflies may suit you better.",
+        ],
+      },
+    ],
+    faq: [
+      ["Is Murmur really free?", "Yes. Murmur is free and open source, with no limit on meetings or minutes. If notes and answers are written by Claude, OpenAI or Sarvam, you pay that provider with your own key; a model on your own computer costs nothing."],
+      ["Does a bot join my meeting?", "No. Murmur listens from your own computer, so nothing is added to the call and nothing shows in the list of people."],
+      ["Where are my notes kept?", "In Documents › Murmur Meetings on your own computer, one Markdown file per meeting with the notes and the transcript. Murmur has no servers."],
+      ["Should I tell people I’m taking notes?", "Yes. Tell the people in the meeting; in many places the law asks you to before anything is recorded or transcribed."],
+    ],
+  },
+  {
+    path: "/fathom-alternative/",
+    nav: "A free Fathom alternative",
+    title: "Murmur: a free Fathom alternative, with no meeting bot",
+    description: "Murmur is a free, open-source Fathom alternative for Mac and Windows: AI meeting notes with no bot in the call, kept on your computer, plus live answers.",
+    kicker: "Free and open source, for Mac and Windows",
+    h1: "A free, open-source alternative to",
+    hi: "Fathom",
+    lede: "Murmur takes meeting notes the way Fathom does, but from your own computer: no notetaker joins the call, nothing is uploaded to a notes service, and there’s no monthly cap. It’s free and open source, and it can also draft answers while the meeting is still going.",
+    sections: [
+      {
+        h2: "What you get, free",
+        points: [
+          ["Notes from your own computer", "Murmur listens to the call’s sound and your microphone. Nothing joins the call, and nothing is installed in Zoom, Teams or Meet."],
+          ["Decisions and action items", "What was decided, who does what and by when, the numbers and names, shaped to the kind of meeting it is. A full transcript is saved under the notes."],
+          ["Live answers, too", "When someone asks you something, an answer you can read out appears beside the call while it’s being written. Ask for a recap or follow-up questions at any point."],
+          ["Hidden from screen sharing", "Murmur’s panel is left out of shared screens and recordings, so sharing your screen never shows your notes."],
+        ],
+      },
+      {
+        h2: "Murmur and Fathom, side by side",
+        table: {
+          head: ["", "Price", "How it hears the call", "Where notes are kept", "Source code"],
+          rows: [
+            ["Murmur", "Free, no limits", "From your computer; nothing joins", "A file on your computer", "Open source (MIT)"],
+            ["Fathom", "Free with limits, Premium $20 a month", "A notetaker that joins the call (bot-free capture in beta on Mac)", "Fathom’s cloud", "Closed"],
+          ],
+          note: `Their prices and plans as listed on their own sites in ${comparedOn}. Check theirs for the latest. With Murmur, a cloud AI is paid for with your own key; a model on your computer costs nothing.`,
+        },
+      },
+      {
+        h2: "Where Murmur is different",
+        paragraphs: [
+          "Nobody sees a notetaker arrive. Murmur hears the call from your own computer, so there’s no extra participant, and nothing for the host to admit. You should still tell people you’re taking notes.",
+          "Your notes stay with you. Each meeting is a Markdown file in your Documents folder with the full transcript. Speech can be turned into text on your own computer, and the notes can be written by a model on your computer too.",
+          "It helps during the meeting, not only after. When someone asks you something, Murmur drafts an answer beside the call, hidden from screen sharing.",
+        ],
+      },
+      {
+        h2: "Where Fathom may suit you better",
+        paragraphs: [
+          "Fathom records video of the call, shares clips and summaries with a team, and connects to CRMs. Murmur is for one person on one computer, and it only takes notes when you’re in the meeting. If your team needs a shared, searchable record of every call, Fathom may suit you better.",
+        ],
+      },
+    ],
+    faq: [
+      ["Is Murmur really free?", "Yes. Murmur is free and open source, with no limit on meetings or minutes. If notes and answers are written by Claude, OpenAI or Sarvam, you pay that provider with your own key; a model on your own computer costs nothing."],
+      ["Does a bot join my meeting?", "No. Murmur listens from your own computer, so nothing is added to the call and nothing shows in the list of people."],
+      ["Where are my notes kept?", "In Documents › Murmur Meetings on your own computer, one Markdown file per meeting with the notes and the transcript. Murmur has no servers."],
+      ["Should I tell people I’m taking notes?", "Yes. Tell the people in the meeting; in many places the law asks you to before anything is recorded or transcribed."],
+    ],
+  },
+  {
+    path: "/final-round-ai-alternative/",
+    nav: "A free Final Round AI alternative",
+    title: "Murmur: a free, open-source Final Round AI alternative",
+    description: "Murmur is a free, open-source alternative to Final Round AI for Mac and Windows: live answers and notes beside any call, hidden from screen sharing.",
+    kicker: "Free and open source, for Mac and Windows",
+    h1: "A free, open-source alternative to",
+    hi: "Final Round AI",
+    lede: "Murmur gives you what Final Round AI’s copilot does, an answer beside the call while the question is still in the air, for any meeting and not only interviews. It’s free and open source, hidden from screen sharing, and you choose the AI that answers.",
+    sections: [
+      {
+        h2: "What you get, free",
+        points: [
+          ["Notes from your own computer", "Murmur listens to the call’s sound and your microphone. Nothing joins the call, and nothing is installed in Zoom, Teams or Meet."],
+          ["Decisions and action items", "What was decided, who does what and by when, the numbers and names, shaped to the kind of meeting it is. A full transcript is saved under the notes."],
+          ["Live answers, too", "When someone asks you something, an answer you can read out appears beside the call while it’s being written. Ask for a recap or follow-up questions at any point."],
+          ["Hidden from screen sharing", "Murmur’s panel is left out of shared screens and recordings, so sharing your screen never shows your notes."],
+        ],
+      },
+      {
+        h2: "Murmur and Final Round AI, side by side",
+        table: {
+          head: ["", "Price", "Hidden from screen sharing", "Works on", "Source code"],
+          rows: [
+            ["Murmur", "Free, no limits", "Included", "Mac and Windows", "Open source (MIT)"],
+            ["Final Round AI", "Preparation free; live copilot from $25 a month", "Stealth Mode on Pro", "Mac and Windows", "Closed"],
+          ],
+          note: `Their prices and plans as listed on their own sites in ${comparedOn}. Check theirs for the latest. With Murmur, a cloud AI is paid for with your own key; a model on your computer costs nothing.`,
+        },
+      },
+      {
+        h2: "Where Murmur is different",
+        paragraphs: [
+          "It isn’t built around interviews. The same panel helps in a customer call, a design review or a stand-up: answers when you’re asked something, a recap when you lose the thread, and notes at the end.",
+          "It knows your material. Tell it what the meeting is about and add your resume, the job description or a spec, and answers draw on them. For a coding question it writes working code first, then how to talk it through.",
+          "You choose the AI, including a model on your own computer, and nothing is held back for a paid plan.",
+        ],
+      },
+      {
+        h2: "Where Final Round AI may suit you better",
+        paragraphs: [
+          "Final Round AI has mock interviews, practice with feedback and a preparation checklist built around a job search. Murmur has none of those; it helps in the live call and keeps the notes.",
+          "A word on interviews: many employers don’t allow AI help in them, and some ask you to confirm you aren’t using any. Use Murmur where it’s allowed, such as practice, open-book interviews, or your own notes afterwards, and be honest about it when asked.",
+        ],
+      },
+    ],
+    faq: [
+      ["Is Murmur really free?", "Yes. Murmur is free and open source, with no limit on meetings or minutes. If notes and answers are written by Claude, OpenAI or Sarvam, you pay that provider with your own key; a model on your own computer costs nothing."],
+      ["Is Murmur hidden from screen sharing?", "Yes. Its meeting panel is left out of shared screens and recordings on Mac and Windows, and no bot joins your call."],
+      ["Where are my notes kept?", "In Documents › Murmur Meetings on your own computer, one Markdown file per meeting with the notes and the transcript. Murmur has no servers."],
+      ["Should I tell people I’m taking notes?", "Yes. Tell the people in the meeting; in many places the law asks you to before anything is recorded or transcribed."],
+    ],
+  },
+  {
     path: "/voice-typing-mac/",
     nav: "Voice typing on Mac",
     title: "Voice typing on Mac: free dictation in any app | Murmur",
