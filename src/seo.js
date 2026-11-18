@@ -20,8 +20,8 @@ const windowsDownloadUrl = `${releasesUrl}/latest/download/${windowsInstaller}`;
 
 export const home = {
   path: "/",
-  title: "Murmur: free voice typing and AI assistant for Mac & Windows",
-  description: "Free, open-source voice typing for Mac and Windows. Hold a key and talk: Murmur types in any app, in English, Hinglish or 25 more languages, on your computer.",
+  title: "Murmur: free voice typing & AI meeting notes, Mac & Windows",
+  description: "Free, open-source voice assistant for Mac and Windows: Murmur types what you say in any app, takes meeting notes with live answers, hidden from screen sharing.",
   shareTitle: "Murmur: hold a key and say it",
   shareDescription: "A free voice assistant that types for you, reads for you and does whole jobs across your apps and the web. New in 1.8: meeting notes that write down your call and draft answers you can read out, hidden from screen sharing.",
   shareImageAlt: "“Murmur now remembers.” beside three index cards: Priya Shah, your manager on Slack; asked of you, send Priya the Q3 deck by Friday; coming up, a flight on Sunday at 10:15.",
@@ -36,8 +36,8 @@ function app(site) {
     "@type": "SoftwareApplication",
     "@id": `${site}/#app`,
     name: "Murmur",
-    alternateName: ["Murmur voice assistant", "Murmur dictation"],
-    description: "A free, open-source voice assistant for Mac and Windows. Hold a key and talk: it types in any app, cleans up what you said, answers questions about your screen, finds your files, carries out whole jobs across your apps and remembers your work. Its speech models run on your own computer.",
+    alternateName: ["Murmur voice assistant", "Murmur dictation", "Murmur meeting notes"],
+    description: "A free, open-source voice assistant for Mac and Windows. Hold a key and talk: it types in any app, cleans up what you said, answers questions about your screen, finds your files, carries out whole jobs across your apps and remembers your work. In meetings it takes notes and drafts live answers beside the call, hidden from screen sharing. Its speech models run on your own computer.",
     url: `${site}/`,
     applicationCategory: "UtilitiesApplication",
     applicationSubCategory: "Voice typing and dictation",
@@ -56,6 +56,9 @@ function app(site) {
     sameAs: [repoUrl],
     featureList: [
       "Voice typing (dictation) in any app",
+      "AI meeting notes for Zoom, Microsoft Teams and Google Meet, with no bot joining the call",
+      "Live answers to questions during meetings",
+      "Meeting panel hidden from screen sharing and recordings",
       "On-device speech recognition with NVIDIA Parakeet",
       "Hinglish voice typing, in English letters",
       "English and 25 European languages",

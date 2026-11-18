@@ -7,6 +7,7 @@ import { AgentMemoryScene, CleanupScene, DictateScene, MemoryScene, ReadScene, S
 import { Cut, Hi, Mark, Note } from "./Collage";
 import { downloadUrl, releasesUrl, repo, useRelease, useWindowsRelease } from "./release";
 import { featured, useRecentReleases } from "./releases";
+import Meetings from "./Meetings";
 import { useScrollMotion } from "./motion";
 import {
   chatApps, dictation, heroPhrases, jobs, leadThreads, learns, memoryExamples, memorySources, memorySteps, memoryTools, memoryTrust, models, modes, parity, questions,
@@ -203,7 +204,7 @@ export default function App() {
           </div>
           <div className="hero-grid">
             <div className="hero-copy">
-              <a className="stamp" href="#new">New in {featured}: meeting notes</a>
+              <a className="stamp" href="#meetings">New in {featured}: meeting notes</a>
               <h1>Hold a key and <Hi>say it.</Hi><span className="h1-sub">Free voice typing and an AI assistant for Mac and Windows</span></h1>
               <p className="hero-lede">Murmur types what you say in any app, answers questions about your screen, finds your files and carries out whole jobs across your apps and the web. Now it remembers your work, too: who’s who, what you promised and what’s coming up, for Murmur and for your other AI tools. In English, Hinglish or 25 more languages. Free, and its models run on your own computer.</p>
               <div className="hero-actions">{isWindows ? <>{win}{mac}</> : <>{mac}{win}</>}</div>
@@ -235,6 +236,8 @@ export default function App() {
           <Film />
           <p className="film-more"><a className="text-link" href={sitePath("/film/")}>Watch it on its own page, with chapters</a></p>
         </section>
+
+        <Meetings />
 
         <Memory />
 
