@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { Head, sitePath } from "./Parts";
-import { Note } from "./Collage";
-import { meetingApps, meetingBeats, meetingCompared, meetingHidden } from "./content";
+import { sitePath } from "./Parts";
+import { Hi, Note } from "./Collage";
+import { meetingApps, meetingBeats, meetingCompared } from "./content";
 
 // Meeting notes, the 1.8 headline: a laptop on a call, playing a meeting beat by beat. Murmur's panel floats over
 // the call and changes with what's said: it listens, catches a question, writes the answer out, reads the shared
@@ -40,14 +40,14 @@ function useTyped(text, key, still) {
 }
 
 // The people on the call, as paper cut-outs. Made up.
-const people = [
+export const people = [
   { name: "Priya", tile: "#e9b9a3", skin: "#c98e6b", hair: "#2a2622", top: "#d9473a", long: true },
   { name: "Arjun", tile: "#b7c8a0", skin: "#b9805c", hair: "#1d1a17", top: "#2b55c7" },
   { name: "Neha", tile: "#a8bbd6", skin: "#d6a37f", hair: "#4a3326", top: "#ffe14d", long: true },
   { name: "You", tile: "#ead691", skin: "#c48d68", hair: "#2a2622", top: "#fbf8f0" },
 ];
 
-function Face({ person }) {
+export function Face({ person }) {
   return (
     <svg viewBox="0 0 80 60" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
       <rect width="80" height="60" fill={person.tile} />
@@ -171,10 +171,13 @@ export default function Meetings() {
   const running = playing && seen && !still && !dragging;
 
   return (
-    <section className="block meetings" id="meetings" aria-labelledby="meetings-title">
-      <Head id="meetings-title" loud title="In your meeting, and" hi="never in the screen share"
-        lede="Murmur sits in on your Zoom, Teams or Meet call. It writes down what’s said, keeps notes worth keeping, and when someone asks you something, drafts an answer you can read out, right beside the call. Nobody else sees it: not in a shared screen, not in a recording, and no bot joins the call."
-        note="new in 1.8, Mac and Windows" />
+    <section className="block chapter meetings" id="meetings" aria-labelledby="meetings-title">
+      <header className="opening wide" data-reveal>
+        <p className="tag">Meet</p>
+        <h2 id="meetings-title">In your meeting, and <Hi>never in the screen share</Hi></h2>
+        <div className="lede"><p>Murmur sits in on your Zoom, Teams or Meet call. It writes down what’s said, keeps the notes worth keeping, and when someone asks you something, drafts an answer you can read out, right beside the call. Nobody else sees it: not in a shared screen, not in a recording, and no bot joins the call.</p></div>
+        <Note className="opening-note">Mac and Windows</Note>
+      </header>
 
       <div className="meet-stage" ref={stage}>
         <div className="meet-top">
@@ -224,7 +227,6 @@ export default function Meetings() {
               </div>
             </div>
             <div className="laptop-base" aria-hidden="true"><span /></div>
-            <Note className="meet-note">{theirs ? "what Priya sees: no Murmur" : "only you see this"}</Note>
           </div>
         </div>
 
@@ -289,20 +291,10 @@ export default function Meetings() {
         </li>
       </ul>
 
-      <div className="meet-hidden">
-        <div className="meet-hidden-copy" data-reveal>
-          <h3 className="memory-sub">Hidden, and how</h3>
-          <p>Murmur asks the system to leave its windows out of anything that captures the screen. It’s the same setting banking and password apps use, so it works in every meeting app without a plug-in.</p>
-          <p className="note">It’s your meeting and your notes, but the people in it should know. Tell them you’re taking notes; in many places the law asks you to.</p>
-        </div>
-        <table className="meet-table" data-reveal data-delay="100">
-          <thead><tr><th scope="col">Where</th><th scope="col">You</th><th scope="col">Everyone else</th></tr></thead>
-          <tbody>
-            {meetingHidden.map(([where, you, them]) => (
-              <tr key={where}><th scope="row">{where}</th><td>{you}</td><td className="meet-not">{them}</td></tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="meet-how" data-reveal>
+        <h3 className="sub">Hidden, and how</h3>
+        <p>Murmur asks the system to leave its windows out of anything that captures the screen: a shared screen in Zoom, Teams or Meet, or a recording of the call. It’s the same setting banking and password apps use, so it works in every meeting app without a plug-in.</p>
+        <p className="note">It’s your meeting and your notes, but the people in it should know. Tell them you’re taking notes; in many places the law asks you to.</p>
       </div>
 
       <p className="meet-apps" data-reveal><b>Works with the call you’re already on</b>{meetingApps.map((app) => <span key={app}>{app}</span>)}</p>

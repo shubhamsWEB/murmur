@@ -22,9 +22,9 @@ export const home = {
   path: "/",
   title: "Murmur: free voice typing & AI meeting notes, Mac & Windows",
   description: "Free, open-source voice assistant for Mac and Windows: Murmur types what you say in any app, takes meeting notes with live answers, hidden from screen sharing.",
-  shareTitle: "Murmur: hold a key and say it",
+  shareTitle: "Murmur: say it, and it’s done. Free voice typing and meeting notes",
   shareDescription: "A free voice assistant that types for you, reads for you and does whole jobs across your apps and the web. New in 1.8: meeting notes that write down your call and draft answers you can read out, hidden from screen sharing.",
-  shareImageAlt: "“Murmur now remembers.” beside three index cards: Priya Shah, your manager on Slack; asked of you, send Priya the Q3 deck by Friday; coming up, a flight on Sunday at 10:15.",
+  shareImageAlt: "“Say it, and it’s done.” beside Murmur at work: you say “Send my resume to Arjun on WhatsApp”, and a task list is ticked off, ending in “Sent to Arjun on WhatsApp”.",
 };
 
 const escape = (text) => String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -239,7 +239,7 @@ export function llmsText(site) {
   const lines = [
     "# Murmur",
     "",
-    "> Murmur (usemurmur.live) is a free, open-source voice assistant for Mac and Windows. Hold a key and talk: it types what you say in any app, and it can clean up dictation, answer questions about your screen, find files by what's in them, carry out multi-step jobs across apps and the web, and on a Mac keep a private memory of your work. Its speech models run on your own computer.",
+    "> Murmur (usemurmur.live) is a free, open-source voice assistant for Mac and Windows. Hold a key and talk: it types what you say in any app (voice typing, dictation), cleans up dictation, answers questions about your screen, finds files by what's in them and carries out multi-step jobs across apps and the web. It takes AI meeting notes on Zoom, Teams and Meet calls with live answers you can read out, in a panel that is hidden from screen sharing, with no bot joining the call. On a Mac it keeps a private memory of your work. Its speech models run on your own computer.",
     "",
     "Not to be confused with other apps called Murmur: this one is by Shubham Agrawal (https://shubhamsweb.netlify.app/), source at https://github.com/shubhamsWEB/murmur-app.",
     "",
@@ -249,11 +249,14 @@ export function llmsText(site) {
     "- Platforms: macOS 14 or later on Apple silicon (M1 or later); 64-bit Windows 10 and 11.",
     `- Latest version: ${version}. The Mac app is signed and notarized by Apple and updates itself; the Windows installer isn't code-signed yet.`,
     "- Shortcut: hold fn on a Mac (or Right Option / Right Command), or Ctrl + Windows key on a PC, and talk. Double-tap for hands-free.",
-    "- Languages: English, Hinglish (Hindi and English mixed, typed in English letters) and 25 European languages.",
-    "- Privacy: speech is transcribed on the device; audio is held in memory only while it's transcribed. Works offline once models are downloaded. Cloud models (Claude or OpenAI) are used only with the user's own key, if they choose.",
+    "- Languages: English, Hinglish (Hindi and English mixed, typed in English letters) and 25 European languages on the device. Hindi and 20 more Indian languages with the user's own Sarvam key.",
+    "- Meeting notes (Mac and Windows, since 1.8): listens to the call and the microphone on Zoom, Microsoft Teams, Google Meet, Slack huddles, Webex, Discord and WhatsApp calls; writes a transcript and notes (decisions, action items, details); drafts an answer when someone asks the user a question, or on a key (Control-Option-Return on a Mac, Ctrl+Alt+Enter on Windows); can answer about what's on the shared screen; saves notes and transcript to Documents > Murmur Meetings. No bot joins the call.",
+    "- Hidden from screen sharing: the meeting panel is left out of shared screens and recordings, and Murmur's other windows are too unless the user turns that off. People in a meeting should be told that notes are being taken.",
+    "- Privacy: by default speech is transcribed on the device; audio is held in memory only while it's transcribed. Works offline once models are downloaded. Cloud models (Claude, OpenAI or Sarvam) are used only with the user's own key, if they choose; audio is sent only if they pick Sarvam's or OpenAI's speech model.",
     `- Models: ${models.map(([job, name]) => `${name} for ${job.toLowerCase()}`).join("; ")}.`,
-    "- Windows has dictation, AI cleanup, voice commands and file search; reading the screen, sending messages and memory are Mac-only for now.",
+    "- Windows has dictation, AI cleanup, voice commands, file search, meeting notes and hiding from screen sharing; reading the screen, sending messages and memory are Mac-only for now.",
     "- Compared with Wispr Flow (free up to 2,000 words a week, Pro $15 a month, cloud transcription, closed source, as listed in November 2026): Murmur is free with no limit, on-device and open source, but has no phone app.",
+    "- Compared with meeting assistants, prices as listed on their own sites in November 2026: Cluely (Pro $19.99 a month; Mac and iPhone), Otter (Pro $16.99 a month; a notetaker usually joins the call), Granola (Business $14 a user a month), Fireflies (Pro $10 a seat a month billed yearly), Fathom (Premium $20 a month) and Final Round AI (live copilot from $25 a month). Murmur is free and open source, runs on Mac and Windows, joins no call as a bot, and keeps notes as files on the user's computer. With Murmur a cloud AI is paid for with the user's own key; a model on the computer costs nothing.",
     "",
     "## Pages",
     "",

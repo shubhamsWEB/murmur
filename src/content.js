@@ -164,7 +164,79 @@ export const questions = (macSize, windowsSize) => [
   ["Why does Windows warn about the installer?", "The Windows installer isn’t code-signed yet. If Chrome blocks the download, choose Keep in its downloads. If SmartScreen says it protected your PC, click More info, then Run anyway. The Mac app is signed by Apple and opens without a warning."],
 ];
 
-export const links = [["#how", "How it works"], ["#meetings", "Meetings"], ["#memory", "Memory"], ["#features", "Features"], ["#languages", "Languages"], ["#models", "Models"], ["#privacy", "Privacy"], ["#windows", "Windows"], ["#install", "Install"]];
+export const links = [["#write", "Write"], ["#ask", "Ask and do"], ["#meetings", "Meetings"], ["#memory", "Memory"], ["#free", "Free"], ["#privacy", "Privacy"], ["#questions", "Questions"]];
+
+// The top of the page: one sentence, said five ways. Each is a tab on the demo beside the headline, and the
+// headline's last word. Made-up people.
+export const heroModes = [
+  { id: "type", tab: "Write", word: "typed.", label: "You say", said: "Running ten minutes late, start without me.", pill: "Typed into Slack" },
+  { id: "ask", tab: "Ask", word: "answered.", label: "You say", said: "What does this email want from me, and by when?", pill: "Read from your screen" },
+  { id: "do", tab: "Do", word: "done.", label: "You say", said: "Send my resume to Arjun on WhatsApp.", pill: "Sent to Arjun on WhatsApp", hold: 6400 },
+  { id: "meet", tab: "Meet", word: "noted.", label: "On your call, Priya asks", said: "How would you rate-limit the public API?", pill: "Only you can see this" },
+  { id: "recall", tab: "Remember", word: "remembered.", label: "You say", said: "When’s my flight?", pill: "From your booking email" },
+];
+
+// Under the headline: the four things to know before anything else.
+export const proof = [
+  ["Free, for good", "No subscription, no account and no word limit. The code is open under the MIT licence."],
+  ["Private by default", "Your speech becomes text on your own computer. Nothing is uploaded unless you choose a cloud model."],
+  ["Wherever you type", "Mail, Slack, Docs, your code editor, any browser. On a Mac and on Windows."],
+  ["In your language", "English, Hinglish and 25 European languages. Hindi and 20 more Indian languages with Sarvam."],
+];
+
+// Write: what makes dictation good, beside the scene.
+export const writePoints = [
+  ["The ums go, your corrections stick", "Turn on AI cleanup and “let’s meet at 5, no, 6” is typed as “Let’s meet at 6”. It’s off until you want it."],
+  ["It fits the sentence", "Dictate into the middle of a line and the space, the capital and the full stop come out right. Your words never change."],
+  ["Hands-free when you need it", "Double-tap the key and talk for as long as you like. Tap again to finish."],
+];
+
+// Ask and do: three things the same key does, each with its scene.
+export const ways = [
+  { id: "read", title: "Ask about what’s in front of you", said: "Summarise pages one to twenty-two.",
+    text: "Murmur reads the page, the email or the PDF on your screen, all the way to the end, and answers beside your work. Select some text and say “make this shorter” to rewrite it in place." },
+  { id: "task", title: "Hand it a whole job", said: "Send my resume to Arjun on WhatsApp.",
+    text: "It writes itself a task list and works through it in your apps and your own browser. When it needs you, it asks, and you answer out loud. Esc stops it at any step." },
+  { id: "find", title: "Find a file by describing it", said: "My cat on the blue sofa.",
+    text: "It searches inside your PDFs, documents, audio and video, and what your photos show, in the folders you choose. It reads the words in images too: receipts, screenshots, signs." },
+];
+
+// What the same things cost elsewhere, each from its own site (guides.js has the full comparisons, dated).
+export const receipt = [
+  ["Voice typing", "Wispr Flow Pro", 15, "/wispr-flow-alternative/"],
+  ["Meeting notes", "Otter Pro", 16.99, "/otter-alternative/"],
+  ["Answers on a call", "Cluely Pro", 19.99, "/cluely-alternative/"],
+];
+
+export const freeReasons = [
+  ["Free means free", "No trial that runs out, no tiers, no word limit and no account to make. Murmur is open source under the MIT licence."],
+  ["Your AI, or none", "Murmur’s own models run on your computer and cost nothing. Add your own Claude, OpenAI or Sarvam key when you want a bigger one, and pay only that provider."],
+  ["Nothing to take on trust", "Every line is on GitHub. The Mac app is signed and notarized by Apple, and each release lists the SHA-256 of its download."],
+];
+
+// Privacy, as a ledger: what stays, and what leaves only when you say so.
+export const privacyLedger = [
+  ["Stays on your computer", [
+    "Your voice, and the text it becomes",
+    "Your files, and the index of what’s in them",
+    "Everything Murmur remembers",
+    "What it reads from your screen, and every command and cleanup, unless you choose a cloud AI",
+  ]],
+  ["Leaves only if you choose", [
+    "With your own Claude, OpenAI or Sarvam key: the command and what Murmur reads to carry it out, the dictation it tidies, or what was said in a meeting",
+    "Your audio, only if you pick Sarvam’s or OpenAI’s speech model",
+    "What Murmur saw while you worked, only if you turn on reading with Claude or OpenAI",
+    "Never banking, health, ID or password pages",
+  ]],
+];
+
+// How it works, in the order it happens.
+export const flow = [
+  ["You hold the key and talk", "fn on a Mac, Ctrl and the Windows key on a PC. The capsule at the bottom of the screen shows it’s listening."],
+  ["Your speech becomes text, on your computer", "Parakeet for English and Europe’s languages, Oriserve’s Apex for Hinglish. The audio is held in memory only while it’s transcribed."],
+  ["Murmur decides what you meant", "Writing is typed straight away. Clear commands like “open Slack” or “volume 30” run at once, with no model at all."],
+  ["Anything bigger is planned", "Murmur Agent, or your own Claude or OpenAI key, works out the steps and does them. It asks before it sends, deletes or runs anything."],
+];
 
 // Meetings, the 1.8 headline: a call played beat by beat on the laptop (Meetings.jsx). Made-up people. Each beat:
 // who's speaking and their caption, and what Murmur's panel shows then.
