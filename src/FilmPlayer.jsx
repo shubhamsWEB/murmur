@@ -11,8 +11,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const media = new URL(`${import.meta.env.BASE_URL}media/`, typeof window === "undefined" ? "http://localhost/" : window.location.href).href;
 const film = {
   stream: `${media}film/master.m3u8`,
-  file: `${media}murmur-launch.mp4`,
-  poster: `${media}murmur-launch.jpg`,
+  file: `${media}murmur-film.mp4`,
+  poster: `${media}murmur-film.jpg`,
   chapters: `${media}film/chapters.vtt`,
   storyboard: `${media}film/storyboard.vtt`,
 };
@@ -74,7 +74,7 @@ export default function FilmPlayer({ label, onReady }) {
     fallback: <a href={film.file}>Download the film (MP4)</a>,
   };
   return (
-    <VideoPlayer poster={film.poster} title="Murmur, the launch film">
+    <VideoPlayer poster={film.poster} title="A day with Murmur">
       <VideoSkin className="film-player">
         {stream ? (
           <HlsVideo key="stream" ref={media} src={film.stream} {...common}><Tracks /></HlsVideo>

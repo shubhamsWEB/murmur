@@ -4,7 +4,7 @@ import { Hi } from "./Collage";
 import { DownloadButton, Head, SiteFooter, SiteHeader, sitePath, useOnWindows } from "./Parts";
 import { downloadUrl, useWindowsRelease } from "./release";
 import { useScrollMotion } from "./motion";
-import { chapters, clock, film } from "./launch";
+import { chapters, clock, film, length } from "./launch";
 import { guides } from "./guides";
 
 // The launch film's own page: the film first, as the page's main content, so search engines index it as a video,
@@ -18,7 +18,7 @@ export default function FilmPage() {
   // ?t=13 in the address (a search result's chapter link) starts the film there when it's played.
   useEffect(() => {
     const t = Number(new URLSearchParams(window.location.search).get("t"));
-    if (t > 0 && t < 88) setStartAt(t);
+    if (t > 0 && t < film.duration) setStartAt(t);
   }, []);
   const mac = <DownloadButton os="mac" href={downloadUrl} quiet={isWindows} />;
   const win = <DownloadButton os="windows" href={windows.url} quiet={!isWindows} />;
@@ -33,22 +33,22 @@ export default function FilmPage() {
       <main id="main" className="guide film-page">
         <section className="guide-hero" aria-labelledby="film-title">
           <nav className="crumbs" aria-label="Breadcrumb">
-            <ol><li><a href={base}>Murmur</a></li><li><span aria-current="page">The launch film</span></li></ol>
+            <ol><li><a href={base}>Murmur</a></li><li><span aria-current="page">The film</span></li></ol>
           </nav>
-          <h1 id="film-title">Murmur at work, in <Hi>a minute and a half</Hi></h1>
+          <h1 id="film-title">A day with Murmur, in <Hi>{film.duration} seconds</Hi></h1>
         </section>
 
-        <section className="film-wrap film-solo" aria-label="The film, 1 minute 28 seconds">
+        <section className="film-wrap film-solo" aria-label={`The film, ${length.spoken}`}>
           <Film asVideo startAt={startAt} request={request} />
-          <p className="film-more"><a className="text-link" href={film.youtube}>Watch it on YouTube</a></p>
+          {film.youtube && <p className="film-more"><a className="text-link" href={film.youtube}>Watch it on YouTube</a></p>}
         </section>
 
         <section className="guide-hero film-about">
-          <p className="hero-lede">Murmur is a free, open-source voice assistant for Mac and Windows. In this film you hold a key and talk: it types in any app, tidies what you said, reads a long document for you, opens apps, works through a whole job, finds a file you describe and remembers your work. Your voice never leaves your computer.</p>
+          <p className="hero-lede">Murmur is a free, open-source voice assistant for Mac and Windows. The film follows one working day. Hold a key and talk: it types in any app, tidies what you said, reads a long report for you, works through a whole job, takes notes in your meetings without showing in the screen share, and remembers your day. It’s free, and your voice stays on your computer.</p>
         </section>
 
         <section className="block guide-section" aria-labelledby="chapters-title">
-          <Head id="chapters-title" title="What’s in it" lede="Thirteen chapters. Pick one to start the film there." />
+          <Head id="chapters-title" title="What’s in it" lede={`${length.chapters[0].toUpperCase()}${length.chapters.slice(1)} chapters. Pick one to start the film there.`} />
           <ol className="chapters">
             {chapters.map(([start, , title, what]) => (
               <li key={start} data-reveal>

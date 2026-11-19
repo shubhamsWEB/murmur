@@ -3,7 +3,7 @@ import { guides } from "./guides";
 import { models, questions } from "./content";
 import { downloadUrl, releasesUrl, windowsInstaller } from "./release";
 import { recentReleases } from "./releases";
-import { chapters, film } from "./launch";
+import { chapters, film, length } from "./launch";
 
 // What search engines and AI assistants read about each page: its title and description, the address it should be
 // known by, link previews, and structured data (schema.org JSON-LD) saying what Murmur is. Used only at build time,
@@ -50,7 +50,7 @@ function app(site) {
     isAccessibleForFree: true,
     license: "https://opensource.org/licenses/MIT",
     image: `${site}/og.png`,
-    screenshot: `${site}/media/murmur-launch.jpg`,
+    screenshot: `${site}/media/murmur-film.jpg`,
     author: { "@id": `${site}/#author` },
     publisher: { "@id": `${site}/#author` },
     sameAs: [repoUrl],
@@ -101,15 +101,15 @@ function filmVideo(site, url) {
     "@id": `${url}#film`,
     name: film.name,
     description: film.description,
-    thumbnailUrl: [`${site}/media/murmur-launch.jpg`, `${site}/og.png`],
+    thumbnailUrl: [`${site}/media/murmur-film.jpg`, `${site}/og.png`],
     uploadDate: film.uploaded,
-    duration: `PT1M${film.duration - 60}S`,
-    contentUrl: `${site}/media/murmur-launch.mp4`,
+    duration: length.iso,
+    contentUrl: `${site}/media/murmur-film.mp4`,
     embedUrl: url,
     inLanguage: "en",
     isFamilyFriendly: true,
-    // The same film on YouTube.
-    sameAs: [film.youtube],
+    // The same film on YouTube, when it is there.
+    ...(film.youtube ? { sameAs: [film.youtube] } : {}),
     author: { "@id": `${site}/#author` },
     about: { "@id": `${site}/#app` },
     hasPart: chapters.map(([start, end, title]) => ({
@@ -129,10 +129,10 @@ export function filmSitemapEntry(site) {
     `  <url>`,
     `    <loc>${site}${film.path}</loc>`,
     `    <video:video>`,
-    `      <video:thumbnail_loc>${site}/media/murmur-launch.jpg</video:thumbnail_loc>`,
+    `      <video:thumbnail_loc>${site}/media/murmur-film.jpg</video:thumbnail_loc>`,
     `      <video:title>${x(film.name)}</video:title>`,
     `      <video:description>${x(film.description)}</video:description>`,
-    `      <video:content_loc>${site}/media/murmur-launch.mp4</video:content_loc>`,
+    `      <video:content_loc>${site}/media/murmur-film.mp4</video:content_loc>`,
     `      <video:duration>${film.duration}</video:duration>`,
     `      <video:publication_date>${film.uploaded}</video:publication_date>`,
     `      <video:family_friendly>yes</video:family_friendly>`,
@@ -144,7 +144,7 @@ export function filmSitemapEntry(site) {
 // Everything between <!--seo--> and <!--/seo--> in index.html, for one page.
 export function headFor(path, { site, built = new Date() }) {
   const isFilm = path === film.path;
-  const guide = isFilm ? { ...film, nav: "The launch film" } : guides.find((g) => g.path === path);
+  const guide = isFilm ? { ...film, nav: "The film" } : guides.find((g) => g.path === path);
   const url = `${site}${path}`;
   const page = guide ?? home;
   const modified = built.toISOString().slice(0, 10);
@@ -164,7 +164,7 @@ export function headFor(path, { site, built = new Date() }) {
         isPartOf: { "@id": `${site}/#website` },
         about: { "@id": `${site}/#app` },
         breadcrumb: { "@id": `${url}#breadcrumb` },
-        primaryImageOfPage: isFilm ? `${site}/media/murmur-launch.jpg` : `${site}/og.png`,
+        primaryImageOfPage: isFilm ? `${site}/media/murmur-film.jpg` : `${site}/og.png`,
         ...(isFilm ? { video: { "@id": `${url}#film` } } : {}),
         dateModified: modified,
       },
@@ -213,7 +213,7 @@ export function headFor(path, { site, built = new Date() }) {
     `<meta property="og:image:height" content="630" />`,
     `<meta property="og:image:alt" content="${escape(home.shareImageAlt)}" />`,
     ...(guide && !isFilm ? [] : [
-      `<meta property="og:video" content="${site}/media/murmur-launch.mp4" />`,
+      `<meta property="og:video" content="${site}/media/murmur-film.mp4" />`,
       `<meta property="og:video:type" content="video/mp4" />`,
       `<meta property="og:video:width" content="1920" />`,
       `<meta property="og:video:height" content="1080" />`,
@@ -260,8 +260,8 @@ export function llmsText(site) {
     "",
     "## Pages",
     "",
-    `- [Murmur, the voice assistant](${site}/): everything Murmur does, with the launch film, the models, privacy, shortcuts and FAQ.`,
-    `- [The launch film](${site}${film.path}): ${film.description} Also on YouTube: ${film.youtube}`,
+    `- [Murmur, the voice assistant](${site}/): everything Murmur does, with the film, the models, privacy, shortcuts and FAQ.`,
+    `- [The film: a day with Murmur](${site}${film.path}): ${film.description}${film.youtube ? ` Also on YouTube: ${film.youtube}` : ""}`,
     ...guides.map((g) => `- [${g.nav}](${site}${g.path}): ${g.description}`),
     "",
     "## Download",
