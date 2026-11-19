@@ -10,6 +10,7 @@ import { downloadUrl, releasesUrl, repo, useRelease, useWindowsRelease } from ".
 import { featured, useRecentReleases } from "./releases";
 import { comparedOn } from "./guides";
 import Meetings from "./Meetings";
+import { film, length } from "./launch";
 import { useScrollMotion } from "./motion";
 import {
   dictation, flow, freeReasons, heroPhrases, jobs, learns, memoryExamples, memorySources, memoryTools, memoryTrust, models, parity, privacyLedger, proof,
@@ -335,7 +336,7 @@ export default function App() {
       <main id="main">
         <Hero
           stamp={<a className="stamp" href="#meetings">New in {featured}: meeting notes</a>}
-          actions={<>{isWindows ? <>{win}{mac}</> : <>{mac}{win}</>}<a className="watch" href="#film"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" /></svg></span>Watch the film, 1:28</a></>}
+          actions={<>{isWindows ? <>{win}{mac}</> : <>{mac}{win}</>}<a className="watch" href="#film"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" /></svg></span>Watch the film, {length.clock}</a></>}
           meta="Free and open source, with no account. Mac with Apple silicon on macOS 14 or later, or Windows 10 and 11."
         />
 
@@ -351,7 +352,7 @@ export default function App() {
         <Memory />
 
         <section className="block film-wrap" id="film" data-scroll aria-labelledby="film-title">
-          <Head id="film-title" title="Watch it work" lede="The launch film: a minute and a half of Murmur typing, reading, finding and doing." />
+          <Head id="film-title" title="Watch it work" lede={`One working day with Murmur, in ${film.duration} seconds: typing, reading, doing, meeting and remembering.`} />
           <Film />
           <p className="film-more"><a className="text-link" href={sitePath("/film/")}>Watch it on its own page, with chapters</a></p>
         </section>

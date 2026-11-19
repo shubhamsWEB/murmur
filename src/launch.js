@@ -2,30 +2,35 @@
 // chapters match public/media/film/chapters.vtt (the player's timeline); change both together.
 export const film = {
   path: "/film/",
-  title: "Murmur demo video: voice typing and an AI assistant at work",
-  description: "Watch Murmur at work in 1 minute 28 seconds: voice typing in any app, cleanup, questions about your screen, whole jobs, file search and memory, on Mac and Windows.",
-  name: "Murmur: hold a key and say it",
-  duration: 88,
-  uploaded: "2026-11-07T12:00:00+05:30",
-  youtube: "https://www.youtube.com/watch?v=rlO7OproEmE",
-  label: "Murmur's launch film: hold a key and speak; it types where your cursor is in many languages, reads and summarises a long document, opens apps, plans a whole job like sending your resume, finds a file you describe and learns from what you work on, and your voice never leaves your computer.",
+  title: "Murmur demo video: voice typing, meeting notes and an AI assistant",
+  description: "Watch a day with Murmur in 70 seconds: voice typing in any app, cleanup in Hindi-English, a long report read for you, whole jobs, meeting notes hidden from screen sharing, and memory.",
+  name: "A day with Murmur: hold a key and say it",
+  duration: 70,
+  uploaded: "2026-11-19T12:00:00+05:30",
+  youtube: null,
+  label: "A day with Murmur: hold a key and speak, and it types into Slack; it tidies your ums in English and Hinglish, reads a 400-page report, sends a resume after asking, takes meeting notes and drafts your answer without showing in the screen share, remembers your day, and costs nothing.",
 };
 
 // [start, end, title, what it shows], in seconds.
 export const chapters = [
-  [0, 5, "This is Murmur", "A voice assistant for your Mac and your PC: hold a key and say it."],
-  [5, 13.4, "Types in any app", "Speech typed where the cursor is, in Mail, Slack and a code editor, in English, Hinglish and other languages."],
-  [13.4, 20, "Cleanup", "The ums and false starts taken out, and a spoken correction applied."],
-  [20, 29, "Ask about your screen", "A long document read to the end and summarised beside it."],
-  [29, 34, "Rewrite with your voice", "Selected text made shorter, in place."],
-  [34, 40.2, "Quick commands", "Apps opened and settings changed at once."],
-  [40.2, 48, "Whole jobs", "A task list planned and worked through, such as finding a resume and sending it."],
-  [48, 57, "Find any file", "A file found by describing what's in it."],
-  [57, 63.4, "It remembers your work", "Who's who, what was promised and what's coming up."],
-  [63.4, 68, "Your morning brief", "The day's threads and who's waiting on a reply."],
-  [68, 73.8, "Your tools", "Claude Code asking Murmur's memory before it answers."],
-  [73.8, 81.2, "Private by design", "Speech recognised on the computer; nothing uploaded."],
-  [81.2, 88, "Free and open source", "No account, no subscription, MIT licence."],
+  [0, 7.7, "Hold a key, say it", "You think faster than you type: one key starts Murmur."],
+  [7.7, 14, "Types in any app", "A message said aloud and typed into Slack, wherever the cursor is."],
+  [14, 21.3, "Cleanup and languages", "The ums and corrections taken out, in English, Hinglish and 25 more languages."],
+  [21.3, 27.9, "Reads it for you", "A 400-page report turned into three lines."],
+  [27.9, 35.9, "Whole jobs", "A resume found, attached and sent, after asking first."],
+  [35.9, 44.4, "Meeting notes", "Notes taken on a call, and an answer drafted when you're asked."],
+  [44.4, 48.2, "Hidden from screen share", "The meeting panel left out of the share and the recording."],
+  [48.2, 53.8, "It remembers your day", "On a Mac: the day kept, and your flight time when you ask."],
+  [53.8, 70, "Free and open source", "Three subscriptions elsewhere, nothing here, and it runs on your computer."],
 ];
+
+const words = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen"];
+// The length, three ways: "1:10", "1 minute 10 seconds", and the chapter count in words.
+export const length = {
+  clock: `${Math.floor(film.duration / 60)}:${String(film.duration % 60).padStart(2, "0")}`,
+  spoken: `${Math.floor(film.duration / 60)} minute${Math.floor(film.duration / 60) === 1 ? "" : "s"}${film.duration % 60 ? ` ${film.duration % 60} seconds` : ""}`,
+  chapters: words[chapters.length] || String(chapters.length),
+  iso: `PT${Math.floor(film.duration / 60) ? `${Math.floor(film.duration / 60)}M` : ""}${film.duration % 60 ? `${film.duration % 60}S` : ""}`,
+};
 
 export const clock = (seconds) => `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, "0")}`;

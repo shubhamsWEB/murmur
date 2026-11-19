@@ -1,5 +1,5 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
-import { film } from "./launch";
+import { film, length } from "./launch";
 
 // The launch film. Until it's played, only its poster and a button: the player (Video.js, src/FilmPlayer.jsx) starts
 // loading when the visitor nears the film and takes over on the click, playing from the start with sound.
@@ -59,17 +59,17 @@ export default function Film({ asVideo = false, startAt = 0, request = null }) {
   const facade = (busy) => (
     <>
       {asVideo ? (
-        <video className="film-poster" src={`${media}murmur-launch.mp4`} poster={`${media}murmur-launch.jpg`} preload="none"
+        <video className="film-poster" src={`${media}murmur-film.mp4`} poster={`${media}murmur-film.jpg`} preload="none"
           muted playsInline tabIndex={-1} aria-hidden="true" />
       ) : (
-        <img className="film-poster" src={`${media}murmur-launch.jpg`} alt="" decoding="async" />
+        <img className="film-poster" src={`${media}murmur-film.jpg`} alt="" decoding="async" />
       )}
       <button type="button" className="film-play" onClick={() => play(startAt)} onPointerEnter={warm} onFocus={warm}
-        aria-label="Play the film, 1 minute 28 seconds, with sound" aria-busy={busy || undefined} disabled={busy}>
+        aria-label={`Play the film, ${length.spoken}, with sound`} aria-busy={busy || undefined} disabled={busy}>
         <span className="film-icon" aria-hidden="true">
           {busy ? <span className="film-spinner" /> : <svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" /></svg>}
         </span>
-        <span>{busy ? "Starting the film" : "Watch Murmur at work"} <small>1:28</small></span>
+        <span>{busy ? "Starting the film" : "Watch Murmur at work"} <small>{length.clock}</small></span>
       </button>
     </>
   );

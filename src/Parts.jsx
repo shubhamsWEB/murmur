@@ -113,7 +113,7 @@ export function SiteFooter({ actions, current, sky = null }) {
         <h2 id="footer-guides-title">More about Murmur</h2>
         <ul>
           {current !== "/" && <li><a href={base}>Murmur, the voice assistant</a></li>}
-          <li><a href={sitePath("/film/")} aria-current={current === "/film/" ? "page" : undefined}>The launch film</a></li>
+          <li><a href={sitePath("/film/")} aria-current={current === "/film/" ? "page" : undefined}>The film</a></li>
           {guides.map((g) => (
             <li key={g.path}><a href={sitePath(g.path)} aria-current={current === g.path ? "page" : undefined}>{g.nav}</a></li>
           ))}
