@@ -86,6 +86,32 @@ export function DictateScene() {
   );
 }
 
+// Tap to write: a note in the reply box, one tap of fn, and the note becomes the reply. Never sent.
+export function ReplyScene() {
+  const [ref, step] = useTimeline([1600, 900, 1300, 3600]);
+  const pill = [null, ["listening", "Tapped"], ["working", "Writing the reply"], ["done", "Written in, not sent"]][step];
+  return (
+    <figure className="scene" ref={ref}>
+      <Window title="WhatsApp, Priya Shah">
+        <div className="hd-chat reply-chat">
+          <p className="hd-msg"><b>Priya</b>Can you join the Acme review at 4?</p>
+          <p className="hd-msg"><b>Priya</b>Rahul needs the pricing sheet before it.</p>
+          <p className="hd-compose">
+            {step === 3
+              ? <span className="arrive">Yes, I can join, but only after 5. I’ll send Rahul the pricing sheet before then.</span>
+              : <>yes but after 5, and tell her I’ll send rahul the sheet<Caret /></>}
+          </p>
+        </div>
+      </Window>
+      <div className="scene-foot">
+        <span className={`key-hint${step === 1 ? " down" : ""}`}><kbd>fn</kbd>{step === 1 ? " tapped" : ""}</span>
+        <Pill state={pill?.[0] ?? "idle"} className={pill ? "" : "faded"}>{pill?.[1] ?? "Tap fn in the box"}</Pill>
+      </div>
+      <figcaption className="sr-only">A note in the WhatsApp reply box, “yes but after 5, and tell her I’ll send rahul the sheet”, becomes “Yes, I can join, but only after 5. I’ll send Rahul the pricing sheet before then.” after one tap of fn. Nothing is sent.</figcaption>
+    </figure>
+  );
+}
+
 const rawWords = [
   ["Um,", "filler"], ["so", ""], ["let’s", ""], ["meet", ""], ["at", ""], ["5,", "fix"], ["no,", "fix"], ["6pm,", ""],
   ["and", ""], ["uh", "filler"], ["bring", ""], ["the", ""], ["the", "filler"], ["deck.", ""],
@@ -212,6 +238,7 @@ export function SearchScene() {
 const macKeys = [
   [["fn"], "Hold to talk. Let go, and it’s typed or done."],
   [["fn", "fn"], "Double-tap for hands-free. Tap again to finish."],
+  [["fn"], "Tap once in a text box: Murmur writes the reply."],
   [["fn", "⇧"], "Only type what I say, never a command."],
   [["fn", "⌃"], "This is a command."],
   [["⇧", "⌘", "space"], "Search your files."],

@@ -1129,7 +1129,7 @@ p, dd, li, summary { text-wrap: pretty; }
 .demo-note { right: 8px; top: -34px; transform: rotate(3deg); }
 
 .demo-tabs { display: flex; align-items: stretch; gap: 10px; margin-top: 30px; }
-.demo-tabs [role="tablist"] { flex: 1; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.demo-tabs [role="tablist"] { flex: 1; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
 .demo-tabs [role="tab"] { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 9px; padding: 0 0 4px; border: 0; background: transparent; color: var(--ink-3); font: 600 15.5px/1.2 var(--slab); text-align: left; cursor: pointer; }
 .demo-tabs [role="tab"]:hover { color: var(--ink); }
 .demo-tabs [role="tab"][aria-selected="true"] { color: var(--ink); }
@@ -1215,6 +1215,9 @@ p, dd, li, summary { text-wrap: pretty; }
 .stage-second .raw { font-size: 20px; margin-bottom: 14px; } .stage-second .clean { font-size: 18.5px; } .stage-second .cleanup-meta { margin-top: 12px; padding-top: 10px; }
 .chapter-note { left: 2%; bottom: 20px; transform: rotate(-5deg); }
 .tongues { margin-top: clamp(80px, 9vw, 124px); }
+.reply-block { margin-top: clamp(80px, 9vw, 124px); }
+.reply-block .opening .sub { margin-top: 6px; }
+.reply-chat .hd-compose { min-height: 74px; }
 .tongues .lede { margin: 10px 0 30px; }
 
 .ways { display: grid; gap: 10px; margin-top: 32px; }

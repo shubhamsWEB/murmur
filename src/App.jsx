@@ -4,7 +4,7 @@ import Flock from "./Flock";
 import Hero from "./Hero";
 import { Bird } from "./Bird";
 import { Check, DownloadButton, Head, SiteFooter, SiteHeader, github, sitePath, useOnWindows } from "./Parts";
-import { AgentMemoryScene, CleanupScene, DictateScene, MemoryScene, ReadScene, SearchScene, Shortcuts, TaskScene } from "./Scenes";
+import { AgentMemoryScene, CleanupScene, DictateScene, MemoryScene, ReadScene, ReplyScene, SearchScene, Shortcuts, TaskScene } from "./Scenes";
 import { Cut, Hi, Mark, Note } from "./Collage";
 import { downloadUrl, releasesUrl, repo, useRelease, useWindowsRelease } from "./release";
 import { featured, useRecentReleases } from "./releases";
@@ -14,7 +14,7 @@ import { film, length } from "./launch";
 import { useScrollMotion } from "./motion";
 import {
   dictation, flow, freeReasons, heroPhrases, jobs, learns, memoryExamples, memorySources, memoryTools, memoryTrust, models, parity, privacyLedger, proof,
-  questions, receipt, spoken, steps, ways, whatsNew, writePoints,
+  questions, receipt, replyPoints, spoken, steps, ways, whatsNew, writePoints,
 } from "./content";
 
 const openSource = [
@@ -52,6 +52,23 @@ function Write() {
           <div className="stage-paper taped"><DictateScene /></div>
           <div className="stage-second"><CleanupScene /></div>
           <Note className="chapter-note">with cleanup on</Note>
+        </div>
+      </div>
+
+      <div className="chapter-grid flip reply-block" id="reply">
+        <div className="chapter-copy">
+          <header className="opening" data-reveal>
+            <p className="tag">New in 1.9, on the Mac</p>
+            <h3 className="sub">Or tap once, and it writes the reply</h3>
+            <div className="lede"><p>Click in a reply box and tap the key instead of holding it. Murmur reads the conversation above and writes what you’d say, or turns the note you jotted into the message.</p></div>
+          </header>
+          <dl className="points">
+            {replyPoints.map(([title, text], i) => <div key={title} data-reveal data-delay={i * 80}><dt>{title}</dt><dd>{text}</dd></div>)}
+          </dl>
+        </div>
+        <div className="chapter-stage" data-reveal>
+          <div className="stage-paper taped"><ReplyScene /></div>
+          <Note className="chapter-note">one tap, nothing sent</Note>
         </div>
       </div>
 
@@ -119,7 +136,7 @@ function Memory() {
       <div className="chapter-grid">
         <div className="chapter-copy">
           <Opening id="memory-title" tag="Remember" title="It remembers, so you don’t have to" note="on the Mac">
-            <p>Murmur keeps a private memory of your working life: who people are, what you promised, who’s waiting on a reply and what’s coming up. It builds it from your apps and the windows you work in, and uses it in every command.</p>
+            <p>Murmur keeps a private memory of your working life: who people are, what you promised, who’s waiting on a reply and what’s coming up. It builds it from your apps and the windows you work in, keeps a page for each person and project, and uses it in every command.</p>
           </Opening>
           <div className="memory-examples">
             <h3 className="sub">So you can just say</h3>
@@ -140,12 +157,11 @@ function Memory() {
       <div className="memory-agents">
         <div className="memory-agents-copy" data-reveal>
           <h3 className="sub">Your other AI tools can ask it too</h3>
-          <p>Claude Code, Claude Desktop, Cursor and any AI tool on your Mac that connects to tools over MCP can ask Murmur’s memory before they answer. So your coding agent knows what you shipped this week, who owns the payments code, and what you promised to fix.</p>
+          <p>Claude Desktop, Claude Code, Cursor, Codex and the other AI apps on your Mac that connect to tools over MCP can ask Murmur’s memory before they answer. So your coding agent knows what you shipped this week, who owns the payments code, and what you promised to fix.</p>
           <dl className="memory-tools">
             {memoryTools.map(([title, text]) => <div key={title}><dt>{title}</dt><dd>{text}</dd></div>)}
           </dl>
-          <p className="memory-how">Add it with one command, copied from <b>Memory → Use your memory in Claude Code</b>:</p>
-          <code className="memory-command">claude mcp add --scope user murmur -- …/murmur-memory mcp</code>
+          <p className="memory-how">Nothing to set up: Murmur adds itself to Claude Desktop, Claude Code, Cursor, Codex, VS Code, Windsurf, Gemini CLI, LM Studio and Cline, backing up their settings first. <b>Share memory with AI apps</b> in Settings turns it off.</p>
           <p className="note">Read-only: they can ask, never change. What a tool reads goes to the model that tool uses.</p>
         </div>
         <div className="memory-agents-scene" data-reveal data-delay="100">
@@ -335,7 +351,7 @@ export default function App() {
 
       <main id="main">
         <Hero
-          stamp={<a className="stamp" href="#meetings">New in {featured}: meeting notes</a>}
+          stamp={<a className="stamp" href="#reply">New in {featured}: tap to write</a>}
           actions={<>{isWindows ? <>{win}{mac}</> : <>{mac}{win}</>}<a className="watch" href="#film"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" /></svg></span>Watch the film, {length.clock}</a></>}
           meta="Free and open source, with no account. Mac with Apple silicon on macOS 14 or later, or Windows 10 and 11."
         />
