@@ -52,6 +52,20 @@ function TypeSurface({ done }) {
   );
 }
 
+function ReplySurface({ phase }) {
+  return (
+    <div className="win hd-win">
+      <Bar title="WhatsApp, Priya Shah" />
+      <div className="win-body hd-chat">
+        <p className="hd-msg"><b>Priya</b>Can you join the Acme review at 4?</p>
+        <p className="hd-compose">
+          {phase === 2 ? <span className="arrive">Yes, I can join, but only after 5. Does that work?</span> : <span className="caret" />}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 function AskSurface({ phase }) {
   return (
     <div className="win hd-win doc">
@@ -185,7 +199,7 @@ export default function Hero({ stamp, actions, meta }) {
         <div className="hero2-copy">
           {stamp}
           <h1>
-            <span className="sr-only">Say it, and it’s typed, answered, done, noted or remembered. </span>
+            <span className="sr-only">Say it, and it’s typed, written, answered, done, noted or remembered. </span>
             <span aria-hidden="true">Say it,<br />and it’s<br /><span className="h1-word" key={current.word}><Hi>{current.word}</Hi></span></span>
             <span className="h1-sub">Free voice typing, an AI assistant and meeting notes for Mac and Windows</span>
           </h1>
@@ -197,11 +211,12 @@ export default function Hero({ stamp, actions, meta }) {
         <div className="demo-wrap" ref={stage}>
           <div className={`demo phase-${phase}`}>
             <div className="demo-say">
-              <span className={`demo-key${phase === 0 && current.id !== "meet" ? " down" : ""}`} aria-hidden="true">{current.id === "meet" ? <span className="mm-dot" /> : "fn"}</span>
+              <span className={`demo-key${(phase === 0 && current.id !== "meet" && current.id !== "reply") || (phase === 1 && current.id === "reply") ? " down" : ""}`} aria-hidden="true">{current.id === "meet" ? <span className="mm-dot" /> : "fn"}</span>
               <p><span className="demo-label">{current.label}</span><q className="voice">{said}</q>{phase === 0 && !still && <span className="caret" aria-hidden="true" />}</p>
             </div>
             <div className="demo-screen" role="tabpanel" id="hero-panel" aria-labelledby={`hero-tab-${current.id}`} key={current.id}>
               {current.id === "type" && <TypeSurface done={phase === 2} />}
+              {current.id === "reply" && <ReplySurface phase={phase} />}
               {current.id === "ask" && <AskSurface phase={phase} />}
               {current.id === "do" && <DoSurface phase={phase} still={still} />}
               {current.id === "meet" && <MeetSurface phase={phase} />}
@@ -209,7 +224,7 @@ export default function Hero({ stamp, actions, meta }) {
             </div>
             <div className="demo-foot"><Pill state={pill[0]}>{pill[1]}</Pill></div>
             <Cut name="hand" className="demo-hand" />
-            <Note className="demo-note">hold it, talk, let go</Note>
+            <Note className="demo-note">{current.id === "reply" ? "jot it, tap, read it" : "hold it, talk, let go"}</Note>
           </div>
 
           <div className="demo-tabs">

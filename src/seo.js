@@ -23,7 +23,7 @@ export const home = {
   title: "Murmur: free voice typing & AI meeting notes, Mac & Windows",
   description: "Free, open-source voice assistant for Mac and Windows: Murmur types what you say in any app, takes meeting notes with live answers, hidden from screen sharing.",
   shareTitle: "Murmur: say it, and it’s done. Free voice typing and meeting notes",
-  shareDescription: "A free voice assistant that types for you, reads for you and does whole jobs across your apps and the web. New in 1.8: meeting notes that write down your call and draft answers you can read out, hidden from screen sharing.",
+  shareDescription: "A free voice assistant that types for you, reads for you and does whole jobs across your apps and the web. New in 1.9: tap the key once in any text box and Murmur writes your reply, without sending it.",
   shareImageAlt: "“Say it, and it’s done.” beside Murmur at work: you say “Send my resume to Arjun on WhatsApp”, and a task list is ticked off, ending in “Sent to Arjun on WhatsApp”.",
 };
 

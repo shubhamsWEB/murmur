@@ -55,6 +55,7 @@ export const memoryExamples = [
 
 // What other AI tools can ask (MemoryServer's tools, in plain words).
 export const memoryTools = [
+  ["Pages", "one for each person and project, a digest of what’s going on, and a short profile of how you work"],
   ["Who and what", "people, their work and how to reach them, projects, facts and preferences, each with where it came from"],
   ["Promises", "what you said you’d do and what you’re waiting on, soonest due first"],
   ["What you did", "a summary of any hour, day, month or year"],
@@ -77,6 +78,14 @@ export const dictation = [
   ["Your microphone", "Choose which one Murmur listens with, and prefer the Mac’s own over AirPods so calls don’t drop to phone quality."],
   ["Exactly what you said", "With cleanup on, Paste Exactly What I Said in the menu bar puts the unedited words back."],
   ["The Murmur button", "A small pill you can drag anywhere on screen. Click to open Murmur, right-click to dictate."],
+  ["A tour, once", "The first time you open Murmur, a starling shows you around the real app, meeting notes included. Take it again from Help › Take the Tour."],
+];
+
+// Write: tap to write (1.9), beside its scene.
+export const replyPoints = [
+  ["An empty box gets the reply", "Under a message, Murmur writes your answer to it. Under a post, your comment. It reads only that window, and only when you tap."],
+  ["A note becomes the message", "Type “yes but after 5, ask if he needs the enterprise tier” and tap: the note is replaced with the message it asks for."],
+  ["Nothing is sent", "The reply waits in the box for you to read, change or send. ⌘Z takes it back, and Esc stops it while it writes."],
 ];
 
 export const spoken = [
@@ -123,6 +132,7 @@ export const parity = [
   ["AI cleanup", true, true],
   ["Voice commands: apps, settings, media, volume", true, true],
   ["Rewrite, translate or summarise selected text", true, true],
+  ["Tap to write a reply", true, false],
   ["Search your files by what’s inside them", true, true],
   ["Photos by what they show", true, "Words in images"],
   ["Terminal commands", true, "PowerShell"],
@@ -132,6 +142,7 @@ export const parity = [
   ["Hidden from screen sharing", true, true],
   ["Send messages and files in your chats", true, false],
   ["Murmur’s own models", true, "Murmur Cleanup"],
+  ["A tour of the app", true, false],
   ["Updates itself", true, true],
 ];
 
@@ -153,8 +164,9 @@ export const questions = (macSize, windowsSize) => [
   ["Does Murmur record my screen?", "No video, ever, and only if you turn on Remember what I work on. Then Murmur reads the text of the window you’re working in when it changes, and takes a small picture only when a window has little text. Pictures are deleted once they’re read. It never reads password managers, private windows or password fields, and you can add any app or site to Never read."],
   ["What does Murmur remember, and can I make it forget?", "People, organisations, projects, conversations and whose turn it is to reply, what’s coming up, and what you promised or are owed, each with where it came from. Things fade unless they come up again. Forget one line, a person, everything from your screen, or all of it, from the Memory page. Memory is on the Mac for now."],
   ["Does memory send anything to the cloud?", "Not unless you turn on Read with Claude or OpenAI on the Memory page, with your own key. Then what Murmur saw while you worked goes to that provider to be read, after email addresses, phone and account numbers and booking references are taken out. Banking, payments, investing, tax, ID, health, insurance and password pages are never sent, and are read on your Mac instead."],
-  ["Can my other AI tools use Murmur’s memory?", "Yes, any that connect to tools over MCP: Claude Code, Claude Desktop, Cursor and others. On the Memory page, Use your memory in Claude Code copies the one command that adds it. They can read it, never change it, and what they read goes to the model they use."],
+  ["Can my other AI tools use Murmur’s memory?", "Yes. Murmur adds itself to the AI apps on your Mac that connect to tools over MCP: Claude Desktop, Claude Code, Cursor, Codex, VS Code, Windsurf, Gemini CLI, LM Studio and Cline, backing up their settings first. They can ask about people, projects, promises and your day, and read its pages; they can never change it, and what they read goes to the model they use. Turn it off with Share memory with AI apps in Settings."],
   ["Does it change what I say?", "Not unless you ask it to. By default your words go in exactly as heard; Murmur only fits the spacing, the first letter and the final full stop to the sentence around your cursor. AI cleanup, which takes out the ums and applies your corrections, is off until you turn it on. If the model changes more than that, your words go in as heard."],
+  ["Can Murmur write my replies?", "Yes, on a Mac. Click in a reply box and tap the talk key once: Murmur reads the conversation above and writes your reply. Jot a note first (“yes but after 5”) and it writes that out properly; start a draft and it finishes it. It uses facts from the screen and your memory, and leaves a gap like [time] rather than making one up. Nothing is ever sent: the reply sits in the box for you to read, and ⌘Z takes it back."],
   ["How does it tell a command from dictation?", "Typing is the default. Clear commands like “open Slack” or “PDF kholo” run at once. To decide yourself, hold ⇧ with fn to only type, or ⌃ with fn to make it a command."],
   ["Can I stop a command halfway?", "Yes. Press Esc, or choose Stop Command in the menu bar, and it stops after the step it’s on. If it had a task list, say “continue” later to pick it up."],
   ["Do I need an AI subscription?", "No. Dictation, file search and quick commands like “open Slack” or “volume 30” need nothing. For the rest, use Murmur Agent, free through Ollama, or your own Claude or OpenAI key, which handles the longest tasks best."],
@@ -170,6 +182,7 @@ export const links = [["#write", "Write"], ["#ask", "Ask and do"], ["#meetings",
 // headline's last word. Made-up people.
 export const heroModes = [
   { id: "type", tab: "Write", word: "typed.", label: "You say", said: "Running ten minutes late, start without me.", pill: "Typed into Slack" },
+  { id: "reply", tab: "Reply", word: "written.", label: "You jot in the reply box, then tap fn", said: "yes but after 5", pill: "Written in, not sent" },
   { id: "ask", tab: "Ask", word: "answered.", label: "You say", said: "What does this email want from me, and by when?", pill: "Read from your screen" },
   { id: "do", tab: "Do", word: "done.", label: "You say", said: "Send my resume to Arjun on WhatsApp.", pill: "Sent to Arjun on WhatsApp", hold: 6400 },
   { id: "meet", tab: "Meet", word: "noted.", label: "On your call, Priya asks", said: "How would you rate-limit the public API?", pill: "Only you can see this" },
@@ -223,7 +236,7 @@ export const privacyLedger = [
     "What it reads from your screen, and every command and cleanup, unless you choose a cloud AI",
   ]],
   ["Leaves only if you choose", [
-    "With your own Claude, OpenAI or Sarvam key: the command and what Murmur reads to carry it out, the dictation it tidies, or what was said in a meeting",
+    "With your own Claude, OpenAI or Sarvam key: the command and what Murmur reads to carry it out, the conversation around a box you tap to write in, the dictation it tidies, or what was said in a meeting",
     "Your audio, only if you pick Sarvam’s or OpenAI’s speech model",
     "What Murmur saw while you worked, only if you turn on reading with Claude or OpenAI",
     "Never banking, health, ID or password pages",
